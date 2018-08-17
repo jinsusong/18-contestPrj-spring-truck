@@ -1,0 +1,322 @@
+package poly.controller;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import poly.dto.consumer.CONSUMER_BoardDTO;
+import poly.dto.consumer.CONSUMER_BoardRepleDTO;
+import poly.dto.consumer.CONSUMER_UserDTO;
+import poly.service.CONSUMER_IBoardService;
+import poly.service.CONSUMER_IUserService;
+import poly.util.CmmUtil;
+
+@Controller
+public class CONSUMER_BoardController {
+	
+	private Logger log = Logger.getLogger(this.getClass());
+	
+	String msg = "";
+	String url = "";
+	
+	@Resource(name="CONSUMER_BoardService")
+	private CONSUMER_IBoardService boardService;
+	
+	@Resource(name="CONSUMER_UserService")
+	private CONSUMER_IUserService userService;
+	
+	//게시글 작성
+	@RequestMapping(value="consumer/board/boardWrite")
+	public String boardWrtie(HttpServletRequest request, Model model) throws Exception{
+		
+		log.info("boardWrite Start");
+		
+		String userEmail = request.getParameter("userEmail");
+		log.info("getUserEamil" + userEmail);
+		
+		
+		if("".equals(userEmail)) {
+			model.addAttribute("msg","로그인 후 이용하시기 바랍니다.");
+			model.addAttribute("url","/cmmn/main.do");
+			log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+			return "/cmmn/alert";
+		}
+		
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		log.info("boardWrite End");
+		return "/consumer/board/boardWrite";
+	}
+	
+	//게시글 작성하기
+	@RequestMapping(value="consumer/board/boardWriteProc", method=RequestMethod.POST)
+	public String boardWriteProc(HttpServletRequest request, Model model) throws Exception{
+		log.info("boardWriteProc Start");
+		
+		String title = request.getParameter("title");
+		log.info("getTitle : " + title);
+		String boardContent = request.getParameter("boardContent");
+		log.info("getBoardContent : " + boardContent);
+		String boardSeq = request.getParameter("boardSeq");
+		log.info("getBoardSeq : " + boardSeq);
+		String userEmail = request.getParameter("userEmail");
+		log.info("getUesrEmail : " + userEmail);
+		String userSeq = request.getParameter("userSeq");
+		log.info("getUserSeq : " + userSeq);
+		
+		//변수들을 각각 넘기면 코드가 길어지고 귀찮으니까 DTO를 사용한다.
+		CONSUMER_BoardDTO bDTO = new CONSUMER_BoardDTO();
+		bDTO.setTitle(title);
+		log.info("setTitle : " + bDTO.getTitle());
+		bDTO.setBoardContent(boardContent);
+		log.info("setBoardContent : " + bDTO.getBoardContent());
+		bDTO.setBoardSeq(boardSeq);
+		log.info("setBoardSeq : " + bDTO.getBoardSeq());
+		bDTO.setUserEmail(userEmail);
+		log.info("setUserEmail : " + bDTO.getUserEmail());
+		
+		int result = boardService.insertBoardDTO(bDTO);
+		log.info("result full!!");
+		
+		if(result != 0) {
+			msg = "게시글이 작성되었습니다.";
+			url = "/consumer/board/boardList.do?userEmail=" + userEmail + "&userSeq=" + userSeq;
+		} else {
+			msg = "작성 실패";
+			url = "/consumer/board/boardWrite.do";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		log.info("boardWriteProc End");
+		return "/cmmn/alert";
+	}
+	
+	//고객센터 보기
+	@RequestMapping(value="consumer/board/boardList")
+	public String boardList(HttpServletRequest request, Model model) throws Exception{
+		log.info("boardList Start");
+		String userEmail = CmmUtil.nvl(request.getParameter("userEmail"));
+		if("".equals(userEmail)) {
+			model.addAttribute("msg", "로그인 후 이용하시기 바랍니다.");
+			model.addAttribute("url", "/cmmn/main.do");
+			return "/cmmn/alert";
+		}
+		
+		log.info("userEmail 아이디 받기 : " + userEmail);
+															
+		CONSUMER_UserDTO uDTO = new CONSUMER_UserDTO();
+		uDTO.setUserEmail(userEmail);
+		log.info(uDTO.getUserEmail());
+		
+		List<CONSUMER_BoardDTO> bList = boardService.getBoardList();
+		model.addAttribute("bList", bList);
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		
+		log.info("boardList End");
+		return "/consumer/board/boardList";
+	}
+	
+	//공지사항 보기
+	@RequestMapping(value="consumer/board/noticeList")
+	public String noticeList(HttpServletRequest request, Model model) throws Exception{
+		
+		log.info("noticeList Start");
+		
+/*		String userEmail = CmmUtil.nvl(request.getParameter("userEmail"));
+		log.info("userEmail 아이디 받기 :" + userEmail);
+		
+		UserDTO uDTO = new UserDTO();
+		uDTO.setUserEmail(userEmail);
+		log.info(uDTO.getUserEmail());*/
+		
+		List<CONSUMER_BoardDTO> bList = boardService.getNoticeList();
+		model.addAttribute("bList", bList);
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		log.info("noticeList End");
+		return "/consumer/board/noticeList";
+	}
+	
+	//게시글 상세보기
+	@RequestMapping(value="consumer/board/boardDetail", method=RequestMethod.GET)
+	public String boardDetail(HttpServletRequest request, Model model) throws Exception{
+		
+		log.info("boardDetail Start");
+		String boardPSeq = CmmUtil.nvl(request.getParameter("boardPSeq"));
+		log.info("boardPSeq : " + boardPSeq);
+		String userSeq = CmmUtil.nvl(request.getParameter("userSeq"));
+		log.info("userSeq : " + userSeq);
+		String content = CmmUtil.nvl(request.getParameter("content"));
+		log.info("content : " + content);
+	
+		
+		CONSUMER_BoardRepleDTO rDTO = new CONSUMER_BoardRepleDTO();
+
+		rDTO.setBoardPSeq(boardPSeq);
+	    log.info("리뷰 rDTO getboardPSeq : " + rDTO.getBoardPSeq());
+		rDTO.setUserSeq(userSeq);
+		log.info("리뷰 rDTO getUserSeq : " + rDTO.getUserSeq());
+		rDTO.setContent(content);
+		log.info("리뷰 rDTO getContent : "+rDTO.getContent());
+		
+		List<CONSUMER_BoardRepleDTO> rList = boardService.commentList(boardPSeq);
+		model.addAttribute("rList", rList);
+		
+		CONSUMER_BoardDTO bDTO = boardService.getBoardDetail(boardPSeq);
+		
+		model.addAttribute("bDTO", bDTO);
+		
+		
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		log.info("boardDetail End");
+		return "/consumer/board/boardDetail";
+	}
+	
+	
+	//게시글 삭제
+	@RequestMapping(value="consumer/board/boardDelete", method=RequestMethod.GET)
+	public String deleteBoard(HttpServletRequest request, Model model) throws Exception{
+		log.info("boardDelete Start");
+		
+		String boardPSeq = request.getParameter("boardPSeq");
+		log.info("boardPSeq : " + boardPSeq);
+		String userEmail = request.getParameter("userEmail");
+		log.info("getUesrEmail : " + userEmail);
+		String userSeq = request.getParameter("userSeq");
+		log.info("getUserSeq : " + userSeq);
+		
+		int result = boardService.deleteBoard(boardPSeq);
+		
+		if(result != 0) {
+			msg = "삭제되었습니다.";
+			url = "/consumer/board/boardList.do?userEmail=" + userEmail + "&userSeq=" + userSeq;	
+		} else {
+			msg = "삭제되지 않았습니다.";
+			url = "/consumer/board/boardList.do?userEmail=" + userEmail + "&userSeq=" + userSeq;	
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		log.info("boardDelete End");
+		return "/cmmn/alert";
+	}
+	
+	//게시글 수정
+	@RequestMapping(value="consumer/board/boardUpdateView")
+	public String updateBoard(HttpServletRequest request,HttpSession session, Model model) throws Exception{
+		log.info("boardUpdateView Start");
+		
+		String boardPSeq = request.getParameter("boardPSeq");
+		log.info("boardPSeq : " + boardPSeq);
+		CONSUMER_BoardDTO bDTO = boardService.getBoardDetail(boardPSeq);
+		
+		model.addAttribute("bDTO", bDTO);
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		log.info("boardUpdateView End");
+		return "/consumer/board/boardUpdateView";
+	}
+	
+	//게시글 수정하기
+	@RequestMapping(value="consumer/board/boardUpdateViewProc")
+	public String updateBoardProc(HttpServletRequest request, Model model) throws Exception{
+		log.info("boardUpdateViewProc Start");
+		
+		String boardPSeq = request.getParameter("boardPSeq");
+		log.info("boardPSeq : " + boardPSeq);
+		String title = request.getParameter("title");
+		log.info("title : " + title);
+		String boardContent = request.getParameter("boardContent");
+		log.info("boardContent : " + boardContent);
+		String userEmail = request.getParameter("userEmail");
+		log.info("getUesrEmail : " + userEmail);
+		String userSeq = request.getParameter("userSeq");
+		log.info("getUserSeq : " + userSeq);
+		
+		CONSUMER_BoardDTO bDTO = new CONSUMER_BoardDTO();
+		bDTO.setBoardPSeq(boardPSeq);
+		bDTO.setTitle(title);
+		bDTO.setBoardContent(boardContent);
+		
+		int result = boardService.updateBoard(bDTO);
+		log.info(result);
+		if(result != 0) {
+			msg = "수정되었습니다.";
+			url = "/consumer/board/boardList.do?userEmail=" + userEmail + "&userSeq=" + userSeq;
+		} else {
+			msg = "수정되지 않았습니다.";
+			url = "/consumer/board/boardUpdateView.do?boardPSeq=" + boardPSeq + "&userEmail=" + userEmail + "&userSeq=" + userSeq;
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		log.info("boardUpdateViewProc End");
+		return "/cmmn/alert";
+		
+	}
+	
+	//답글
+	@RequestMapping(value="consumer/board/reple", method=RequestMethod.POST)
+	public @ResponseBody List<CONSUMER_BoardRepleDTO> addComment(HttpServletRequest request, Model model) throws Exception{
+		log.info("comment Start");
+		
+		String boardPSeq = CmmUtil.nvl(request.getParameter("boardPSeq"));
+		log.info("boardPSeq : " + boardPSeq);
+		String userSeq = CmmUtil.nvl(request.getParameter("userSeq"));
+		log.info("userSeq : " + userSeq);
+		String content = CmmUtil.nvl(request.getParameter("content"));
+		log.info("content : " + content);
+	
+		
+		CONSUMER_BoardRepleDTO rDTO = new CONSUMER_BoardRepleDTO();
+
+		rDTO.setBoardPSeq(boardPSeq);
+	    log.info("리뷰 rDTO getboardPSeq : " + rDTO.getBoardPSeq());
+		rDTO.setUserSeq(userSeq);
+		log.info("리뷰 rDTO getUserSeq : " + rDTO.getUserSeq());
+		rDTO.setContent(content);
+		log.info("리뷰 rDTO getContent : "+rDTO.getContent());
+		
+		List<CONSUMER_BoardRepleDTO> rList = boardService.getComment(rDTO);		
+		
+		model.addAttribute("rList", rList);
+		
+		log.info("rList 시작:"+rList);
+		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		log.info("comment End");
+		return rList;
+		
+	}
+	
+	/*@RequestMapping(value="board/commentList", method=RequestMethod.POST)
+	public @ResponseBody List<BoardRepleDTO> commenList(HttpServletRequest request, Model model) throws Exception {
+		
+		log.info("commentList Start");
+		
+		
+		List<BoardRepleDTO> rList = boardService.commentList();
+		
+		log.info("commentList End");
+		return rList;
+	}*/
+	
+}
