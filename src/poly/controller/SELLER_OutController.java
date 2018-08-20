@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import poly.dto.admin.ADMIN_Ft_InfoDTO;
 import poly.dto.admin.ADMIN_Ft_Menu_CateDTO;
+import poly.dto.admin.ADMIN_ImageDTO;
 import poly.dto.admin.ADMIN_Menu_InfoDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
 import poly.dto.seller.SELLER_MenuJsDTO;
 import poly.service.ADMIN_IFtService;
+import poly.service.ADMIN_IImageService;
 import poly.service.SELLER_IOutService;
 import poly.util.CmmUtil;
 
@@ -34,6 +36,9 @@ public class SELLER_OutController {
 	
 	@Resource(name="ADMIN_FtService")
 	private ADMIN_IFtService ftService;
+	
+	@Resource(name="ADMIN_ImageService")
+	private ADMIN_IImageService imgService;
 	
 	@Resource(name="SELLER_OutService")
 	private SELLER_IOutService OutService;
@@ -54,22 +59,34 @@ public class SELLER_OutController {
 		ftsDTO = OutService.getOutTruckInfo(ftsDTO);
 		log.info("ftsDTO .get : " +ftsDTO.getFtSeq());
 		
-		
+		ADMIN_Ft_InfoDTO fDTO = new ADMIN_Ft_InfoDTO();
+		fDTO = ftService.getFT_Info(Integer.parseInt(ftsDTO.getFtSeq()));
 		
 		//
 		String cmd = "";
 		int ft_seq = Integer.parseInt(ftsDTO.getFtSeq());
 		log.info("ft_seq : " + ft_seq);
-		ADMIN_Ft_InfoDTO fDTO = new ADMIN_Ft_InfoDTO();
 		
 		//메뉴&카테고리 리스트
 		List<ADMIN_Ft_Menu_CateDTO> cateDTOarr = ftService.getFT_Cate_List(ft_seq);
 		List<ADMIN_Menu_InfoDTO> menuDTOarr = ftService.getFt_Menu_List(ft_seq);
+		List<String> ImgDTOs = new ArrayList<String>();
+		if(menuDTOarr.size()!=0) {
+			int i=0;
+			for(ADMIN_Menu_InfoDTO menuDTO : menuDTOarr) {
+				ImgDTOs.add(menuDTO.getFile_id());
+				i++;
+			}
+			List<ADMIN_ImageDTO> imgDTOarr = imgService.getMenuImage(ImgDTOs);
+			model.addAttribute("imgDTOarr", imgDTOarr);
+		}
 		model.addAttribute("cateDTOarr", cateDTOarr);
 		model.addAttribute("menuDTOarr", menuDTOarr);
+		
 		log.info("outC cmd : " +cmd );
 		log.info("outC ft_seq : " + ft_seq);
 		
+		//TEST git
 		
 		
 		

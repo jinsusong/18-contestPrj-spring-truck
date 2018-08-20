@@ -73,7 +73,7 @@ public class SELLER_FtSellerController {
 		if(request.getParameter("catering")!=null) {
 			ftFunc += request.getParameter("catering")+"/";
 		}
-		
+		//githtest
 	
 
 //		log.info("ftsellerController fileId : " + fileId);
