@@ -86,9 +86,6 @@ public class SELLER_OutController {
 		log.info("outC cmd : " +cmd );
 		log.info("outC ft_seq : " + ft_seq);
 		
-		//TEST git
-		
-		
 		
 		
 		//페이지 커맨드 전송
@@ -106,7 +103,7 @@ public class SELLER_OutController {
 		log.info(this.getClass() + " out end !!@@");
 		
 		return "/seller/out/out_info";
-		
+		// 0223 주석 담
 	}
 	@RequestMapping(value="seller/out/item")//장바구니 메뉴 클릭 시
 	public String insertTemp (HttpServletRequest request,HttpSession session,Model model) throws Exception{
