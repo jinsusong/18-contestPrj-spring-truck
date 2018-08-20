@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import poly.dto.seller.SELLER_FtDistrictDataDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
 import poly.dto.seller.SELLER_ImageDTO;
 import poly.service.SELLER_IFtSellerService;
+import poly.service.SELLER_IImageService;
+import poly.util.SELLER_UtilFile;
 import poly.util.CmmUtil;
 
 
@@ -34,11 +37,15 @@ public class SELLER_FtSellerController {
 	private Logger log = Logger.getLogger(this.getClass());
 	//로그를 찍고 파일로 남깁니다 .
 	
-	 String savePath= "C:\\Users\\data20\\Desktop\\TwSpring\\SpringPRJ\\WebContent\\uploadImg\\"; 
+	/* String savePath= "C:\\Users\\data20\\Desktop\\TwSpring\\SpringPRJ\\WebContent\\uploadImg\\"; 
 	 // 이거는 로컬 경로를 뜻하는지 알아야됨
-	
+*/	
 	@Resource(name="SELLER_FtSellerService")
 	private SELLER_IFtSellerService FtSellerService;
+	
+	@Resource(name="SELLER_ImageService")
+	private SELLER_IImageService ImgService;
+	
 	
 	//트럭 정보 등록 페이지
 	@RequestMapping(value="/seller/ft/ftReg")
@@ -52,7 +59,7 @@ public class SELLER_FtSellerController {
 	
 	//insert 트럭정보
 	@RequestMapping(value="/seller/ft/ftRegProc")
-	public String ftRegProc(HttpServletRequest request, Model model,@RequestParam("fileId")MultipartFile file) throws Exception{
+	public String ftRegProc(HttpServletRequest request, Model model,@RequestParam("fileId")MultipartFile file, MultipartHttpServletRequest multiRequest) throws Exception{
 		log.info(this.getClass()  + " ftRegProc Start !!@");
 		
 	//	String fileId = CmmUtil.nvl(request.getParameter("ftSeq"));
@@ -94,8 +101,26 @@ public class SELLER_FtSellerController {
 		ftSDTO.setFtFunc(ftFunc);
 		ftSDTO.setFtOptime(ftOptime);
 		
+		SELLER_ImageDTO imgDTO = new SELLER_ImageDTO();
 		
-		//트럭 이미지 파일 업로드 
+		if(!file.isEmpty()) {
+			//	      UtilFile 객체 생성
+				        SELLER_UtilFile utilFile = new SELLER_UtilFile();
+				        
+			//	      파일 업로드 결과값을 path로 받아온다(이미 fileUpload() 메소드에서 해당 경로에 업로드는 끝났음)
+				        String uploadPath = utilFile.fileUpload(multiRequest, file, imgDTO);
+				        imgDTO.setUser_seq(0);
+				        imgDTO.setFile_path(uploadPath);
+			//	      해당 경로만 받아 db에 저장
+				        ImgService.Image_Add(imgDTO);
+				        String file_id = ImgService.getFile_Seq();
+				        //System.out.println("RewardController reAddProCtrl n : " + n);
+				        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
+				        ftSDTO.setFileId(String.valueOf(Integer.parseInt(file_id)-1));
+		}else { //업로드된 파일 없을때
+			ftSDTO.setFileId("-1");
+		}
+	/*	//트럭 이미지 파일 업로드 
 		String fileSevname= "";//파일 이름을 재정의 하기 위한 변수 선언
 		String fileOrgname= file.getOriginalFilename();
 		//requestParam 요청으로 불러온 이미지의 원래 파일명 
@@ -121,28 +146,23 @@ public class SELLER_FtSellerController {
 		imgDTO.setFilePath(savePath);
 		imgDTO.setFileOrgname(fileOrgname);
 		
-		log.info("imgDTO. fileId : " + imgDTO.getFileId());
-		log.info("imgDTO sevname : " + imgDTO.getFileSevname());
-		log.info("imaDTO. Path : " + imgDTO.getFilePath());
-		log.info("imgDTO. Orgname : " + imgDTO.getFileOrgname());
-		
+		*/
 		
 		HashMap<String, Object> hMap = new HashMap<>();
 		hMap.put("ftSDTO", ftSDTO);
-		hMap.put("imgDTO", imgDTO);
+		//hMap.put("imgDTO", imgDTO);
 		
 		log.info("hMap ftSDTO 확인 : " + hMap.get("ftSDTO"));
-		log.info("hMap imgDTO 확인 : " + hMap.get("imgDTO"));
 		
 		hMap= FtSellerService.insertFtSInfo(hMap);
 		
 		int resultFtReg = (int) hMap.get("resultFtReg"); 
-		int resultImgReg = (int) hMap.get("resultImgReg");
+	//	int resultImgReg = (int) hMap.get("resultImgReg");
 		
 		String msg="";
 		String url="";
 		
-		if(resultFtReg + resultImgReg == 2) {
+		if(resultFtReg == 1) {
 			msg="트럭정보가 등록되었습니다 .";
 			url="/seller/inMain.do";
 		}else {
@@ -156,7 +176,6 @@ public class SELLER_FtSellerController {
 		msg =null;
 		hMap= null;
 		ftSDTO =null;
-		imgDTO =null;
 		
 		
 		return "/cmmn/alert";

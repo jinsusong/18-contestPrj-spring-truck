@@ -13,9 +13,9 @@ public interface SELLER_IFtSellerService {
 
 	public SELLER_FtSellerDTO getTruckConfig(SELLER_FtSellerDTO ftsDTO)throws Exception;
 	
-	public SELLER_ImageDTO getTruckImage(SELLER_ImageDTO imgDTO)throws Exception;
+/*	public SELLER_ImageDTO getTruckImage(SELLER_ImageDTO imgDTO)throws Exception;
 	
-	public int updateTruckImage(SELLER_ImageDTO imgDTO)throws Exception;
+	public int updateTruckImage(SELLER_ImageDTO imgDTO)throws Exception;*/
 
 	public List<SELLER_FtDistrictDataDTO> getFtDstctData(String keyWord) throws Exception;
 	

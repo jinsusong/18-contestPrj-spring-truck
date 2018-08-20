@@ -78,12 +78,14 @@
 					<td class="table_Hline">사업자 이름</td>
 					<td class="table_line">
 						<%=ftDTO2.getSel_name()%>
+						<input type="hidden" value="<%=ftDTO2.getSel_name()%>" name="sel_name" />
 					</td>
 				</tr>
 				<tr style="border-bottom:1px solid #DDDDDD;">
 					<td class="table_Hline">사업자 번호</td>
 					<td class="table_line">
 						<%=ftDTO2.getSel_no()%>
+						<input type="hidden" value="<%=ftDTO2.getSel_no()%>" name="sel_no" />
 					</td>
 				</tr>
 				<tr style="border-bottom:1px solid #DDDDDD;">
