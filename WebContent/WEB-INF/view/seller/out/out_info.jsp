@@ -213,7 +213,7 @@
 		<!-- Include all compiled plugins (below), or include individual files as needed --> 
 		<script src="<%=request.getContextPath()%>/resources/js/admin/bootstrap.min.js"></script>
 						</div>
-						
+						<!--git test -->
 						<!-- 장바구니  -->
 						<div>
 							<div class="col-sm-12" style="height:120px;">
