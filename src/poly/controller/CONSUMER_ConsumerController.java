@@ -43,9 +43,10 @@ import poly.service.impl.CONSUMER_UserService;
 @Controller
 public class CONSUMER_ConsumerController {
 	private Logger log = Logger.getLogger(this.getClass());
-	String savePath= "C:\\TWtest\\SpringPRJ\\WebContent\\uploadImg\\"; 
+	
+	/*String savePath= "C:\\TWtest\\SpringPRJ\\WebContent\\uploadImg\\"; 
 	// 이거는 로컬 경로를 뜻하는지 알아야됨
-
+	*/	
 	@Resource(name = "CONSUMER_FtService")
 	private CONSUMER_IFtService ftService;
 	
