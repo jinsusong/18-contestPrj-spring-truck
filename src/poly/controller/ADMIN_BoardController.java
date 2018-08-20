@@ -686,6 +686,7 @@ public class ADMIN_BoardController {
 		boardService.board_R_Delete(Integer.parseInt(reple_seq));
 		model.addAttribute(board_p_seq);
 		return board_p_info(request, model);
+		// git test by hdp
 	}
 }
 
