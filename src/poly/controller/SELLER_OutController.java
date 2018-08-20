@@ -103,7 +103,7 @@ public class SELLER_OutController {
 		log.info(this.getClass() + " out end !!@@");
 		
 		return "/seller/out/out_info";
-		
+		// 0223 주석 담
 	}
 	@RequestMapping(value="seller/out/item")//장바구니 메뉴 클릭 시
 	public String insertTemp (HttpServletRequest request,HttpSession session,Model model) throws Exception{
