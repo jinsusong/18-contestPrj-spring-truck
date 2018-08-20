@@ -19,7 +19,7 @@
 	 	<div><%@ include file="/WEB-INF/view/cmmn/user/userLoginBody.jsp" %></div>
 	</div>
 	<!--test git  -->
-	<!-- test	 -->
+	<!-- test git	 -->
 </body>
 <style>
 	/* 로그인/회원가입 글자 색상 */
