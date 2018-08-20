@@ -403,7 +403,7 @@ public class SELLER_BoardController {
 			log.info(this.getClass() + " updateRe end !!!!");
 			return rList;
 		}
-		
+		//
 		@RequestMapping(value="/seller/board/delReple",method=RequestMethod.POST)
 		public @ResponseBody List<SELLER_ReviewDTO> delReple(HttpServletRequest request) throws Exception{
 			log.info(this.getClass() + "delReple start !!!!");
@@ -431,7 +431,7 @@ public class SELLER_BoardController {
 			log.info(this.getClass() + "delReple end !!!!");
 			return rList;
 		}
-	
+	//
 	
 
 }
