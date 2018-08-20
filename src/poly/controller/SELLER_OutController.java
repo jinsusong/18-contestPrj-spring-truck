@@ -86,9 +86,6 @@ public class SELLER_OutController {
 		log.info("outC cmd : " +cmd );
 		log.info("outC ft_seq : " + ft_seq);
 		
-		//TEST git
-		
-		
 		
 		
 		//페이지 커맨드 전송
