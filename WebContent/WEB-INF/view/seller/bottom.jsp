@@ -3,6 +3,7 @@
 <!-- test  -->
 				
 				<div align="center" style="color:white;">
+				<!-- git.test 주석 -->
 					<!--<a href="#" style="color:white;">홈</a>
 					 <a href="/board/boardWrite.do">글쓰기</a> |
 					<a href="/board/boardList.do">글목록</a> |
