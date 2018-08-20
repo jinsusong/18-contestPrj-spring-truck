@@ -29,7 +29,7 @@ import poly.service.ADMIN_IBoardService;
 import poly.service.ADMIN_IImageService;
 import poly.util.ADMIN_UtilFile;
 
-
+// 두표 주석 달았다.
 @Controller
 public class ADMIN_BoardController {
 	private Logger log = Logger.getLogger(this.getClass());
