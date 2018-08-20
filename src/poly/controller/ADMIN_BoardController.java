@@ -687,6 +687,7 @@ public class ADMIN_BoardController {
 		model.addAttribute(board_p_seq);
 		return board_p_info(request, model);
 		// git test by hdp two
+		//git test by hdp three
 	}
 }
 
