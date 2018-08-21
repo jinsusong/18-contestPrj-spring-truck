@@ -281,7 +281,12 @@ public class SELLER_FtSellerController {
 		log.info(this.getClass() + " ftDistrictDataProc end !!!");
 		return newFtDstctDataDTO;
 	}
-	
+	@RequestMapping(value="/seller/sales/sales")
+	public String sales()throws Exception{
+		log.info(this.getClass() + " sales start!!!!!!!!!!!!!!!!!!!!!!");
+		log.info(this.getClass() + " sales end !!!!!!!!!!!!!!!!!!!!!!!");
+		return "/seller/sales/sales";
+	}
 	
 	
 	
