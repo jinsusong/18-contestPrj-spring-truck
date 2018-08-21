@@ -72,7 +72,7 @@
 		//	alert("menuSeq :" +b);
 			//무조건 error 화면 전화 하려고 쓴거임 location 쓰면 reload 때문에 안됌 왜지?
 				 $.ajax({
-					url : "/out/item.do",
+					url : "/seller/out/item.do",
 					type : "post",
 					data : {
 						"ftSeq" : a,
@@ -93,11 +93,11 @@
 	
 	//item btn 마다 cmd 다르게 줘서 다른 action 이루어지게 항거임
 	function itemBtn(index,cmd){
-		//alert(cmd);	
-		//	alert(index);
+		alert(cmd);	
+		alert(index);
 			//location.href="/out/itemBtn.do?index="+index+"&cmd="+cmd;
 			 $.ajax({
-					url : "/out/itemBtn.do",
+					url : "/seller/out/itemBtn.do",
 					type : "post",
 					data : {
 						"index" : index,
@@ -132,7 +132,7 @@
 			<!-- 판매자 푸드트럭관리 -->
 			<div class="container">
 				
-				<!------------------ 주문하기  ------------------>
+				<div><!------------------ 주문하기  ------------------>
 				<div>
 					<div style="float:left; width:70%; height:42px;">
 							<h3>메뉴/카테고리</h3>
@@ -178,7 +178,8 @@
 			  					<div style="border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer;"
 			  					onmouseover="this.style='border:1px solid #D9534F; width:150px; height:200px; margin:3px; float:left; cursor:pointer;'"
 			  					onmouseout="this.style='border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer;'"
-			  					onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'">
+			  					onclick="JavaScript:item('<%=ftDTO2.getFt_seq()%>','<%=menuDTO.getMenu_seq()%>','RegItem');">
+			  					<%-- onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'"> --%>
 						    		<div style="width:100%; height:165px; padding:3px; ">
 						    		<%if(!menuDTO.getFile_id().equals("-1")){%>
 						    			<%for(ADMIN_ImageDTO imgDTO : imgDTOarr){ %>
@@ -197,12 +198,6 @@
 						    	</div>
 			  				<%} %>
 			  			<% } %>
-				  			<div style="border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer; text-align:center;"
-				  					onmouseover="this.style='border:1px solid #D9534F; width:150px; height:200px; margin:3px; float:left; cursor:pointer; background-color:#f2f2f2;'"
-				  					onmouseout="this.style='border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer; background-color:#f2f2f2;'"
-				  					onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_create&ft_seq=<%=ftDTO2.getFt_seq()%>&cate_sort_no=<%=cateDTO.getCate_sort_no()%>'">
-					    			<img src="<%=request.getContextPath()%>/resources/img/admin/menu_create_icon.png">
-					    	</div>
 			  			</div>
 			  	<%} %>
 			  </div>
@@ -218,7 +213,7 @@
 						<div>
 							<div class="col-sm-12" style="height:120px;">
 								<div class="col-sm-4" style="padding :0; position:absolute; right:0px; top: 0px;">
-									<button type="button" class="btn btn-primary col-sm-12" onclick="JavaScript:itemBtn('1','delAll');">전체메뉴취소</button>
+									<button type="button" class="btn btn-default col-sm-12" onclick="JavaScript:itemBtn('1','delAll');">전체메뉴취소</button>
 									<div class="col-sm-12" style="text-align:center;"><b>총금액</b></div>
 									<div class="col-sm-12">
 										
@@ -227,16 +222,16 @@
 										</div>
 										<span class="col-sm-2" style="padding :0">원</span>
 									</div>
-									<button type="button" class="btn btn-primary col-sm-12" onclick="location.href='/seller/order/orderInfo.do?sum=<%=sum%>&userSeq=<%=userSeq%>'">주문완료</button>
+									<button type="button" class="btn btn-default col-sm-12" onclick="location.href='/seller/order/orderInfo.do?sum=<%=sum%>&userSeq=<%=userSeq%>'">주문완료</button>
 								</div>
 								<%if(Ilist == null){ %>
 								
 									<div class="col-sm-8" style="padding :0; height:120px;">
-										<button type="button" class="btn btn-primary col-sm-2">취소</button>
+										<button type="button" class="btn btn-default col-sm-2">취소</button>
 										<p class="col-sm-4"><b>메뉴이름</b></p>
-										<button type="button" class="btn btn-primary col-sm-1">-</button>
+										<button type="button" class="btn btn-default col-sm-1">-</button>
 										<p class="col-sm-1" style="padding :0; text-align:center"><b>수량</b></p>
-										<button type="button" class="btn btn-primary col-sm-1" >+</button>
+										<button type="button" class="btn btn-default col-sm-1" >+</button>
 									</div>
 									
 									
@@ -244,12 +239,13 @@
 								<%}else{ %>
 									 <%for(int j=0; j<Ilist.size(); j++) {%>
 										<div class="col-sm-8" style="padding :0;">
-											<button type="button" class="btn btn-primary col-sm-2" onclick="JavaScript:itemBtn('<%=j%>','delItem');">취소</button>
+											<button type="button" class="btn btn-default col-sm-2" onclick="JavaScript:itemBtn('<%=j%>','delItem');">취소</button>
 											<p class="col-sm-4"><b><%=Ilist.get(j).get("menuName")%></b></p>
 											<!-- <input type="text" value="Ilist.get" style="text-align:center;"/> -->
-											<button type="button" class="btn btn-primary col-sm-1" onclick="JavaScript:itemBtn('<%=j%>','amntMinus');">-</button>
+											<button type="button" class="btn btn-default col-sm-1" onclick="JavaScript:itemBtn('<%=j%>','amntMinus');">-</button>
 											<p class="col-sm-1" style="padding :0; text-align:center"><b><%=Ilist.get(j).get("amnt")%></b></p>
-											<button type="button" class="btn btn-primary col-sm-1" onclick="JavaScript:itemBtn('<%=j%>','amntPlus');" >+</button>
+											<button type="button" class="btn btn-default col-sm-1" onclick="JavaScript:itemBtn('<%=j%>','amntPlus');" >+</button>
+											
 										</div>
 									<%} %>
 								<%} %>
