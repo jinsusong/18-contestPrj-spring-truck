@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <html>
+<%
+int dayIndex = CmmUtil.nvl(request.getAttribute("dayIndex"));
+int percentD = CmmUtil.nvl(request.getAttribute("percentD"));
+int timeIndex = CmmUtil.nvl(request.getAttribute("timeIndex"));
+int percentT = CmmUtil.nvl(request.getAttribute("percentT"));
+int percentM = CmmUtil.nvl(request.getAttribute("percentM"));
+int percentF = CmmUtil.nvl(request.getAttribute("percentF"));
+
+%>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>board</title>
@@ -31,10 +40,10 @@
 					<h3>매출분석</h3>
 					<hr>
 					<h3>
-						<span class="label label-Warning">수요일,18~21시의 매출비중이 높고 , 40~44세 남성이 주요고객</span>
+						<span class="label label-Warning">수요일, 18~21시의 매출비중이 높고 , 40~44세 남성이 주요고객</span>
 					</h3>
 					<span>
-						분석지역 내 매출특성은 수요일(16.6%), 18~21시(26.9%) 사이의 매충이 높은 것으로 나타났고 , 
+						분석지역 내 매출특성은 수요일(16.6%), 18~21시(26.9%) 사이의 매출이 높은 것으로 나타났고 , 
 						40~44세 남성 (10.5%)이 주요고객인 것으로 분석 되었습니다 .	
 					</span>
 					<div style="border:1px solid black;" class="col-sm-12">
@@ -47,7 +56,11 @@
 						</div>
 						
 					</div>
-					
+					***********************************************************<br/>
+					select to_char(sysdate, 'yy/mm/dd/dy/hh24/mi/ss') from dual;<br/>
+					18/08/21/화/17/47/16 <br/>
+					ORDER_WAIT ORD_DATE 값 INSERT 형식으로 넣으세요 까먹지말고<br/>
+					***********************************************************
 					
 				</div>
 			</td>
@@ -65,7 +78,7 @@
 		var myChart = new Chart(ctx, {
 		    type: 'line',
 		    data: {
-		        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sum"],
+		        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 		        datasets: [{
 		            label: '# day',
 		            data: [5, 10, 3, 7, 18, 15, 4],

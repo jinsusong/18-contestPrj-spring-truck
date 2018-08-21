@@ -110,6 +110,12 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 		return sELLER_FtSellerMapper.getFtDstctData(keyWord);
 	}
 
+	@Override
+	public List<SELLER_FtSellerDTO> getSalesList(SELLER_FtSellerDTO ftsDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sELLER_FtSellerMapper.getSalesList(ftsDTO);
+	}
+
 
 
 

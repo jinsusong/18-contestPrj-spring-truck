@@ -14,6 +14,22 @@ public class SELLER_FtSellerDTO {
 	private String ftFunc;
 	private String ftChan;
 	private String ftStatus;
+	private String ordDate;
+	private String userGender;
+	
+	
+	public String getOrdDate() {
+		return ordDate;
+	}
+	public void setOrdDate(String ordDate) {
+		this.ordDate = ordDate;
+	}
+	public String getUserGender() {
+		return userGender;
+	}
+	public void setUserGender(String userGender) {
+		this.userGender = userGender;
+	}
 	public String getFtSeq() {
 		return ftSeq;
 	}
