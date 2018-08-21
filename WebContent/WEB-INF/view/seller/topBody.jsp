@@ -36,16 +36,16 @@
 								<a href="Javascript:logout();" >로그아웃</a>
 							<%}else{ %>
 							<!-- 로그인이 안된 상태 -->
-							<a href="/user/userLogin.do">로그인</a>
+							<a href="/cmmn/main.do">로그인</a>
 							<%} %>
 						</div>
 						
 						<%if(!userSeq.equals("")){ %>
-						<div><a href="/user/userDetail.do?userSeq=<%=userSeq%>">마이페이지</a></div>
+						<div><a href="/seller/user/userDetail.do?userSeq=<%=userSeq%>">마이페이지</a></div>
 						<%}%>
-						<div><a href="#">정산관리</a></div>
+						<div><a href="/seller/ftDistrictData/ftDistrictDataMain.do">상권분석</a></div>
 						<div><a href="#">리뷰</a></div>
-						<div><a href="/board/boardList.do">게시판</a></div>
+						<div><a href="/seller/board/boardList.do">게시판</a></div>
 					</div>
 				</div>
 				<div id="sidenav_outer" onclick="closeNav()"></div>
