@@ -19,7 +19,7 @@
 		$.ajax({
 			
 			
-			url: "/orderWait/waitComplete.do",
+			url: "/seller/orderWait/waitComplete.do",
 			method : "post",
 			data : {
 				"waitSeq" : <%=wList.get(0).getWaitSeq()%>,
