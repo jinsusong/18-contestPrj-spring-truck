@@ -21,16 +21,24 @@
 	
 	<div id="menu_wrap" class="bg_white">
 	      <div class="option">
-	          <div>
+	          <div class="form-group">
 	              <form onsubmit="searchPlaces(); return false;">
-	             	 키워드 : <input type="text" value="한국폴리텍대학 서울강서캠퍼스" id="keyword" size="15"> 
-	                  <button type="submit">검색하기</button> 
+	              	<div class="row" style="padding-top:15px;">
+		              	<div class="col-sm-2"></div>
+		              	<div class="col-sm-6">
+		             	<input type="text" class="form-control" value="한국폴리텍대학 서울강서캠퍼스" id="keyword" size="15">
+		             	</div> 
+		                <div class="col-sm-2">
+		                  <button type="submit" class="btn btn-default">검색하기</button>
+		                </div>
+	            	    <div class="col-sm-2"></div>
+	          		</div>
 	              </form>
 	          </div>
 	      </div>
 	      <hr>
-	      <ul id="placesList"></ul>
-	      <div id="pagination"></div>
+	      <ul id="placesList" style="padding-right: 40px;"></ul>
+	      <div id="pagination" style="text-align:center; font-size:20px;"></div>
 	</div>
 </body>
 
@@ -176,7 +184,8 @@ function displayPlaces(places) {
     // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
     listEl.appendChild(fragment);
     menuEl.scrollTop = 0;
-
+	
+    $(listEl).children().addClass('list-group-item');
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
 }
