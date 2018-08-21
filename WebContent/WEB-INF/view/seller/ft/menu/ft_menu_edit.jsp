@@ -51,7 +51,7 @@
 <h3>푸드트럭 메뉴수정</h3>
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
 	<div style="margin-top:15px; margin-bottom:25px;">
-		<form action="<%=request.getContextPath()%>/admin/ft/ft_menu_edit.do" method="post" name="ft_menu_edit" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath()%>/seller/ft/ft_menu_edit.do" method="post" name="ft_menu_edit" enctype="multipart/form-data">
 			<input type="hidden" name="ft_seq" value="<%=ftDTO2.getFt_seq()%>">
 			<input type="hidden" name="menu_seq" value="<%=menuDTO.getMenu_seq()%>">
 			<input type="hidden" name="org_file_id" id="org_file_id" value="<%=menuDTO.getFile_id() %>">
