@@ -48,8 +48,11 @@ body { font-family:gulim; font-size:12px; }
 				
 				</div>
 					<div class="col-sm-12" style="height:80%;">
-						<div id="map" style="width:50%; height:350px;" class="col-sm-5"></div>
-						<div class="chart-container col-sm-5" style="position: relative; " >
+						<div id="map" style="width:90%; height:350px; float:none;" class="col-sm-12"></div>
+						<div style="height: 2px;background-color: black;margin: 10px 0;">
+						
+						</div>
+						<div class="chart-container col-sm-5" style="position: relative; width:90%;" >
 					   		<canvas style="width:50%; height:200px;" id="myChart" ></canvas>
 						</div>
 					</div>
