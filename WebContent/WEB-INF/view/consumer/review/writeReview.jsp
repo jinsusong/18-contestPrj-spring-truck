@@ -31,7 +31,7 @@
 <body>
 <%@include file="/WEB-INF/view/consumer/topBody.jsp" %>
 
-	<form action="/consumer/writeReviewProc.do" method="POST" enctype="multipart/form-data">
+	<form action="/consumer/review/writeReviewProc.do" method="POST" enctype="multipart/form-data">
 		<input type="hidden" value="<%=ftSeq%>" name="ft_seq"/>
 		<div class="container-fluid">
 			<div class="row" >
