@@ -41,12 +41,12 @@ public class SELLER_OrderWaitController {
 			ftsDTO = new SELLER_FtSellerDTO();
 			return "/seller/orderWait/waitEmpty";
 		}
-		
 		SELLER_WaitDTO wDTO = new SELLER_WaitDTO();
 		wDTO.setFtSeq(ftsDTO.getFtSeq());
 		
 		List<SELLER_WaitDTO> wList = orderWaitService.getwaitDTO(wDTO);
 		if(wList.isEmpty()) {
+			log.info("if wList.isEmpty");
 			return  "/seller/orderWait/waitEmpty";
 		}
 		

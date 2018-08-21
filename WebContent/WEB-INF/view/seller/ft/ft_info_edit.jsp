@@ -48,7 +48,7 @@
 <h3>푸드트럭 정보수정</h3>
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
 	<div style="margin-top:15px; margin-bottom:25px;">
-		<form action="<%=request.getContextPath()%>/admin/ft/ft_info_edit.do" method="post"  name="ft_info_edit" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath()%>/seller/ft/ft_info_edit.do" method="post"  name="ft_info_edit" enctype="multipart/form-data">
 			<input type="hidden" name="ft_seq" value="<%=ftDTO2.getFt_seq()%>">
 			<input type="hidden" name="org_file_id" id="org_file_id" value="<%=ftDTO2.getFile_id() %>">
 			<table width="100%">
