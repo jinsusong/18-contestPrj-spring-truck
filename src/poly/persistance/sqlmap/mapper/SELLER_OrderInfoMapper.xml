@@ -15,6 +15,22 @@
 		WHERE	USER_SEQ = #{userSeq}
 	
 	</select>
+	
+	<select id="getOrderList" parameterType="string" resultType="SELLER_OrderInfoDTO">
+		SELECT ORD_SEQ AS ordSeq,
+			FT_INFO.USER_SEQ AS userSeq,
+			ORD_SUMPRICE AS ordSumprice,
+			ORD_WAY AS ordWay,
+			ORD_DATE AS ordDate,
+			ORD_STATUS AS ordStatus,
+			BUY_WAY AS buyWay,
+			USR_RCV_TIME AS usrRcvTime,
+			RCV_TIME AS rcvTime,
+			FT_SEQ AS ftSeq
+		FROM ORDER_INFO, FT_INFO
+		WHERE ORDER_INFO.USER_SEQ=FT_INFO.USER_SEQ AND FT_INFO.USER_SEQ=#{userSeq}
+		ORDER BY ORD_DATE DESC
+	</select>
 
 
 </mapper>

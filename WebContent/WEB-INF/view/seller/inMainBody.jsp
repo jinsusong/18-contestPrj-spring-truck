@@ -242,7 +242,10 @@
 			<div align="right">
 				<button class="btn btn-default" onClick="#" >매출분석</button>
 			</div>
-			<p>매출 그래프 표시부분 </p>
+			<div>
+			<%@ include file="/WEB-INF/view/seller/chart.jsp" %>
+			
+			</div>
 		</div>
 		<!-- 본문 기능 부분 -->
 		<div id="contents_menu_top">

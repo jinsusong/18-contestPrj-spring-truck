@@ -29,7 +29,9 @@ import com.sun.mail.handlers.message_rfc822;
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
+import poly.dto.seller.SELLER_OrderInfoDTO;
 import poly.service.CONSUMER_IUserService;
+import poly.service.SELLER_IOrderService;
 import poly.util.CmmUtil;
 import poly.util.Email;
 import poly.util.EmailSender;
@@ -47,6 +49,8 @@ public class CONSUMER_UserController {
 
 	@Resource(name="CONSUMER_UserService")
 	private CONSUMER_IUserService UserService;
+	
+	
 	
 	//현재 날짜를 구하는 함수
 	public String getDate() {
@@ -193,7 +197,7 @@ public class CONSUMER_UserController {
 	
 	//관심매장 삭제 - ajax
 	@RequestMapping(value="consumer/cnsmr/favoriteFtRemove", method=RequestMethod.POST)
-	public @ResponseBody int favoriteFtRemove(HttpServletRequest request, Model model, HttpServletResponse response )throws Exception{
+	public @ResponseBody int favoriteFtRemove(HttpServletRequest request, Model model, HttpServletResponse response)throws Exception{
 		log.info(this.getClass() + "cnsmr/favoriteFtRemove start !!!");
 		String user_seq = request.getParameter("user_seq");
 		String ft_seq = request.getParameter("ft_seq");
@@ -208,6 +212,8 @@ public class CONSUMER_UserController {
 		return result;
 		
 	}
+	
+	
 	
 	
 }
