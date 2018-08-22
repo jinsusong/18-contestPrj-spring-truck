@@ -109,6 +109,19 @@
 		<!-- WHERE 	SITE_WHL_ADDR like '%' || #{keyWord} || '%' or SITE_WHL_ADDR is null -->
 		<!-- <![CDATA[ ROWNUM <= 50 ]]> -->
 	</select>
+	<!-- 매출분석 -->
+	<select id="getSalesList" parameterType="SELLER_FtSellerDTO" resultType="SELLER_FtSellerDTO">
+		 SELECT
+		    W.ORD_DATE as ordDate,
+		    U.USER_GENDER as userGender
+		  FROM ORDER_WAIT W
+		      INNER JOIN ORDER_INFO O
+		        ON  W.ORD_SEQ = O.ORD_SEQ
+		      INNER JOIN USER_INFO U
+		        ON  O.USER_SEQ = U.USER_SEQ
+		  WHERE W.FT_SEQ = #{ftSeq}
+		  ORDER BY W.ORD_DATE ASC 
 	
+	</select>
 
 </mapper>

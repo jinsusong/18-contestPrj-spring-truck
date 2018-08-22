@@ -19,5 +19,7 @@ public interface SELLER_IFtSellerService {
 
 	public List<SELLER_FtDistrictDataDTO> getFtDstctData(String keyWord) throws Exception;
 	
+	public List<SELLER_FtSellerDTO> getSalesList(SELLER_FtSellerDTO ftsDTO)throws Exception;
+	
 	
 }
