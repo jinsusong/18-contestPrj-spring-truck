@@ -285,7 +285,7 @@ public class SELLER_OutController {
 		SELLER_FtSellerDTO ftsDTO = new SELLER_FtSellerDTO();
 		ftsDTO.setUserSeq(userSeq);
 		ftsDTO = FtSellerService.getTruckConfig(ftsDTO);
-		
+		log.info("ftSeq : " + ftsDTO.getFtSeq());
 		
 		String todayMD = UtilTime.getDateMD();
 		String todayYMDhms = UtilTime.getDateYMDhms();
@@ -304,10 +304,11 @@ public class SELLER_OutController {
 		if(oList.isEmpty()) {
 			log.info("oList is Empty");
 		}
-		
+		log.info("oList size : " + oList.size());
 		log.info("============ 주문내역 시작  ============");
 		for(int i=0; i<oList.size(); i++) {
 			log.info("---------------------------");
+			log.info("oList.get : " + oList.get(i).getOrd_seq());
 			log.info(oList.get(i).getOrd_seq());
 			log.info(oList.get(i).getUser_seq());
 			log.info(oList.get(i).getOrd_status());

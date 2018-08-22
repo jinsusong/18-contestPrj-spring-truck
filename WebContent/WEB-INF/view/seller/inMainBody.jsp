@@ -230,23 +230,19 @@
 	}
 </style>
 
-</head>
-<body>
 
-
-
-	<!-- 중간 내용부분 -->
-	<div id="contents">
-		<!-- 매출 그래프 표시할 부분 -->
-		<div id="sales_graph">
+	<!-- 매출 그래프 표시할 부분 -->
+		<div>
 			<div align="right">
 				<button class="btn btn-default" onClick='location.href="/seller/sales/sales.do?userSeq=<%=userSeq%>"' >매출분석</button>
 			</div>
 			<div>
-			<%@ include file="/WEB-INF/view/seller/chart.jsp" %>
-			
+				<%@ include file="/WEB-INF/view/seller/chart.jsp" %>
 			</div>
 		</div>
+	<!-- 중간 내용부분 -->
+	<div id="contents">
+		
 		<!-- 본문 기능 부분 -->
 		<div id="contents_menu_top">
 			<a href="JavaScript:truckConfig()"><div id="truck_config"><h3>푸드트럭 관리</h3></div></a>

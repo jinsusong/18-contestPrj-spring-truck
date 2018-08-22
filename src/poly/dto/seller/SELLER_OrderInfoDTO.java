@@ -12,6 +12,7 @@ public class SELLER_OrderInfoDTO {
 	private String usr_rcv_time;
 	private String rcv_time;
 	private String tid;
+	private String ft_seq;
 	
 	public int getOrd_seq() {
 		return ord_seq;
@@ -79,4 +80,15 @@ public class SELLER_OrderInfoDTO {
 	public void setTid(String tid) {
 		this.tid = tid;
 	}
+	public String getFt_seq() {
+		return ft_seq;
+	}
+	public void setFt_seq(String ft_seq) {
+		this.ft_seq = ft_seq;
+	}
+	
+	
+	
+	
+	
 }

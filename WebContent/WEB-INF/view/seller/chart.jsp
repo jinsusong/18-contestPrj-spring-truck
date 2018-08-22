@@ -62,7 +62,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>chart</title>
 <%-- <%@ include file="/WEB-INF/view/consumer/topCssScript.jsp" %> --%>
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
 </head>
@@ -70,7 +70,7 @@
 	<%-- <div>
 		<%@include file="/WEB-INF/view/consumer/topBody.jsp" %>	<!-- topBody에서 session으로 userEmail을 받는다. -->
 	</div> --%>
-	<div class="container" style="margin-bottom:20px">
+	<div style="margin-bottom:20px">
 	
 		<div role="tabpanel" style="margin: 20px">
 
@@ -91,24 +91,24 @@
 			</div>
 		</div>
 		<div style="margin-top:35px;">
-				<div style="float:left; width:48%;">	<!-- float은 구석으로 차곡차곡 밀어 넣는 속성이기 때문에 두 div를 같은 위치에 밀어 넣고 싶은 땐  style="clear:both"를 해주어야 함 -->
-					<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
-						<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">today - <%=todayMD %></span>
-					</div>
+			<div style="float:left; width:48%;">	<!-- float은 구석으로 차곡차곡 밀어 넣는 속성이기 때문에 두 div를 같은 위치에 밀어 넣고 싶은 땐  style="clear:both"를 해주어야 함 -->
+				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
+					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">today - <%=todayMD %></span>
 				</div>
-				<div style="float:right; width:48%;">
-					<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
-						<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">오늘 총매출</span> <span style="float:right;">7,500,000원</span>
-					</div>
-					<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
-						<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">이번주 총매출</span> <span style="float:right;">28,500,000원</span>
-					</div>
-					<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
-						<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">이번달 총매출</span> <span style="float:right;">120,000,000원</span>
-					</div>
-				</div>
-				<div style="clear:both; border-bottom:1px solid #cccccc;"></div>
 			</div>
+			<div style="float:right; width:48%;">
+				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
+					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">오늘 총매출</span> <span style="float:right;">7,500,000원</span>
+				</div>
+				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
+					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">이번주 총매출</span> <span style="float:right;">28,500,000원</span>
+				</div>
+				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
+					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">이번달 총매출</span> <span style="float:right;">120,000,000원</span>
+				</div>
+			</div>
+			<div style="clear:both; border-bottom:1px solid #cccccc;"></div>
+		</div>
 		
 		
 		
@@ -231,5 +231,6 @@ var myChartMonth = new Chart(ctx, {
     }
 });
 </script>
+
 </body>
 </html>
