@@ -29,14 +29,15 @@
 </style>
 </head>
 <body>
-<%@include file="/WEB-INF/view/consumer/topBody.jsp" %>
-
+	<%@include file="/WEB-INF/view/consumer/topBody.jsp" %>
 	<form action="/consumer/review/writeReviewProc.do" method="POST" enctype="multipart/form-data">
 		<input type="hidden" value="<%=ftSeq%>" name="ft_seq"/>
 		<div class="container-fluid">
 			<div class="row" >
 				<div class="col-xs-12">
-					<img src="/img/left-arrow.png" width="35px" style="margin:20px 0;"/>
+					<a href="/consumer/cnsmr/ftDetail.do?ft_seq=5&amp;cmd=2">
+						<img src="/resources/img/consumer/left-arrow.png" width="35px" style="margin:20px 0;"/>	
+					</a>
 					<div style="display:inline-block"><%=ftName %>에 리뷰 쓰기</div>
 				</div>
 				<div class="col-xs-12">

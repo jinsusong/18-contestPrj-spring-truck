@@ -84,7 +84,7 @@
 	<%} %>
 </body>
 <div id="map" style="width:100%;"></div>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60f4f121242d90c886eacd9609c92e78"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60f4f121242d90c886eacd9609c92e78&libraries=services,clusterer,drawing"></script>
 	<script>
 	
 		var mapContainer = document.getElementById('map') // 지도를 표시할 div 
@@ -133,8 +133,19 @@
 		    
 		    var infowindow = new daum.maps.InfoWindow({
 		        content: positions[i].title // 인포윈도우에 표시할 내용
+		    }); 
+		    
+		    /* 커스텀 오버레이 생성 */ 
+		    var content =  '<div class="panel panel-default" style="margin-bottom:20px;"> <div class="panel-body" style="padding:2px;">'+ marker.getTitle()+ '</div></div>'
+		    				+'<div style="height:20px"></div>'; 
+		    var customOverlay = new daum.maps.CustomOverlay({
+		        position: marker.getPosition(),
+		        content: content,
+		        xAnchor: 0.3,
+		        yAnchor: 0.91
 		    });
-
+		    customOverlay.setMap(map);
+		    
 		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
 		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
