@@ -15,7 +15,7 @@
 <%
 	ADMIN_Ft_InfoDTO ftDTO = (ADMIN_Ft_InfoDTO)request.getAttribute("ftDTO");
 	String[] array_optime = ftDTO.getFt_optime().split("/");
-	String[] array = ftDTO.getFt_func().split("/");
+	String[] array = ftDTO.getFt_func().split("/"); 
 	
 	String cmd = (String)request.getAttribute("cmd");
 	if(cmd==null){
@@ -47,8 +47,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	<!-- Bootstrap -->
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/bootstrap.css">
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/ft_info.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/admin/bootstrap.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/admin/ft_info.css">
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -72,7 +72,7 @@
 		//	alert("menuSeq :" +b);
 			//무조건 error 화면 전화 하려고 쓴거임 location 쓰면 reload 때문에 안됌 왜지?
 				 $.ajax({
-					url : "/out/item.do",
+					url : "/seller/out/item.do",
 					type : "post",
 					data : {
 						"ftSeq" : a,
@@ -93,11 +93,11 @@
 	
 	//item btn 마다 cmd 다르게 줘서 다른 action 이루어지게 항거임
 	function itemBtn(index,cmd){
-		//alert(cmd);	
-		//	alert(index);
+		alert(cmd);	
+		alert(index);
 			//location.href="/out/itemBtn.do?index="+index+"&cmd="+cmd;
 			 $.ajax({
-					url : "/out/itemBtn.do",
+					url : "/seller/out/itemBtn.do",
 					type : "post",
 					data : {
 						"index" : index,
@@ -132,97 +132,88 @@
 			<!-- 판매자 푸드트럭관리 -->
 			<div class="container">
 				
-				<!------------------ 주문하기  ------------------>
+				<div><!------------------ 주문하기  ------------------>
 				<div>
 					<div style="float:left; width:70%; height:42px;">
 							<h3>메뉴/카테고리</h3>
 						</div>
 						<div style="clear:both;"></div>
 						<hr>
-						<!-- Nav tabs -->
-						<div role="tabpanel">
+						 <!-- Nav tabs -->
+			  <ul class="nav nav-pills">
+			  <%for(ADMIN_Ft_Menu_CateDTO cateDTO : cateDTOarr){ %>
+			  	<%if(cateDTO.getCate_sort_no()==1){ %>
+			  		<li role="presentation" class="active">
+				  		<a href="#home" aria-controls="home" role="tab" data-toggle="tab"
+						<%if(cateDTO.getExp_yn()==-1){%>
+			  				style="border-radius:4px; border:1px solid #D9534F; box-sizing:border-box; display:none;"
+			  			<%}%>>
+				  			<%=cateDTO.getCate_name()%>
+				  		</a>
+			  		</li> 
+			  	<%}else{%> 
+			  		<li role="presentation">
+			  			<a href="#cate<%=cateDTO.getCate_sort_no()%>" aria-controls="cate<%=cateDTO.getCate_sort_no()%>" role="tab" data-toggle="tab"
+			  			<%if(cateDTO.getExp_yn()==-1){%>
+			  				style="border-radius:4px; border:1px solid #D9534F; box-sizing:border-box; display:none;"
+			  			<%}%>>
+			  				<%=cateDTO.getCate_name()%>
+			  			</a>
+			  		</li>
+			  	<%} %>
+			  <%} %>
+			  </ul>
 			
-						  <!-- Nav tabs -->
-						  <ul class="nav nav-pills">
-						  <%for(ADMIN_Ft_Menu_CateDTO cateDTO : cateDTOarr){ %>
-						  	<%if(cateDTO.getCate_sort_no()==1){ %>
-						  		<li role="presentation" class="active">
-							  		<a href="#home" aria-controls="home" role="tab" data-toggle="tab"
-									<%if(cateDTO.getExp_yn()==-1){%>
-						  				style="border-radius:4px; border:1px solid #D9534F; box-sizing:border-box;"
-						  			<%}%>>
-							  			<%=cateDTO.getCate_name()%>
-							  		</a>
-						  		</li>
-						  	<%}else{%> 
-						  		<li role="presentation">
-						  			<a href="#cate<%=cateDTO.getCate_sort_no()%>" aria-controls="cate<%=cateDTO.getCate_sort_no()%>" role="tab" data-toggle="tab"
-						  			<%if(cateDTO.getExp_yn()==-1){%>
-						  				style="border-radius:4px; border:1px solid #D9534F; box-sizing:border-box;"
-						  			<%}%>>
-						  				<%=cateDTO.getCate_name()%>
-						  			</a>
-						  		</li>
-						  	<%} %>
-						  <%} %>
-						  </ul>
-						
-						  <!-- Tab panes -->
-							  <div class="tab-content" style="margin-top:10px; height:620px; overflow:auto;">
-							  	<%int i=0; %>
-							  	<%for(ADMIN_Ft_Menu_CateDTO cateDTO : cateDTOarr){ %>
-							  		<%if(cateDTO.getCate_sort_no()==1){ %>
-							  			<div role="tabpanel" class="tab-pane active" id="home">
-							  		<%}else{ %>
-							  			<div role="tabpanel" class="tab-pane" id="cate<%=cateDTO.getCate_sort_no()%>">
-							  		<%} %>
-							  			<%for(ADMIN_Menu_InfoDTO menuDTO : menuDTOarr){ %>
-							  				<%if(cateDTO.getCate_sort_no()==menuDTO.getCate_sort_no()){ %>
-							  					<div style="border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer;"
-							  					onmouseover="this.style='border:1px solid #D9534F; width:150px; height:200px; margin:3px; float:left; cursor:pointer;'"
-							  					onmouseout="this.style='border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer;'"
-							  						onclick="JavaScript:item('<%=ftDTO2.getFt_seq()%>','<%=menuDTO.getMenu_seq()%>','RegItem');">
-										    		<div style="width:100%; height:165px; padding:3px; ">
-										    		<%if(!menuDTO.getFile_id().equals("-1")){%>
-										    			<%for(ADMIN_ImageDTO imgDTO : imgDTOarr){ %>
-										    				<%if(imgDTO.getFile_id().equals(menuDTO.getFile_id())){ %>
-										    					<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTO.getFile_sevname()%>" width="100%" height="100%">
-										    				<%} %>
-										    			<%} %>
-										    		<% i++;
-										    		}else{ %>
-										    			등록된 이미지가 없습니다.
-										    		<%} %>
-										    		</div>
-										    		<div style="width:100%; height:35px; padding-top:4px; text-align:center; border-top:1px solid #cccccc;">
-										    			<%=menuDTO.getMenu_name()%>
-										    		</div> 
-										    	</div>
-							  				<%} %>
-							  			<% } %>
-								  			<div style="border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer; text-align:center;"
-								  					onmouseover="this.style='border:1px solid #D9534F; width:150px; height:200px; margin:3px; float:left; cursor:pointer; background-color:#f2f2f2;'"
-								  					onmouseout="this.style='border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer; background-color:#f2f2f2;'"
-								  					onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_create&ft_seq=<%=ftDTO2.getFt_seq()%>&cate_sort_no=<%=cateDTO.getCate_sort_no()%>'">
-									    			<img src="<%=request.getContextPath()%>/resources/img/admin/menu_create_icon.png">
-									    	</div>
-							  			</div>
-							  	<%} %>
-							  </div>
-						  
-						  <div style="margin-top:10px; margin-bottom:10px; border-bottom:1px solid #f2f2f2;"></div>
-						</div>
+			  <!-- Tab panes -->
+			  <div class="tab-content" style="margin-top:10px; height:620px; overflow:auto;">
+			  	<%int i=0; %>
+			  	<%for(ADMIN_Ft_Menu_CateDTO cateDTO : cateDTOarr){ %>
+			  		<%if(cateDTO.getCate_sort_no()==1){ %>
+			  			<div role="tabpanel" class="tab-pane active" id="home">
+			  		<%}else{ %>
+			  			<div role="tabpanel" class="tab-pane" id="cate<%=cateDTO.getCate_sort_no()%>">
+			  		<%} %>
+			  			<%for(ADMIN_Menu_InfoDTO menuDTO : menuDTOarr){ %>
+			  				<%if(cateDTO.getCate_sort_no()==menuDTO.getCate_sort_no()){ %>
+			  					<div style="border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer;"
+			  					onmouseover="this.style='border:1px solid #D9534F; width:150px; height:200px; margin:3px; float:left; cursor:pointer;'"
+			  					onmouseout="this.style='border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer;'"
+			  					onclick="JavaScript:item('<%=ftDTO2.getFt_seq()%>','<%=menuDTO.getMenu_seq()%>','RegItem');">
+			  					<%-- onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'"> --%>
+						    		<div style="width:100%; height:165px; padding:3px; ">
+						    		<%if(!menuDTO.getFile_id().equals("-1")){%>
+						    			<%for(ADMIN_ImageDTO imgDTO : imgDTOarr){ %>
+						    				<%if(imgDTO.getFile_id().equals(menuDTO.getFile_id())){ %>
+						    					<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTO.getFile_sevname()%>" width="100%" height="100%">
+						    				<%} %>
+						    			<%} %>
+						    		<% i++;
+						    		}else{ %>
+						    			등록된 이미지가 없습니다.
+						    		<%} %>
+						    		</div>
+						    		<div style="width:100%; height:35px; padding-top:4px; text-align:center; border-top:1px solid #cccccc;">
+						    			<%=menuDTO.getMenu_name()%>
+						    		</div> 
+						    	</div>
+			  				<%} %>
+			  			<% } %>
+			  			</div>
+			  	<%} %>
+			  </div>
+			  <div style="margin-top:10px; margin-bottom:10px; border-bottom:1px solid #f2f2f2;"></div>
+			</div>
 						<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-						<script src="<%=request.getContextPath()%>/resources/js/jquery-1.11.2.min.js"></script> 
-						<!-- Include all compiled plugins (below), or include individual files as needed --> 
-						<script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
+		<script src="<%=request.getContextPath()%>/resources/js/admin/jquery-1.11.2.min.js"></script> 
+		<!-- Include all compiled plugins (below), or include individual files as needed --> 
+		<script src="<%=request.getContextPath()%>/resources/js/admin/bootstrap.min.js"></script>
 						</div>
-						
+						<!--git test -->
 						<!-- 장바구니  -->
 						<div>
 							<div class="col-sm-12" style="height:120px;">
 								<div class="col-sm-4" style="padding :0; position:absolute; right:0px; top: 0px;">
-									<button type="button" class="btn btn-primary col-sm-12" onclick="JavaScript:itemBtn('1','delAll');">전체메뉴취소</button>
+									<button type="button" class="btn btn-default col-sm-12" onclick="JavaScript:itemBtn('1','delAll');">전체메뉴취소</button>
 									<div class="col-sm-12" style="text-align:center;"><b>총금액</b></div>
 									<div class="col-sm-12">
 										
@@ -231,16 +222,16 @@
 										</div>
 										<span class="col-sm-2" style="padding :0">원</span>
 									</div>
-									<button type="button" class="btn btn-primary col-sm-12" onclick="location.href='/seller/order/orderInfo.do?sum=<%=sum%>&userSeq=<%=userSeq%>'">주문완료</button>
+									<button type="button" class="btn btn-default col-sm-12" onclick="location.href='/seller/order/orderInfo.do?sum=<%=sum%>&userSeq=<%=userSeq%>'">주문완료</button>
 								</div>
 								<%if(Ilist == null){ %>
 								
 									<div class="col-sm-8" style="padding :0; height:120px;">
-										<button type="button" class="btn btn-primary col-sm-2">취소</button>
+										<button type="button" class="btn btn-default col-sm-2">취소</button>
 										<p class="col-sm-4"><b>메뉴이름</b></p>
-										<button type="button" class="btn btn-primary col-sm-1">-</button>
+										<button type="button" class="btn btn-default col-sm-1">-</button>
 										<p class="col-sm-1" style="padding :0; text-align:center"><b>수량</b></p>
-										<button type="button" class="btn btn-primary col-sm-1" >+</button>
+										<button type="button" class="btn btn-default col-sm-1" >+</button>
 									</div>
 									
 									
@@ -248,12 +239,13 @@
 								<%}else{ %>
 									 <%for(int j=0; j<Ilist.size(); j++) {%>
 										<div class="col-sm-8" style="padding :0;">
-											<button type="button" class="btn btn-primary col-sm-2" onclick="JavaScript:itemBtn('<%=j%>','delItem');">취소</button>
+											<button type="button" class="btn btn-default col-sm-2" onclick="JavaScript:itemBtn('<%=j%>','delItem');">취소</button>
 											<p class="col-sm-4"><b><%=Ilist.get(j).get("menuName")%></b></p>
 											<!-- <input type="text" value="Ilist.get" style="text-align:center;"/> -->
-											<button type="button" class="btn btn-primary col-sm-1" onclick="JavaScript:itemBtn('<%=j%>','amntMinus');">-</button>
+											<button type="button" class="btn btn-default col-sm-1" onclick="JavaScript:itemBtn('<%=j%>','amntMinus');">-</button>
 											<p class="col-sm-1" style="padding :0; text-align:center"><b><%=Ilist.get(j).get("amnt")%></b></p>
-											<button type="button" class="btn btn-primary col-sm-1" onclick="JavaScript:itemBtn('<%=j%>','amntPlus');" >+</button>
+											<button type="button" class="btn btn-default col-sm-1" onclick="JavaScript:itemBtn('<%=j%>','amntPlus');" >+</button>
+											
 										</div>
 									<%} %>
 								<%} %>

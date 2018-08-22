@@ -29,7 +29,7 @@ import poly.service.ADMIN_IBoardService;
 import poly.service.ADMIN_IImageService;
 import poly.util.ADMIN_UtilFile;
 
-
+// 두표 주석 달았다.
 @Controller
 public class ADMIN_BoardController {
 	private Logger log = Logger.getLogger(this.getClass());
@@ -686,6 +686,8 @@ public class ADMIN_BoardController {
 		boardService.board_R_Delete(Integer.parseInt(reple_seq));
 		model.addAttribute(board_p_seq);
 		return board_p_info(request, model);
+		// git test by hdp two
+		//git test by hdp three
 	}
 }
 

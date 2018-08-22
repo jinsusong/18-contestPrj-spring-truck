@@ -63,9 +63,9 @@ ADMIN_Menu_InfoDTO menuDTO = (ADMIN_Menu_InfoDTO)request.getAttribute("menuDTO")
 									<div style="padding-left:10px; padding-top:10px; color:#ffffff;">메뉴순번 <%=menuDTO.getMenu_sort_no() %></div>
 									<div style="position:relative; float:right; top:-25px;"> 
 										<div style="background-color:#444444; color:#ffffff; border:1px solid #454545; width:16px; height:17px; font-size:10px; text-align:center; cursor:pointer;"
-										onClick="location.href='<%=request.getContextPath()%>/admin/ft/ft_menu_up.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>&cate_sort_no=<%=menuDTO.getCate_sort_no()%>&menu_sort_no=<%=menuDTO.getMenu_sort_no()%>'">▲</div> 
+										onClick="location.href='<%=request.getContextPath()%>/seller/ft/ft_menu_up.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>&cate_sort_no=<%=menuDTO.getCate_sort_no()%>&menu_sort_no=<%=menuDTO.getMenu_sort_no()%>'">▲</div> 
 										<div style="background-color:#444444; color:#ffffff; border:1px solid #454545; width:16px; height:17px; font-size:10px; text-align:center; cursor:pointer;"
-										onClick="location.href='<%=request.getContextPath()%>/admin/ft/ft_menu_down.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>&cate_sort_no=<%=menuDTO.getCate_sort_no()%>&menu_sort_no=<%=menuDTO.getMenu_sort_no()%>'">▼</div>
+										onClick="location.href='<%=request.getContextPath()%>/seller/ft/ft_menu_down.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>&cate_sort_no=<%=menuDTO.getCate_sort_no()%>&menu_sort_no=<%=menuDTO.getMenu_sort_no()%>'">▼</div>
 									</div>
 								</div>
 								<div style="float:right; border-right:1px solid #ffffff; background-color:#444444; color:#ffffff; width:120px; height:38px; padding-left:10px; padding-top:10px; font-size:12px; text-align:left;">
@@ -131,8 +131,8 @@ ADMIN_Menu_InfoDTO menuDTO = (ADMIN_Menu_InfoDTO)request.getAttribute("menuDTO")
 			</div>
 			<div style="margin-top:10px; text-align:center;">
 				<button type="button" class="btn btn-default" style="width:80px;" onClick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?ft_seq=<%=ftDTO2.getFt_seq()%>'">목록</button>
-				<button type="button" class="btn btn-primary" onClick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_edit&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'">메뉴정보수정</button>
-				<button type="button" class="btn btn-danger"  onClick="location.href='<%=request.getContextPath()%>/admin/ft/ft_menu_delete.do?ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'" style="position:relative; left:250px; width:80px;">삭제</button>
+				<button type="button" class="btn btn-primary" onClick="location.href='<%=request.getContextPath()%>/seller/ft/ft_info.do?cmd=menu_edit&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'">메뉴정보수정</button>
+				<button type="button" class="btn btn-danger"  onClick="location.href='<%=request.getContextPath()%>/seller/ft/ft_menu_delete.do?ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'" style="position:relative; left:250px; width:80px;">삭제</button>
 			</div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
 <script src="<%=request.getContextPath()%>/resources/js/admin/jquery-1.11.2.min.js"></script> 
