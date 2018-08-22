@@ -1,15 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<html>
 <%
-int dayIndex = CmmUtil.nvl(request.getAttribute("dayIndex"));
-int percentD = CmmUtil.nvl(request.getAttribute("percentD"));
-int timeIndex = CmmUtil.nvl(request.getAttribute("timeIndex"));
-int percentT = CmmUtil.nvl(request.getAttribute("percentT"));
-int percentM = CmmUtil.nvl(request.getAttribute("percentM"));
-int percentF = CmmUtil.nvl(request.getAttribute("percentF"));
-
+int dayIndex =  (int)request.getAttribute("dayIndex");
+double percentD = 	(double)request.getAttribute("percentD") ;
+int timeIndex = (int)request.getAttribute("timeIndex"); 
+double percentT = (double)request.getAttribute("percentT") ;
+double percentM = (double) request.getAttribute("percentM");
+double percentF = (double) request.getAttribute("percentF");
+int[] arrayDay2 = (int[])request.getAttribute("arrayDay");
+String stringDay = "";
+String stringTime ="";
 %>
+요일은 = <%=dayIndex %>
+요일% = <%=percentD %>
+시간은 = <%=timeIndex %>*3 ~ +3시간 까지
+시간대% = <%=percentT %>
+남자비율은 = <%=percentM %>
+여자비율은 = <%=percentF %>
+요일별 데이터는 = 
+	<% for(int i=0; i< arrayDay2.length; i++){
+		out.println(arrayDay2[i]);	
+	}
+	%>
+<html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>board</title>
@@ -40,11 +53,52 @@ int percentF = CmmUtil.nvl(request.getAttribute("percentF"));
 					<h3>매출분석</h3>
 					<hr>
 					<h3>
-						<span class="label label-Warning">수요일, 18~21시의 매출비중이 높고 , 40~44세 남성이 주요고객</span>
+						<span class="label label-Warning">
+						<%
+						switch(dayIndex)  {
+								case 0 : stringDay="월"; break;
+								case 1 : stringDay="화"; break;
+								case 2 : stringDay="수"; break;
+								case 3 : stringDay="목"; break;
+								case 4 : stringDay="금"; break;
+								case 5 : stringDay="토"; break;
+								case 6 : stringDay="일"; break;
+								}
+						%>
+						<%=stringDay%>요일,
+						 <%
+						switch(timeIndex)  {
+								case 0 : stringTime="0시~3시"; break;
+								case 1 : stringDay="3시~6시"; break;
+								case 2 : stringDay="6시~9시"; break;
+								case 3 : stringDay="9시~12시"; break;
+								case 4 : stringDay="12시~15시"; break;
+								case 5 : stringDay="15시~18시"; break;
+								case 6 : stringDay="18시~21시"; break;
+								case 7 : stringDay="21시~24시"; break;
+								}
+						%>
+						<%=stringDay%>
+						시의 매출비중이 높고 , *40~44세* 
+						<%if(percentM > percentF){ %>
+						남성 (<%= percentM%>%)
+						<%}else{ %>
+						여성 (<%= percentF%>%)
+						<%} %>
+						이 주요고객</span>
 					</h3>
 					<span>
-						분석지역 내 매출특성은 수요일(16.6%), 18~21시(26.9%) 사이의 매출이 높은 것으로 나타났고 , 
-						40~44세 남성 (10.5%)이 주요고객인 것으로 분석 되었습니다 .	
+						분석지역 내 매출특성은
+						<%=stringDay%>요일
+						(<%=percentD %>%),
+						<%=stringDay%>
+						(<%=percentT %>%) 사이의 매출이 높은 것으로 나타났고 , *40~44세*
+						<%if(percentM > percentF){ %>
+						남성 (<%= percentM%>%)
+						<%}else{ %>
+						여성 (<%= percentF%>%)
+						<%} %>
+						 이 주요고객인 것으로 분석 되었습니다 .	
 					</span>
 					<div style="border:1px solid black;" class="col-sm-12">
 					
@@ -74,6 +128,16 @@ int percentF = CmmUtil.nvl(request.getAttribute("percentF"));
 	
 	<!-- 요일별 차트 -->
 	<script>
+	var arrayDay = [];
+	
+	<%for(int i = 0; i < arrayDay2.length; i++) {%>
+		arrayDay.push(<%=arrayDay2[i]%>);
+	<%}%>
+	
+	for(var j=0; j<arrayDay.length; j++){
+		console.log("arrayDay " + j+ ":" +arrayDay[j]);
+		
+	}
 		var ctx = document.getElementById("myChart").getContext('2d');
 		var myChart = new Chart(ctx, {
 		    type: 'line',
@@ -81,14 +145,9 @@ int percentF = CmmUtil.nvl(request.getAttribute("percentF"));
 		        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
 		        datasets: [{
 		            label: '# day',
-		            data: [5, 10, 3, 7, 18, 15, 4],
+		            data: arrayDay,
 		            backgroundColor: [
-		                'rgba(255, 99, 132, 0.2)',
-		                'rgba(54, 162, 235, 0.2)',
-		                'rgba(255, 206, 86, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)'
+		            	 'rgba(0,0,0,0)'
 		            ],
 		            borderColor: [
 		                'rgba(255,99,132,1)',
@@ -101,15 +160,15 @@ int percentF = CmmUtil.nvl(request.getAttribute("percentF"));
 		            borderWidth: 1
 		        }]
 		    },
-		    options: {
-		        scales: {
-		            yAxes: [{
-		                ticks: {
-		                    beginAtZero:true
-		                }
-		            }]
+		    
+		    
+		     options: {
+		       elements: {
+		            line: {
+		                tension: 0, // disables bezier curves
+		            }
 		        }
-		    }
+		    } 
 		});
 		</script>
 		<!-- 성별 차트 -->
@@ -121,7 +180,7 @@ int percentF = CmmUtil.nvl(request.getAttribute("percentF"));
 		        labels: ["여성", "남성"],
 		        datasets: [{
 		            label: '# of Votes',
-		            data: [60, 40],
+		            data: [<%=percentF %>, <%=percentM %>],
 		            backgroundColor: [
 		                'rgba(255, 99, 132, 0.2)',
 		                'rgba(54, 162, 235, 0.2)'

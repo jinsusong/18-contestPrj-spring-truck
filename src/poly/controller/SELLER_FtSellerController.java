@@ -390,6 +390,7 @@ public class SELLER_FtSellerController {
 		model.addAttribute("percentT",percentT);
 		model.addAttribute("percentM",percentM);
 		model.addAttribute("percentF",percentF);
+		model.addAttribute("arrayDay",arrayDay);
 		
 		 M = 0;//남성
 		 F = 0;//여성
