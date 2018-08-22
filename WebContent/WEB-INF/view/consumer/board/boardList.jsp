@@ -68,7 +68,6 @@ $(document).ready( function () {	//진수형이 알려주신 게시판
 			</form>
 		</div>
 	</div>
-	<%@include file="/WEB-INF/view/consumer/bottomtest.jsp" %>
 </body>
 </html>
 
