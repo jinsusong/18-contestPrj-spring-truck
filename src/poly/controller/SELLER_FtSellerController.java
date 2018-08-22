@@ -25,12 +25,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import poly.dto.seller.SELLER_FtDistrictDataDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
 import poly.dto.seller.SELLER_ImageDTO;
-import poly.dto.seller.SELLER_OrderInfoDTO;
 import poly.service.SELLER_IFtSellerService;
 import poly.service.SELLER_IImageService;
-import poly.service.SELLER_IOrderService;
 import poly.util.SELLER_UtilFile;
-import poly.util.UtilTime;
 import poly.util.CmmUtil;
 
 
@@ -49,8 +46,6 @@ public class SELLER_FtSellerController {
 	@Resource(name="SELLER_ImageService")
 	private SELLER_IImageService ImgService;
 	
-	@Resource(name="SELLER_OrderService")
-	private SELLER_IOrderService orderService;
 	
 	//트럭 정보 등록 페이지
 	@RequestMapping(value="/seller/ft/ftReg")
@@ -287,75 +282,6 @@ public class SELLER_FtSellerController {
 		return newFtDstctDataDTO;
 	}
 	
-	//매출관리 chart 띠우기
-	@RequestMapping(value="chart")
-	public String chartView(HttpServletRequest request, Model model) throws Exception{
-		log.info("chart Start");
-		String userSeq = request.getParameter("userSeq");
-		log.info("getUserSeq : " + userSeq);
-		String ftSeq = request.getParameter("ftSeq");
-		log.info("getFtSeq : " + ftSeq);
-		
-		String todayMD = UtilTime.getDateMD();
-		String todayYMDhms = UtilTime.getDateYMDhms();
-		String todayDD = UtilTime.getDateDD();
-		log.info("todayMD : " + todayMD);
-		log.info("todayYMDhms : " + todayYMDhms);
-		log.info("todayDD : " + todayDD);
-		model.addAttribute("todayMD", todayMD);
-		model.addAttribute("todayYMDhms", todayYMDhms);
-		model.addAttribute("todayDD", todayDD);
-		/*OrderInfoDTO oDTO = new OrderInfoDTO();
-		oDTO.setUserSeq(userSeq);*/
-		
-		
-		List<SELLER_OrderInfoDTO> oList = orderService.getOrderList(userSeq);
-		
-		log.info("============ 주문내역 시작  ============");
-		for(int i=0; i<oList.size(); i++) {
-			log.info("---------------------------");
-			log.info(oList.get(i).getOrd_seq());
-			log.info(oList.get(i).getUser_seq());
-			log.info(oList.get(i).getOrd_status());
-			log.info(oList.get(i).getOrd_date());
-			log.info(oList.get(i).getOrd_way());
-			log.info(oList.get(i).getBuy_way());
-			log.info(oList.get(i).getOrd_sumprice());
-			log.info("---------------------------");
-		}
-		log.info("============ 주문내역 끝  ============");
-
-		model.addAttribute("oList", oList);
-		
-		log.info("chart End");
-		return "/chart";
-		/*if (!"".equals(userSeq)) { // 로그인 했을때
-
-			
-			
-
-			if (!"".equals(ftSeq)) { // 회원이 판매자일때
-				log.info("chart End 1");
-				return "/chart";
-
-			} else {
-
-				
-				model.addAttribute("msg", "회원께서는 매출관리를 사용하실 수 없습니다.");
-				model.addAttribute("url", "/maintest.do?userSeq" + userSeq);
-				log.info("chart End 2");
-				return "/alert";
-			}
-			
-		} else {
-
-			model.addAttribute("msg", "로그인 후 이용하시기 바랍니다.");
-			model.addAttribute("url", "/user/userLogin.do");
-			log.info("chart End 3");
-			return "/alert";
-		}*/
-		
-	}
 	
 	
 }

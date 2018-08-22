@@ -57,7 +57,7 @@
 		</style>
 	<script>
 	function pageSizeEdit(pageSize){
-		location.href="<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=category_list&ft_seq=<%=ftDTO2.getFt_seq()%>&pageSize="+pageSize+"&pageNum=<%=pageNum%>";
+		location.href="<%=request.getContextPath()%>/seller/ft/ft_info.do?cmd=category_list&ft_seq=<%=ftDTO2.getFt_seq()%>&pageSize="+pageSize+"&pageNum=<%=pageNum%>";
 	}
 
 	function allCheck(){
@@ -83,11 +83,11 @@
 			}
 		}
 		if(mode==1 && check_Cnt != 0){
-			location.href="<%=request.getContextPath()%>/admin/ft/ft_cate_delete.do?cmd=category_list&ft_seq=<%=ftDTO2.getFt_seq()%>&ArrCate_Seq="+check_Arr;
+			location.href="<%=request.getContextPath()%>/seller/ft/ft_cate_delete.do?cmd=category_list&ft_seq=<%=ftDTO2.getFt_seq()%>&ArrCate_Seq="+check_Arr;
 		}else if(mode==2 && check_Cnt == 1){
-			location.href="<%=request.getContextPath()%>/admin/ft/ft_cate_up.do?cmd=category_list&ft_seq=<%=ftDTO2.getFt_seq()%>&ArrCate_Seq="+check_Arr;
+			location.href="<%=request.getContextPath()%>/seller/ft/ft_cate_up.do?cmd=category_list&ft_seq=<%=ftDTO2.getFt_seq()%>&ArrCate_Seq="+check_Arr;
 		}else if(mode==3 && check_Cnt == 1){
-			location.href="<%=request.getContextPath()%>/admin/ft/ft_cate_down.do?cmd=category_list&ft_seq=<%=ftDTO2.getFt_seq()%>&ArrCate_Seq="+check_Arr;
+			location.href="<%=request.getContextPath()%>/seller/ft/ft_cate_down.do?cmd=category_list&ft_seq=<%=ftDTO2.getFt_seq()%>&ArrCate_Seq="+check_Arr;
 		}
 	}
 	</script>
@@ -99,7 +99,7 @@
 				<h3>메뉴 카테고리 관리</h3>
 			</div>
 			<div style="float:right; width:30%; height:42px; text-align:right; padding-top:15px;">
-				<input type="button" class="btn btn-default" value="뒤로가기" onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?ft_seq=<%=ftDTO2.getFt_seq()%>'">
+				<input type="button" class="btn btn-default" value="뒤로가기" onclick="location.href='<%=request.getContextPath()%>/seller/ft/ft_info.do?ft_seq=<%=ftDTO2.getFt_seq()%>'">
 			</div>
 			<div style="clear:both;"></div>
 			<hr>
@@ -204,7 +204,7 @@
 		        <h3 class="modal-title" id="myModalLabel">&nbsp;카테고리 만들기</h3>
 		      </div>
 		      <div class="modal-body">
-		      		<form action="<%=request.getContextPath()%>/admin/ft/ft_cate_create.do" method="post"  name="cate_create">
+		      		<form action="<%=request.getContextPath()%>/seller/ft/ft_cate_create.do" method="post"  name="cate_create">
 		      			<input type="hidden" name="cmd" value="category_list">
 		      			<input type="hidden" name="ft_seq" value="<%=ftDTO2.getFt_seq()%>">
 						<table width="100%">

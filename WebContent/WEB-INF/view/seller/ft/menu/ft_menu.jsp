@@ -88,7 +88,7 @@
 				  			<div style="border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer; text-align:center;"
 				  					onmouseover="this.style='border:1px solid #D9534F; width:150px; height:200px; margin:3px; float:left; cursor:pointer; background-color:#f2f2f2;'"
 				  					onmouseout="this.style='border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer; background-color:#f2f2f2;'"
-				  					onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_create&ft_seq=<%=ftDTO2.getFt_seq()%>&cate_sort_no=<%=cateDTO.getCate_sort_no()%>'">
+				  					onclick="location.href='<%=request.getContextPath()%>/seller/ft/ft_info.do?cmd=menu_create&ft_seq=<%=ftDTO2.getFt_seq()%>&cate_sort_no=<%=cateDTO.getCate_sort_no()%>'">
 					    			<img src="<%=request.getContextPath()%>/resources/img/admin/menu_create_icon.png">
 					    	</div>
 			  			</div>
