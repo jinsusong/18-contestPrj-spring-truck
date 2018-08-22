@@ -21,6 +21,33 @@
 <body>
 	<%@ include file="/WEB-INF/view/consumer/topBody.jsp" %>
 	<br/>
+	<!-- 날씨 예보 -->
+	<div class="container-fluid">
+		<div class="panel panel-default">
+			<div class="panel panel-body" style="margin:0;">
+	  			<div class="row">
+					<div class="col-xs-2" style="height:48px;"></div>
+					<div class="col-xs-6" style="height:48px;"><h3 style="margin:10px 0;"><%=myAddress %></h3></div>
+					<%if(!"".equals(t3hCode)) {%>
+						<div class="col-xs-1" style="height:48px;">
+							<%if (ptyCode.equals("0")) {%>
+								<div style="display:inline-block;"><img src="/resources/img/consumer/skyCode<%=skyCode%>.png" /></div>
+							<%} else if(!(ptyCode.isEmpty())) { %>
+								<div style="display:inline-block;"><img src="/resources/img/consumer/ptyCode<%=ptyCode%>.png" /></div>
+							<%}%>
+						</div>
+						<div class="col-xs-2" style="height:48px;">
+							<!-- 날씨정보 / 값 받아 온 경우 -->
+							<div style="display:inline-block; padding-top:5px 0;"> <h2 style="display:inline-block; margin:0;"><%=t3hCode %>℃</h2></div>
+						</div>									
+					<%} %>
+					<div class="col-xs-1" style="height:48px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" style="height:15px;"></div>
+	<!-- 식중독 예방 정보 -->
 	<div class="container-fluid">
 		<div class="panel panel-default">
 		    <div class="panel-heading">

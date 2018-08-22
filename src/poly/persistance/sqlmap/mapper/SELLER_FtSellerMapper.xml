@@ -25,7 +25,7 @@
 	VALUES
 	(
 		FT_SEQ.NEXTVAL,
-		FILE_SEQ.NEXTVAL,
+		#{fileId},
 		#{selName},
 		#{selNo},
 		#{ftName},
@@ -73,7 +73,7 @@
 		WHERE	USER_SEQ = #{userSeq}
 	</select>
 	<!-- 트럭 이미지  -->
-	<select id="getTruckImage" parameterType="SELLER_ImageDTO" resultType="SELLER_ImageDTO">
+	<!-- <select id="getTruckImage" parameterType="SELLER_ImageDTO" resultType="SELLER_ImageDTO">
 		SELECT 
 				FILE_ID as fileId,
 				USER_SEQ as userSeq,
@@ -82,9 +82,9 @@
 				FILE_PATH as filePath
 		FROM	IMAGE
 		WHERE	USER_SEQ = #{userSeq}
-	</select>
+	</select> -->
 	<!-- 트럭 이미지 업데이트  -->
-	<update id="updateTruckImage" parameterType="SELLER_ImageDTO">
+	<!-- <update id="updateTruckImage" parameterType="SELLER_ImageDTO">
 		UPDATE IMAGE
 		SET 
 			FILE_ORGNAME = #{fileOrgname},
@@ -92,7 +92,7 @@
 			FILE_PATH = #{filePath}
 		WHERE
 			FILE_ID = #{fileId}
-	</update>
+	</update> -->
 	
 	<!-- 푸트드럭 상권 분석 -->
 	<select id="getFtDstctData" parameterType="string" resultType="SELLER_FtDistrictDataDTO">
@@ -109,6 +109,19 @@
 		<!-- WHERE 	SITE_WHL_ADDR like '%' || #{keyWord} || '%' or SITE_WHL_ADDR is null -->
 		<!-- <![CDATA[ ROWNUM <= 50 ]]> -->
 	</select>
+	<!-- 매출분석 -->
+	<select id="getSalesList" parameterType="SELLER_FtSellerDTO" resultType="SELLER_FtSellerDTO">
+		 SELECT
+		    W.ORD_DATE as ordDate,
+		    U.USER_GENDER as userGender
+		  FROM ORDER_WAIT W
+		      INNER JOIN ORDER_INFO O
+		        ON  W.ORD_SEQ = O.ORD_SEQ
+		      INNER JOIN USER_INFO U
+		        ON  O.USER_SEQ = U.USER_SEQ
+		  WHERE W.FT_SEQ = #{ftSeq}
+		  ORDER BY W.ORD_DATE ASC 
 	
+	</select>
 
 </mapper>

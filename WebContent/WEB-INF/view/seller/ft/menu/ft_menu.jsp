@@ -66,7 +66,7 @@
 			  					<div style="border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer;"
 			  					onmouseover="this.style='border:1px solid #D9534F; width:150px; height:200px; margin:3px; float:left; cursor:pointer;'"
 			  					onmouseout="this.style='border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer;'"
-			  					onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'">
+			  					onclick="location.href='<%=request.getContextPath()%>/seller/ft/ft_info.do?cmd=menu_info&ft_seq=<%=ftDTO2.getFt_seq()%>&menu_seq=<%=menuDTO.getMenu_seq()%>'">
 						    		<div style="width:100%; height:165px; padding:3px; ">
 						    		<%if(!menuDTO.getFile_id().equals("-1")){%>
 						    			<%for(ADMIN_ImageDTO imgDTO : imgDTOarr){ %>
@@ -88,7 +88,7 @@
 				  			<div style="border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer; text-align:center;"
 				  					onmouseover="this.style='border:1px solid #D9534F; width:150px; height:200px; margin:3px; float:left; cursor:pointer; background-color:#f2f2f2;'"
 				  					onmouseout="this.style='border:1px solid #cccccc; width:150px; height:200px; margin:3px; float:left; cursor:pointer; background-color:#f2f2f2;'"
-				  					onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=menu_create&ft_seq=<%=ftDTO2.getFt_seq()%>&cate_sort_no=<%=cateDTO.getCate_sort_no()%>'">
+				  					onclick="location.href='<%=request.getContextPath()%>/seller/ft/ft_info.do?cmd=menu_create&ft_seq=<%=ftDTO2.getFt_seq()%>&cate_sort_no=<%=cateDTO.getCate_sort_no()%>'">
 					    			<img src="<%=request.getContextPath()%>/resources/img/admin/menu_create_icon.png">
 					    	</div>
 			  			</div>

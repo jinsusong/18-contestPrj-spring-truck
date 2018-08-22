@@ -649,7 +649,7 @@ public class SELLER_FtController {
 		}
 		
 		//메뉴수정
-		@RequestMapping(value="seller/ft/ft_menu_edit", method=RequestMethod.POST)
+		@RequestMapping(value="/seller/ft/ft_menu_edit", method=RequestMethod.POST)
 		public String ft_Menu_Edit(@RequestParam("uploadFile") MultipartFile uploadFile, MultipartHttpServletRequest request, Model model) throws Exception{
 			ADMIN_Menu_InfoDTO menuDTO = new ADMIN_Menu_InfoDTO();
 			ADMIN_ImageDTO imgDTO = new ADMIN_ImageDTO();

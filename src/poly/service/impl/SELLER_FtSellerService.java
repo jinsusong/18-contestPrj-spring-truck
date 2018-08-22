@@ -49,7 +49,7 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 		SELLER_FtSellerDTO ftsDTO =(SELLER_FtSellerDTO)hMap.get("ftSDTO");
 		System.out.println("ftsDTO service : " + ftsDTO.getFtName());
 		SELLER_ImageDTO imgDTO = (SELLER_ImageDTO)hMap.get("imgDTO");
-		System.out.println("imgDTO . fileId : " + imgDTO.getFileId());
+		//System.out.println("imgDTO . fileId : " + imgDTO.getFileId());
 		
 		
 		
@@ -60,15 +60,15 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 		//select key 에서 받아온 값을 String FileId 저장 ?? 
 		String FileId =(String)ftsDTO.getFileId();
 		System.out.println("fileId : " + FileId);
-		imgDTO.setFileId(FileId);
+	//	imgDTO.setFileId(FileId);
 		
 		
-		int resultImgReg = sELLER_FtSellerMapper.insertftsImg(imgDTO);
-		System.out.println("imgDTO . result fileId : " + imgDTO.getFileId());
-		System.out.println("resultImgReg : " + resultImgReg);
+	//	int resultImgReg = sELLER_FtSellerMapper.insertftsImg(imgDTO);
+	//	System.out.println("imgDTO . result fileId : " + imgDTO.getFileId());
+	//	System.out.println("resultImgReg : " + resultImgReg);
 		
 		hMap.put("resultFtReg", resultFtReg);
-		hMap.put("resultImgReg",resultImgReg );
+	//	hMap.put("resultImgReg",resultImgReg );
 		
 		
 		
@@ -84,7 +84,7 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 		
 		return sELLER_FtSellerMapper.getTruckConfig(ftsDTO);
 	}
-
+	/*
 	@Override
 	public SELLER_ImageDTO getTruckImage(SELLER_ImageDTO imgDTO) throws Exception {
 		System.out.println("truckImage service :" + imgDTO.getUserSeq());
@@ -103,11 +103,21 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 		
 		
 		return sELLER_FtSellerMapper.updateTruckImage(imgDTO);
-	}
+	}*/
 
 	@Override
 	public List<SELLER_FtDistrictDataDTO> getFtDstctData(String keyWord) throws Exception {
 		return sELLER_FtSellerMapper.getFtDstctData(keyWord);
 	}
+
+	@Override
+	public List<SELLER_FtSellerDTO> getSalesList(SELLER_FtSellerDTO ftsDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sELLER_FtSellerMapper.getSalesList(ftsDTO);
+	}
+
+
+
+
 	
 }
