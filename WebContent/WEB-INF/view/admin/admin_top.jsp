@@ -57,7 +57,7 @@
 						<li class="divider"></li>
 						<li><a href="<%=request.getContextPath()%>/admin/coupon/coupon_main.do?cmd=coupon_issue_list">쿠폰발급/조회</a></li>
 					</ul></li>
-				<li><a href="#">결제관리</a></li>
+				<li><a href="<%=request.getContextPath()%>/admin/order/order_main.do?cmd=order_list">결제관리</a></li>
 				<li><a href="#">배너/팝업관리</a></li>
 			</ul>
 		</div>
