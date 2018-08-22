@@ -48,7 +48,7 @@
 <h3>푸드트럭 정보수정</h3>
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
 	<div style="margin-top:15px; margin-bottom:25px;">
-		<form action="<%=request.getContextPath()%>/admin/ft/ft_info_edit.do" method="post"  name="ft_info_edit" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath()%>/seller/ft/ft_info_edit.do" method="post"  name="ft_info_edit" enctype="multipart/form-data">
 			<input type="hidden" name="ft_seq" value="<%=ftDTO2.getFt_seq()%>">
 			<input type="hidden" name="org_file_id" id="org_file_id" value="<%=ftDTO2.getFile_id() %>">
 			<table width="100%">
@@ -78,12 +78,14 @@
 					<td class="table_Hline">사업자 이름</td>
 					<td class="table_line">
 						<%=ftDTO2.getSel_name()%>
+						<input type="hidden" value="<%=ftDTO2.getSel_name()%>" name="sel_name" />
 					</td>
 				</tr>
 				<tr style="border-bottom:1px solid #DDDDDD;">
 					<td class="table_Hline">사업자 번호</td>
 					<td class="table_line">
 						<%=ftDTO2.getSel_no()%>
+						<input type="hidden" value="<%=ftDTO2.getSel_no()%>" name="sel_no" />
 					</td>
 				</tr>
 				<tr style="border-bottom:1px solid #DDDDDD;">
