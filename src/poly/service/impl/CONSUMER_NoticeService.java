@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import poly.dto.consumer.CONSUMER_NoticeDTO;
