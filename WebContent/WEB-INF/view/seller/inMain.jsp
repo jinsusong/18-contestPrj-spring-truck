@@ -17,42 +17,35 @@
 
 </head>
 <body>
-	<table style="height: 100%; width: 100%">
-		<tr height="7%" bgcolor="#333333">
-			<td>
-				<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
-				<!-- 트럭관리  -->
-				<script>
-					function truckConfig(){
-						console.log(<%=userSeq%>);
-						var userSeq = <%=userSeq%>;
-						if(userSeq != ""){
-							location.href="/seller/ft/truckConfig.do?userSeq="+userSeq;
-						}
-					}
-				</script>
-			</td>
-			<!--github  test-->
-		</tr>
-		<tr bgcolor="">
-			<td>
-			<div class="container">
-			
-			<%@ include file="/WEB-INF/view/seller/inMainBody.jsp" %>
-			
-			
-			</div>
-
-			</td>
-		</tr>
-		<tr height="7%" bgcolor="#333333">
-			<td>
-				<%@ include file="/WEB-INF/view/seller/bottom.jsp" %>
-			
-			</td>
-		</tr>
-	</table>
+	<div>
+		<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
+	</div>		
 	
+	<!-- 트럭관리  -->
+	
+<script>
+	function truckConfig(){
+		console.log(<%=userSeq%>);
+		var userSeq = <%=userSeq%>;
+		if(userSeq != ""){
+			location.href="/seller/ft/truckConfig.do?userSeq="+userSeq;
+		}
+	}
+</script>
+
+	<div class="container" style="margin-bottom:20px">
+
+		<!--github  test-->
+		<div>
+			<%@ include file="/WEB-INF/view/seller/inMainBody.jsp" %>
+		</div>
+	
+	
+	</div>
+	
+	<div>
+		<%@ include file="/WEB-INF/view/seller/bottom.jsp" %>
+	</div>
 
 </body>
 </html>

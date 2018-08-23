@@ -26,7 +26,6 @@
 	<%@ include file="/WEB-INF/view/seller/topCssScript.jsp" %>
 	
 	<!-- 테이블 페이징  -->
-	<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 	<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	
 

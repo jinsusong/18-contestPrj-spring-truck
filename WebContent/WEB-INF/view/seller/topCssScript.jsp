@@ -4,6 +4,7 @@
     <!-- 창원이형꺼 top -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/admin/bootstrap.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
@@ -140,7 +141,11 @@
     	height:100%;
     	width:100%;
     }
-
+    
+	.topSecondContainer {
+ 		height:200px; 
+ 		background: #333333;
+ 	}
 	/*스마트폰*/
 	@media screen and (min-width: 426px) and (max-width: 767px) {
 		body {

@@ -57,6 +57,7 @@
 		<typeAlias type="poly.dto.seller.SELLER_ReviewDTO" alias="SELLER_ReviewDTO"/>
 		<typeAlias type="poly.dto.seller.SELLER_WaitDTO" alias="SELLER_WaitDTO"/>
 		<typeAlias type="poly.dto.seller.SELLER_FtDistrictDataDTO" alias="SELLER_FtDistrictDataDTO"/>
+		<typeAlias type="poly.dto.seller.SELLER_OrderInfoDTO" alias="SELLER_OrderInfoDTO"/>
 		<typeAlias type="poly.dto.seller.SELLER_ImageDTO" alias="SELLER_ImageDTO"/>
 		<typeAlias type="poly.dto.seller.SELLER_TmpDTO" alias="SELLER_TmpDTO"/>
 		

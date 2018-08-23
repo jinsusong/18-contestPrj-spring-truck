@@ -415,6 +415,6 @@ public class SELLER_FtSellerController {
 		return "/seller/sales/sales";
 	}
 	
-	//test git
+	
 	
 }

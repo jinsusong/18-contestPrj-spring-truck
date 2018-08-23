@@ -1,10 +1,13 @@
 package poly.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import poly.dto.cmmn.CMMN_UserDTO;
+import poly.dto.seller.SELLER_OrderInfoDTO;
 import poly.persistance.mapper.SELLER_OrderMapper;
 import poly.service.SELLER_IOrderService;
 
@@ -18,6 +21,12 @@ public class SELLER_OrderService implements SELLER_IOrderService {
 	public CMMN_UserDTO getOrderUserDTO(CMMN_UserDTO uDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return orderMapper.getOrderUserDTO(uDTO);
+	}
+
+	@Override
+	public List<SELLER_OrderInfoDTO> getOrderList(String userSeq) throws Exception {
+		// TODO Auto-generated method stub
+		return orderMapper.getOrderList(userSeq);
 	}
 	
 	

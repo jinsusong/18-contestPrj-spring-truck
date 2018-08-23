@@ -1,5 +1,7 @@
 package poly.util;
 
+import java.text.DecimalFormat;
+
 public class CmmUtil {
 	public static String nvl(String str, String chg_str) {
 		String res;
@@ -50,6 +52,17 @@ public class CmmUtil {
 	        value = value.replaceAll("\"\"","[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']");
 	        value = value.replaceAll("","script");
 	        return value;
+	}
+	public static String addComma(int value){
+		DecimalFormat df = new DecimalFormat("#,##0");
+		return df.format(value);
+	}
+	
+	public static String addComma(String value){
+		if("".equals(CmmUtil.nvl(value))){
+			return addComma(0);
+		}
+		return addComma(Integer.parseInt(value));
 	}
 	
 }
