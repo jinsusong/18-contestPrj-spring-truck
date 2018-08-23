@@ -43,8 +43,6 @@ public class CMMN_MainController {
 		
 		return "/cmmn/main";
 	}
-	
-	
 }
 	
 	
