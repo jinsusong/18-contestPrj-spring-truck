@@ -13,6 +13,26 @@ public class ADMIN_Order_InfoDTO {
 	private String rcv_time;
 	private String tid;
 	
+	//------------------------------------------------
+	
+	private String option;
+	private String value;
+	
+	public String getOption() {
+		return option;
+	}
+	public void setOption(String option) {
+		this.option = option;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	//------------------------------------------------
+	
 	public int getOrd_seq() {
 		return ord_seq;
 	}
