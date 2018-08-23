@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Spliterator;
 
 import javax.annotation.Resource;
 import javax.mail.Multipart;
@@ -281,7 +282,139 @@ public class SELLER_FtSellerController {
 		log.info(this.getClass() + " ftDistrictDataProc end !!!");
 		return newFtDstctDataDTO;
 	}
+	@RequestMapping(value="/seller/sales/sales")
+	public String sales(HttpServletRequest request, Model model)throws Exception{
+		log.info(this.getClass() + " sales start!!!!!!!!!!!!!!!!!!!!!!");
+		//select to_char(sysdate, 'yy/mm/dd/dy/hh24/mi/ss') from dual;
+		//ORDER_WAIT ORD_DATE 값 INSERT
+		String userSeq = CmmUtil.nvl(request.getParameter("userSeq"));
+		log.info("userSeq : " + userSeq);
+		
+		SELLER_FtSellerDTO ftsDTO = new SELLER_FtSellerDTO();
+		ftsDTO.setUserSeq(userSeq);
+		
+		ftsDTO = FtSellerService.getTruckConfig(ftsDTO);
+		log.info("ftsDTO : " + ftsDTO.getFtSeq());
+		
+		List<SELLER_FtSellerDTO> sList = FtSellerService.getSalesList(ftsDTO);
+		
+		int M = 0;//남성
+		int F = 0;//여성
+		double percentM= 0;
+		double percentF= 0;
+		int[] arrayDay = new int[7];//요일 배열
+		int max= 0; //가장 많은 요일값
+		int dayI = 0; //가장 많은 요일 index
+		int daySum =0; // 요일 총합
+		double percentD =0; //요일 %
+		int time =0; // 시간 추출
+		int[] arrayTime = new int[8];//시간 배열
+		int maxTime=0; //가장 많은 시간대
+		int timeI = 0;//시간대 인덱스
+		double percentT =0;//시간대 퍼센트
+		int timeSum =0;//시간대 총합
+		for(int i=0; i< sList.size(); i++) {
+			if(sList.get(i).getUserGender().equals("M")) {
+				M++;
+				F = sList.size()-M;
+			}
+			log.info("sList : " + sList.get(i).getOrdDate());
+			log.info("==============================");
+			switch(sList.get(i).getOrdDate().split("/")[3]) {
+			case "월" : arrayDay[0]++; break;
+			case "화" : arrayDay[1]++; break;
+			case "수" : arrayDay[2]++; break;
+			case "목" : arrayDay[3]++; break;
+			case "금" : arrayDay[4]++; break;
+			case "토" : arrayDay[5]++; break;
+			case "일" : arrayDay[6]++; break;
+			}
+			time =  Integer.parseInt(sList.get(i).getOrdDate().split("/")[4]);
+			if(0 <= time && time < 3 ) {
+				arrayTime[0]++;
+			}else if(3 <= time && time <6) {
+				arrayTime[1]++;
+			}else if(6 <= time && time <9) {
+				arrayTime[2]++;
+			}else if(9 <= time && time <12) {
+				arrayTime[3]++;
+			}else if(12 <= time && time <15) {
+				arrayTime[4]++;
+			}else if(15 <= time && time <18) {
+				arrayTime[5]++;
+			}else if(18 <= time && time <21) {
+				arrayTime[6]++;
+			}else if(21 <= time && time <24) {
+				arrayTime[7]++;
+			}
+			
+		}
+		for(int i=0; i < arrayTime.length; i++) {
+			if(maxTime < arrayTime[i]) {
+				maxTime = arrayTime[i];
+				timeI = i;
+			}
+			timeSum += arrayTime[i];
+		}
+		log.info("time index *3 ~+3까지: " + timeI);
+		percentT =( (double)maxTime / (double)timeSum*100.0);
+		percentT =(Math.round(percentT*100))/100.0;
+		log.info("psercent T : " + percentT);
+		percentM =( (double)M / (double)(M+F)*100.0);
+		percentM = (Math.round(percentM*100))/100.0 ;
+		log.info("percent M  : " + percentM);
+		percentF =( (double)F / (double)(M+F)*100.0);
+		percentF = (Math.round(percentF*100))/100.0 ;
+		log.info("percent F  : " + percentF);
+		
+		/*for(int i=0; i<arrayDay.length; i++) {
+			log.info("arrayDay "+i +":" + arrayDay[i]);
+		}*/
+		for(int i=0; i<arrayDay.length; i++) {
+			if(max < arrayDay[i]) {
+				max = arrayDay[i];
+				dayI = i;
+			}
+			daySum += arrayDay[i];
+		}
+		log.info("dayI 요일index입니다 0->월 : " + dayI);
+		log.info("daysum : " + daySum);
+		
+		percentD =( (double)max /(double)daySum*100.0);
+		percentD =(Math.round(percentD*100))/100.0;
+		log.info("요일 % : " + percentD);
+		
+		model.addAttribute("dayIndex",dayI);
+		model.addAttribute("percentD",percentD);
+		model.addAttribute("timeIndex",timeI);
+		model.addAttribute("percentT",percentT);
+		model.addAttribute("percentM",percentM);
+		model.addAttribute("percentF",percentF);
+		model.addAttribute("arrayDay",arrayDay);
+		
+		 M = 0;//남성
+		 F = 0;//여성
+		 percentM= 0;
+		 percentF= 0;
+		 arrayDay = null;//요일 배열
+		 max= 0; //가장 많은 요일값
+		 dayI = 0; //가장 많은 요일 index
+		 daySum =0; // 요일 총합
+		 percentD =0; //요일 %
+		 time =0; // 시간 추출
+		 arrayTime = null;//시간 배열
+		 maxTime=0; //가장 많은 시간대
+		 timeI = 0;//시간대 인덱스
+		 percentT =0;//시간대 퍼센트
+		 timeSum =0;//시간대 총합
+		
+		
+		
+		
+		log.info(this.getClass() + " sales end !!!!!!!!!!!!!!!!!!!!!!!");
+		return "/seller/sales/sales";
+	}
 	
-	//test git
+	
 	
 }
