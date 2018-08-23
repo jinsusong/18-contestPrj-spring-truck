@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
 <%
 	String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
+	String userAuth = CmmUtil.nvl((String)session.getAttribute("userAuth"));
+			
 %>
 
 <html>
@@ -150,7 +152,7 @@
 				
 				            </div>
 				        </a>
-				        <a href="/seller/out/out_info.do?userSeq=<%=userSeq%>">
+				        <a href="/seller/out/out_info.do?userSeq=<%=userSeq%>&userAuth=<%=userAuth%>">
 				            <div id="truck_out"  onmouseover="changeBg('out')" onmouseout="changeBg_out('out')">
 				                <h1>OUT</h1>
 				                <hr width="80%"/>
