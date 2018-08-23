@@ -51,13 +51,28 @@ public class SELLER_OutController {
 		log.info(this.getClass() + " out start !!~");
 		String userSeq = CmmUtil.nvl(request.getParameter("userSeq"));
 		log.info("userSeq : " + userSeq);
+		String userAuth = CmmUtil.nvl(request.getParameter("userAuth"));
+		log.info("userAuth : " + userAuth);
+		//소비자가 주문하기 클릭할경루 소비자가 보고 있던 푸드트럭의 번호를 받는다.
+		String ftSeq =CmmUtil.nvl(request.getParameter("ftSeq"));
+		log.info("ftSeq : " + ftSeq);
+		
 		
 		SELLER_FtSellerDTO ftsDTO = new SELLER_FtSellerDTO();
 		ftsDTO.setUserSeq(userSeq);
 		log.info("ftsDTO set : " + ftsDTO.getUserSeq());
+		if(userAuth.equals("2")) {
+			//판재자일 경우에는 판매자 id를 이용하여 ftSeq를 뽑아옵니다.
+			log.info("if userAuth = '2' 시작합니다.");
+			ftsDTO = OutService.getOutTruckInfo(ftsDTO);
+			log.info("ftsDTO .get : " +ftsDTO.getFtSeq());
+		}else {
+			log.info("if else 소비자 시작합니다.");
+			//소비자 화면에서 넘어올경루 소비자가  보고 있던 푸드트럭의 번호를 셋팅해줍니다.
+			ftsDTO.setFtSeq(ftSeq);
+			log.info("ftsDTO .get : " + ftsDTO.getFtSeq());
+		}
 		
-		ftsDTO = OutService.getOutTruckInfo(ftsDTO);
-		log.info("ftsDTO .get : " +ftsDTO.getFtSeq());
 		
 		ADMIN_Ft_InfoDTO fDTO = new ADMIN_Ft_InfoDTO();
 		fDTO = ftService.getFT_Info(Integer.parseInt(ftsDTO.getFtSeq()));
