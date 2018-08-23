@@ -1,3 +1,4 @@
+<%@page import="poly.util.CmmUtil"%>
 <%@page import="poly.dto.seller.SELLER_OrderInfoDTO"%>
 <%@page import="java.util.List"%>
 <%@ page import="java.util.Calendar"%>
@@ -26,32 +27,47 @@
 	
 	<!-- 일간 매출액 시작 -->
 	<%
-		int sumpriceD = 0;
+		int sumpriceT = 0;	//오늘 총매출
+		int sumpriceW = 0;	//이번주 총매출
+		int sumpriceM = 0;	//이번달 총매출
+		int sumProfit[] = new int[7];
+		
 	   	for(int i=0; i<oList.size(); i++) {
-		   	
+				
 			   	String str = oList.get(i).getOrd_date();
 			   	int sumprice = oList.get(i).getOrd_sumprice();
 			   	int orderY = Integer.parseInt(str.substring(0, 4));
 			   	int orderM = Integer.parseInt(str.substring(5, 7));
 			   	int orderD = Integer.parseInt(str.substring(8, 10));
+				
+				if(todayY == orderY && todayM == orderM && ((todayD == orderD))) {
+					sumpriceT += sumprice;
+				}
+				
+			   	if(todayY == orderY && todayM == orderM && ((todayD - orderD)<=7)) {
+			   		sumpriceW += sumprice;
+			   	}
 			   	
-			   	if(todayY == orderY && todayM == orderM && (todayD - orderD)<=7) {
+			   	if(todayY == orderY && todayM == orderM && ((todayD - orderD)<=30)) {
 			   		System.out.println("------------------------");
-			   		System.out.println("substring 년도: " + orderY);
-				   	System.out.println("substring 월: " + orderM);
-				   	System.out.println("substring 일: " + orderD);
-			   		System.out.println("일 수 차이: " + (todayD - orderD));
+			   		System.out.println("substring 년도 : " + orderY);
+				   	System.out.println("substring 월 : " + orderM);
+				   	System.out.println("substring 일 : " + orderD);
+			   		System.out.println("일 수 차이 : " + (todayD - orderD));
 			   		System.out.println("------------------------");
-			   		sumpriceD += sumprice;
-			   		
+			   		sumpriceM += sumprice;
+					
 			   	}
 			
 		
 		}
-	%>
-	
-	<%
-		System.out.println("이번주 매출액: " + sumpriceD);
+	   	System.out.println("오늘 매출액: " + sumpriceT);
+		System.out.println("이번주 매출액: " + sumpriceW);
+		System.out.println("이번달 매출액: " + sumpriceM);
+		String sumpriceToday = CmmUtil.addComma(sumpriceT);
+		String sumpriceWeek = CmmUtil.addComma(sumpriceW);
+		String sumpriceMonth = CmmUtil.addComma(sumpriceM);
+		
 	%>
 	<!-- 일간 매출액 끝 -->
     
@@ -73,7 +89,7 @@
 	<div style="margin-bottom:20px">
 	
 		<div role="tabpanel" style="margin: 20px">
-
+		
 		 	 <!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#Week" aria-controls="profile" role="tab" data-toggle="tab">이번주 매출</a></li>
@@ -98,13 +114,13 @@
 			</div>
 			<div style="float:right; width:48%;">
 				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
-					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">오늘 총매출</span> <span style="float:right;">7,500,000원</span>
+					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">오늘 총매출</span> <span style="float:right;"><%=sumpriceToday %>원</span>
 				</div>
 				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
-					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">이번주 총매출</span> <span style="float:right;">28,500,000원</span>
+					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">이번주 총매출</span> <span style="float:right;"><%=sumpriceWeek %>원</span>
 				</div>
 				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
-					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">이번달 총매출</span> <span style="float:right;">120,000,000원</span>
+					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">이번달 총매출</span> <span style="float:right;"><%=sumpriceMonth %>원</span>
 				</div>
 			</div>
 			<div style="clear:both; border-bottom:1px solid #cccccc;"></div>
@@ -180,7 +196,7 @@ var myChartWeek = new Chart(ctx, {
     type: 'bar',
     data: {
     	
-	    labels: [<%-- "<%=todayM %>월 <%=todayD%>일", --%>"8월 첫째주",  "8월 둘째주", "8월 셋째주", "8월 넷째주", "8월 다섯째주", "9월 첫째주", "9월 둘째주"],		
+	    labels: ["8월 16일",  "8월 17일", "8월 18일", "8월 19일", "8월 20일", "8월 21일", "8월 22일"],		
 	    
 	    datasets: [{
 	            label: '최근 일주일간 매출',
@@ -209,14 +225,14 @@ var ctx = document.getElementById("myChartMonth").getContext('2d');
 var myChartMonth = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["4월", "5월", "6월", "7월", "8월", "9월", "10월"],		//월간
+        labels: ["7월 셋째주", "7월 넷째주", "8월 첫째주", "8월 둘째주"],		//월간
         datasets: [{
             label: '최근 한달간 매출',
-            data: [287000000, 266000000, 265400000, 301400000, 288900000, 245000000, 412000000],	//데이터 들어가는 곳
+            data: [287000000, 266000000, 265400000, 301400000],	//데이터 들어가는 곳
             backgroundColor: 
-                'rgba(255, 99, 132, 0.2)',
+                'rgba(102, 195, 214, 0.2)',
             borderColor: 
-                'rgba(255,99,132,1)',
+                'rgba(102, 195, 214, 1)',
             borderWidth: 1
         }]
     },
