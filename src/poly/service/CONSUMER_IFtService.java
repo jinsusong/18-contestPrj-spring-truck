@@ -8,7 +8,9 @@ import poly.dto.consumer.CONSUMER_Ft_ReviewDTO;
 import poly.dto.consumer.CONSUMER_GpsTableDTO;
 import poly.dto.consumer.CONSUMER_ImageDTO;
 import poly.dto.consumer.CONSUMER_Menu_InfoDTO;
+import poly.dto.admin.ADMIN_Ft_Menu_CateDTO;
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
+import poly.dto.consumer.CONSUMER_FtMenuCateDTO;
 import poly.dto.consumer.CONSUMER_Ft_InfoDTO;
 
 public interface CONSUMER_IFtService {
@@ -44,9 +46,11 @@ public interface CONSUMER_IFtService {
 	public List<CONSUMER_Ft_ReviewDTO> getReview_LevP_List(String search_level) throws Exception;
 	public int getReview_Reple_Cnt(String search_level) throws Exception;
 	public int ft_Review_Reple_Edit(CONSUMER_Ft_ReviewDTO revDTO) throws Exception;
+	
 	//특정 푸드트럭 상세 정보 리뷰 전용 -- 답글 제외
 	public List<CONSUMER_Ft_ReviewDTO> getFt_Review_List_ftDetail(int ft_seq) throws Exception;
-
-
+	
+	//푸드트럭 메뉴 카테고리 가져오기
+	public List<CONSUMER_FtMenuCateDTO> getFT_Cate_List(int ft_seq) throws Exception;
 	 
 }

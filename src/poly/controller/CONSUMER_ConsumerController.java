@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import poly.dto.admin.ADMIN_Ft_Menu_CateDTO;
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
+import poly.dto.consumer.CONSUMER_FtMenuCateDTO;
 import poly.dto.consumer.CONSUMER_Ft_InfoDTO;
 import poly.dto.consumer.CONSUMER_Ft_ReviewDTO;
 import poly.dto.consumer.CONSUMER_ImageDTO;
@@ -338,6 +340,10 @@ public class CONSUMER_ConsumerController {
 		//메뉴리스트 가져오기
 		List<CONSUMER_Menu_InfoDTO> menuDTOs = ftService.getFtMenuList(ft_seq);
 		model.addAttribute("menuDTOs", menuDTOs);
+		//메뉴 카테고리 가져오기
+		List<CONSUMER_FtMenuCateDTO> cateDTOs = ftService.getFT_Cate_List(Integer.parseInt(ft_seq));
+		model.addAttribute("cateDTOs", cateDTOs);
+		
 		
 		//////////////////메뉴 사진들 불러오기////////////////// 	
 		log.info("fMenuList is NULL?" + menuDTOs.isEmpty()); //리뷰 테이블에 정보가 있는지 확인하고 있으면 가져옴

@@ -64,7 +64,7 @@
 		SELECT
 			MENU_SEQ as menu_seq,
 			FT_SEQ as ft_seq,
-			CATE_SORT_NO as cate_sort,
+			CATE_SORT_NO as cate_sort_no,
 			FILE_ID as file_id,
 			MENU_SORT_NO as menu_sort_no,
 			MENU_NAME as menu_name,
