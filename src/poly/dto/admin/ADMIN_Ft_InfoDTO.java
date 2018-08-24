@@ -14,20 +14,12 @@ public class ADMIN_Ft_InfoDTO {
 	private String ft_chan;
 	private int ft_status;
 	
-	private String ft_loc;
-	private String ft_regcode;
 	private String sido; //18.08.24 PCW 시도구 정보 추가 
 	private String dong; //18.08.24 PCW 동면읍리 정보 추가
 	
 	private String option;
 	private String value;
 	
-	public String getFt_regcode() {
-		return ft_regcode;
-	}
-	public void setFt_regcode(String ft_regcode) {
-		this.ft_regcode = ft_regcode;
-	}
 	
 	public String getOption() {
 		return option;
@@ -82,12 +74,6 @@ public class ADMIN_Ft_InfoDTO {
 	}
 	public void setFt_intro(String ft_intro) {
 		this.ft_intro = ft_intro;
-	}
-	public String getFt_loc() {
-		return ft_loc;
-	}
-	public void setFt_loc(String ft_loc) {
-		this.ft_loc = ft_loc;
 	}
 	public String getFt_join() {
 		return ft_join;

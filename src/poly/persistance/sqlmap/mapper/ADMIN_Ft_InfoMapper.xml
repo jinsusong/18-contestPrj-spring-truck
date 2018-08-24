@@ -16,8 +16,7 @@
 			FT_OPTIME,
 			FT_FUNC,
 			FT_CHAN,
-			FT_STATUS,
-			FT_REGCODE
+			FT_STATUS
 		FROM FT_INFO
 	</select>
 	
@@ -35,8 +34,7 @@
 			FT_OPTIME,
 			FT_FUNC,
 			FT_CHAN,
-			FT_STATUS,
-			FT_REGCODE
+			FT_STATUS
 		FROM FT_INFO
 		WHERE ${option} LIKE '%'||#{value}||'%'
 	</select>
