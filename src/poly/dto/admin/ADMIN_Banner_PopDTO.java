@@ -5,6 +5,7 @@ public class ADMIN_Banner_PopDTO {
 	private String file_id;
 	private String banner_name;
 	private String banner_loc;
+	private String banner_regdate;
 	private int exp_yn;
 	
 	public int getBanner_seq() {
@@ -30,6 +31,12 @@ public class ADMIN_Banner_PopDTO {
 	}
 	public void setBanner_loc(String banner_loc) {
 		this.banner_loc = banner_loc;
+	}
+	public String getBanner_regdate() {
+		return banner_regdate;
+	}
+	public void setBanner_regdate(String banner_regdate) {
+		this.banner_regdate = banner_regdate;
 	}
 	public int getExp_yn() {
 		return exp_yn;

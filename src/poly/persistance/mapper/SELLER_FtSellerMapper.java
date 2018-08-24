@@ -7,6 +7,7 @@ import config.Mapper;
 import poly.dto.seller.SELLER_FtDistrictDataDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
 import poly.dto.seller.SELLER_ImageDTO;
+import poly.dto.seller.SELLER_OrderInfoDTO;
 
 @Mapper("SELLER_FtSellerMapper")
 public interface SELLER_FtSellerMapper {
@@ -24,6 +25,8 @@ public interface SELLER_FtSellerMapper {
 	public List<SELLER_FtDistrictDataDTO> getFtDstctData(String keyWord) throws Exception;
 	
 	public List<SELLER_FtSellerDTO> getSalesList(SELLER_FtSellerDTO ftsDTO)throws Exception;
+
+	public SELLER_OrderInfoDTO getChartWeek(String userSeq)throws Exception;
 	
 
 	

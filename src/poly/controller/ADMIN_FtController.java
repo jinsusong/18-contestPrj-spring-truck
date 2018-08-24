@@ -340,7 +340,7 @@ public class ADMIN_FtController {
 			String rev_text = request.getParameter("rev_text");
 			int rev_point = Integer.parseInt(request.getParameter("rev_point"));
 			int exp_yn;
-			if(request.getParameter("exp_yn").equals("on")){
+			if(request.getParameter("exp_yn")!=null && request.getParameter("exp_yn").equals("on")){
 				exp_yn = 1;
 			}else {
 				exp_yn = -1;

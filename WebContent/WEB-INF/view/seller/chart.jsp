@@ -10,10 +10,12 @@
     	String todayMD = (String)request.getAttribute("todayMD");
 		String todayYMDhms = (String)request.getAttribute("todayYMDhms");
 		String todayDD = (String)request.getAttribute("todayDD");
+		SELLER_OrderInfoDTO sumChartWeek = (SELLER_OrderInfoDTO)request.getAttribute("sumChartWeek");
 		List<SELLER_OrderInfoDTO> oList = (List<SELLER_OrderInfoDTO>)request.getAttribute("oList");
     	out.println(todayMD);
     	out.println(todayYMDhms);
     	out.println(todayDD);
+    	out.println(sumChartWeek.getOrd_sumprice());
     	//DateUtil.getDate();
     	//String todayDate = (String)DateUtil.getDate();
 	   	int todayY = Integer.parseInt(todayYMDhms.substring(0, 4));
@@ -23,6 +25,7 @@
 	   	int todayD = Integer.parseInt(todayYMDhms.substring(8, 10));
 	   	out.println(todayD);
     %>
+    
 
 	
 	<!-- 일간 매출액 시작 -->
