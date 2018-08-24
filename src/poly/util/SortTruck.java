@@ -78,11 +78,9 @@ public class SortTruck {
 		
 		List<CONSUMER_Ft_InfoDTO> FtListInOrder = new ArrayList<CONSUMER_Ft_InfoDTO>(); //리턴할 새로운 리스트
 		for(int i = 0; i < ftList.size(); i++) {
-			//각각의 푸드트럭 위 경도를 어레이 형태로 변환
-			String []truckPosition = ftList.get(i).getFt_loc().split(",");
 			//각각의 트럭들 또한 형 변환이 필요
-			double truckPositionLat = Double.parseDouble(truckPosition[0]);
-			double truckPositionLon = Double.parseDouble(truckPosition[1]);
+			double truckPositionLat = Double.parseDouble(ftList.get(i).getGps_x());
+			double truckPositionLon = Double.parseDouble(ftList.get(i).getGps_y());
 			
 			//킬로미터 단위로 거리 반환 후 변수에 따로 저장
 			double truckDistance = distance(currentLocLat,currentLocLon,truckPositionLat,truckPositionLon, "kilometer"); 

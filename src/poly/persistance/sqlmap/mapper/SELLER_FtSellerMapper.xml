@@ -104,8 +104,6 @@
 				TRIM(X) AS x,
 				TRIM(Y) AS y
 		FROM	FT_DISTRICT_DATA
-		 
-
 		<!-- WHERE 	SITE_WHL_ADDR like '%' || #{keyWord} || '%' or SITE_WHL_ADDR is null -->
 		<!-- <![CDATA[ ROWNUM <= 50 ]]> -->
 	</select>

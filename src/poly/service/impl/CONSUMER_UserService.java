@@ -9,17 +9,21 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
-import poly.dto.consumer.CONSUMER_GpsTableDTO;
+import poly.dto.consumer.CONSUMER_Gps_TableDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
+import poly.persistance.mapper.CONSUMER_Gps_TableMapper;
 import poly.persistance.mapper.CONSUMER_UserMapper;
 import poly.service.CONSUMER_IUserService;
-import poly.util.SHA256Util;
 	
 @Service("CONSUMER_UserService")//UserService 이름입니다.
 public class CONSUMER_UserService implements CONSUMER_IUserService {
 	
+	
 	@Resource(name="CONSUMER_UserMapper")
 	private CONSUMER_UserMapper userMapper;
+	
+	@Resource(name="CONSUMER_Gps_TableMapper")
+	private CONSUMER_Gps_TableMapper gpsMapper;
 	
 	@Override
 	public int insertUserDTO(CONSUMER_UserDTO uDTO) throws Exception {
@@ -89,20 +93,6 @@ public class CONSUMER_UserService implements CONSUMER_IUserService {
 		System.out.println("Service : " + uDTO.getUserSeq());
 		return userMapper.updateUserPwd(uDTO);
 	}
-	/*
-	//임시 비밀번호
-	@Override
-	public HashMap<String, Object> updateTmpPass(HashMap<String, Object> hMap) throws Exception {
-		CONSUMER_UserDTO uDTO = (CONSUMER_UserDTO)hMap.get("uDTO");
-		long temp_Pw = (long)(Math.random()*9000000000l) + 1000000000l;
-		String temp_password = Long.toHexString(temp_Pw);
-		uDTO.setUserPwd(SHA256Util.sha256(temp_password));
-		int result = userMapper.updateTmpPass(uDTO);
-		hMap.put("tmpPass", temp_password);
-		hMap.put("result", result);
-		return hMap;
-	}
-	*/
 
 	@Override
 	public int updateUserStatus(CONSUMER_UserDTO uDTO) throws Exception {
@@ -111,11 +101,7 @@ public class CONSUMER_UserService implements CONSUMER_IUserService {
 		return userMapper.updateUserStatus(uDTO);
 	}
 
-	//위치정보 DB저장
-	@Override
-	public int setGps(CONSUMER_GpsTableDTO gpsDTO) throws Exception {
-		return userMapper.setGps(gpsDTO);
-	}
+
 	//관심매장 추가하기
 	@Override
 	public int ftAddFavorite(CONSUMER_FtLikeDTO ftLikeDTO) throws Exception {
@@ -137,5 +123,17 @@ public class CONSUMER_UserService implements CONSUMER_IUserService {
 	public HashMap<String, Object> updateTmpPass(HashMap<String, Object> hMap) throws Exception {
 		return userMapper.updateTmpPass(hMap);
 	}
+
+	@Override
+	public int setGps(CONSUMER_Gps_TableDTO gpsDTO) throws Exception {
+		return gpsMapper.setGps(gpsDTO);
+	}
+
+	@Override
+	public int updateGps(int user_seq) throws Exception {
+		return gpsMapper.updateGps(user_seq);
+	}
+	
+
 
 }

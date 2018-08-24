@@ -12,8 +12,8 @@ public class CONSUMER_Menu_InfoDTO {
 	private int menu_rqtime;
 	private String orign;
 	private int exp_yn;
-	
-	private String ft_name; //20180811 박창원 추가 - 메뉴 검색 결과에 필요
+	private String ft_name; //20180811 PCW 추가 - 메뉴 검색 결과에 필요
+	private String ftAddress; // 20180824 PCW 추가 - 지역+메뉴 검색에 사용 
 	
 	//--------------------------------------------------------------
 	
@@ -99,5 +99,11 @@ public class CONSUMER_Menu_InfoDTO {
 	}
 	public void setFt_name(String ft_name) {
 		this.ft_name = ft_name;
+	}
+	public String getFtAddress() {
+		return ftAddress;
+	}
+	public void setFtAddress(String ftAddress) {
+		this.ftAddress = ftAddress;
 	}
 }

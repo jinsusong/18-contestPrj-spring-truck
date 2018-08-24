@@ -362,7 +362,7 @@ var callback = function(result, status) {
     
         /* POST전송을 위한 Javascript */
     	var TempArray = {
-    			userSeq: <%= (!"".equals(userSeq)) ? userSeq : "-1" %>,
+    			userSeq: <%=(!"".equals(userSeq))? userSeq : "-1"%>,
     			myLat: myLat,
     			myLat: myLat,
     			myLon: myLon,

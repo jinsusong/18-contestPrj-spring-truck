@@ -11,7 +11,7 @@
 			SEL_NO,
 			FT_NAME,
 			FT_INTRO,
-			FT_LOC,
+			<!-- FT_LOC, -->
 			FT_JOIN,
 			FT_OPTIME,
 			FT_FUNC,
@@ -29,7 +29,7 @@
 			SEL_NO,
 			FT_NAME,
 			FT_INTRO,
-			FT_LOC,
+			<!-- FT_LOC, -->
 			FT_JOIN,
 			FT_OPTIME,
 			FT_FUNC,

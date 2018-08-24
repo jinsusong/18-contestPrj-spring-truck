@@ -7,9 +7,8 @@
 <%
 	request.setCharacterEncoding("euc-kr");
 	CONSUMER_Ft_InfoDTO fDTO = (CONSUMER_Ft_InfoDTO) request.getAttribute("fDTO");
-	String[] ftPosition = fDTO.getFt_loc().split(","); // 위경도를 split해서 어레이어 저장
-	double ftLat = Double.parseDouble(ftPosition[0]); // 스트링 형 위도 Latitude를 double로 반환 
-	double ftLon = Double.parseDouble(ftPosition[1]);// 스트링 형 경도 Longitude를 double로 변환
+	double ftLat = Double.parseDouble(fDTO.getGps_x()); // 스트링 형 위도 Latitude를 double로 반환 
+	double ftLon = Double.parseDouble(fDTO.getGps_y());// 스트링 형 경도 Longitude를 double로 변환
 	
 	List<CONSUMER_Ft_ReviewDTO> fReviewDTO = (List<CONSUMER_Ft_ReviewDTO>) request.getAttribute("fReviewDTO"); //리뷰 데이터를 리스트 형식으로 받아옴
 	List<CONSUMER_ImageDTO> ImgDTOs = (List<CONSUMER_ImageDTO>) request.getAttribute("ImgDTOs"); //리뷰 데이터를 리스트 형식으로 받아옴

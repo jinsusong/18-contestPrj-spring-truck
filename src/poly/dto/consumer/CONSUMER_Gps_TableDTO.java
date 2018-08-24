@@ -1,13 +1,13 @@
-package poly.dto.admin;
+package poly.dto.consumer;
 
-public class ADMIN_Gps_TableDTO {
+public class CONSUMER_Gps_TableDTO {
 	private int user_seq;
 	private int ft_seq;
 	/*private String gps_data;*/ //수정중
 	private String gps_renew_date;
 	private String gps_sido; //2018.08.24 PCW 시도 정보 
-	private String gps_sigungu; //2018.08.24 PCW 시군구 정보
-	private String gps_dong; //2018.08.24 PCW 읍면동 정보 
+	private String gps_sigungu; //2018.08.24 PCW 시군구 정보 
+	private String gps_dong; //2018.08.24 PCW 동읍면리 정보 
 	private String gps_doro; //2018.08.24 PCW 도로명 정보 
 	private String gps_x; //2018.08.24 PCW 위도 정보 
 	private String gps_y; //2018.08.24 PCW 경도 정보 

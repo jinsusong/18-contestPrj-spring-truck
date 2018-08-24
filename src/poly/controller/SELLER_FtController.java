@@ -320,7 +320,7 @@ public class SELLER_FtController {
 			ftDTO.setSel_no(sel_no);
 			ftDTO.setFt_name(ft_name);
 			ftDTO.setFt_intro(ft_intro);
-			ftDTO.setFt_loc("0");
+			//ftDTO.setFt_loc("0");
 			ftDTO.setFt_optime(ft_optime);
 			ftDTO.setFt_func(ft_func);
 			ftDTO.setFt_chan(ft_chan);
