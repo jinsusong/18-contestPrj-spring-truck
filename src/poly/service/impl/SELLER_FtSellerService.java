@@ -123,6 +123,12 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 		return sELLER_FtSellerMapper.getChartWeek(userSeq);
 	}
 
+	@Override
+	public List<SELLER_OrderInfoDTO> getOrderWeek(String userSeq) throws Exception {
+		// TODO Auto-generated method stub
+		return sELLER_FtSellerMapper.getOrderWeek(userSeq);
+	}
+
 
 
 

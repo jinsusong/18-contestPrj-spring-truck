@@ -2,6 +2,7 @@
 
 package poly.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -15,6 +16,19 @@ public class UtilTime {
 		String date = sdf1.format(cal.getTime());
 		
 		return date;
+	}
+	public static String getDateYYMMDD(String a) {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); //년,월,일,시간,분,초
+		try {
+			cal.setTime(formatter.parse(a));
+			String date = new SimpleDateFormat("yyyyMMdd").format(cal.getTime());
+			
+			return date;
+		} catch (ParseException e1) {
+		    e1.printStackTrace();
+		    return null;
+		}
 	}
 	
 	//오늘 날짜("M월d일")

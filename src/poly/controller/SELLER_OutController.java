@@ -1,6 +1,9 @@
 package poly.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -303,9 +306,9 @@ public class SELLER_OutController {
 		ftsDTO = FtSellerService.getTruckConfig(ftsDTO);
 		log.info("ftSeq : " + ftsDTO.getFtSeq());
 		
-		String todayMD = UtilTime.getDateMD();
-		String todayYMDhms = UtilTime.getDateYMDhms();
-		String todayDD = UtilTime.getDateDD();
+		String todayMD = UtilTime.getDateMD();	//"M월 d일" 불러오기
+		String todayYMDhms = UtilTime.getDateYMDhms();	//"yyyy.MM.dd / hh:mm:ss" 불러오기
+		String todayDD = UtilTime.getDateDD();	//요일 불러오기
 		log.info("todayMD : " + todayMD);
 		log.info("todayYMDhms : " + todayYMDhms);
 		log.info("todayDD : " + todayDD);
@@ -314,6 +317,47 @@ public class SELLER_OutController {
 		model.addAttribute("todayDD", todayDD);
 		/*OrderInfoDTO oDTO = new OrderInfoDTO();
 		oDTO.setUserSeq(userSeq);*/
+		
+		
+		
+		
+		List<SELLER_OrderInfoDTO> wList = FtSellerService.getOrderWeek(userSeq);
+		
+		//여기부터 test
+		String testDate =wList.get(0).getOrd_date();
+		log.info("test orddate : " + testDate);
+		System.out.println(UtilTime.getDateYYMMDD(testDate));
+		
+		/*SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+		 
+		 Date date = formatter.parse("20180823");  // 날짜 입력하는곳 .
+		 date = new Date(date.getTime());  // 날짜에 하루를 더한 값 
+		 // 하루를 뺄려면 (1000*60*60*24*-1) 해주시면 됩니다.
+		 
+		 Calendar cal = Calendar.getInstance() ;
+		 cal.setTime(date);              // 하루더한 날자 값을 Calendar  넣는다.
+		 
+		 int dayNum = cal.get(Calendar.DAY_OF_WEEK);   // 요일을 구해온다. 
+		 
+		String convertedString = "";
+		 
+		 switch (dayNum ) {
+		     case 1: convertedString = "일요일"; break;
+		     case 2: convertedString = "월요일"; break;
+		     case 3: convertedString = "화요일"; break;
+		     case 4: convertedString = "수요일"; break;
+		     case 5: convertedString = "목요일"; break;
+		     case 6: convertedString = "금요일"; break;
+		     case 7: convertedString = "토요일"; break;
+		 }*/
+		 /*log.info("test 성공 : " + convertedString);*/
+		//여기까지
+		/*for(int i=0; i < wList.size(); i++) {
+			String todayDD = UtilTime.getDateDD();
+			
+			
+		}*/
+		
 		
 		
 		List<SELLER_OrderInfoDTO> oList = orderService.getOrderList(userSeq);

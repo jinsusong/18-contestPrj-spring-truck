@@ -27,6 +27,8 @@ public interface SELLER_FtSellerMapper {
 	public List<SELLER_FtSellerDTO> getSalesList(SELLER_FtSellerDTO ftsDTO)throws Exception;
 
 	public SELLER_OrderInfoDTO getChartWeek(String userSeq)throws Exception;
+
+	public List<SELLER_OrderInfoDTO> getOrderWeek(String userSeq)throws Exception;
 	
 
 	
