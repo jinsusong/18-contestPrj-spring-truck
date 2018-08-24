@@ -72,9 +72,11 @@ public class CONSUMER_ConsumerController {
 	public String findAdjFt(HttpServletRequest request, Model model) throws Exception{
 		//값 받아 오기 및 확인
 		log.info("access findAdjFt");
-		String regCode = request.getParameter("regCode"); //GET방식으로 받은 지역코드를 변수에 할당
+		String myAddress= request.getParameter("myAddress");
+		//String regCode = request.getParameter("regCode"); //GET방식으로 받은 지역코드를 변수에 할당
+		
 		//위치 미 설정시 내 위치 설정 페이지로 이동
-		if("".equals(regCode)) {
+		if("".equals(myAddress)) {
 			String msg= "위치 설정을 먼저 해주세요";
 			String url= "/consumer/cnsmr/findMyLoc.do";
 			
@@ -88,12 +90,13 @@ public class CONSUMER_ConsumerController {
 		
 		log.info("Current Location's Longitude is :" + locPosition[0]); //받아온 위도 확인
 		log.info("Current Location's Latitude is :" + locPosition[1]);	// 받아온 경도 확인
-		log.info("Regional code is :" + regCode);	// 받아온 지역코드 확인
+		log.info("User's Location is :" + myAddress);	// 받아온 지역코드 확인
 		
-		List<CONSUMER_Ft_InfoDTO> ftList = ftService.getFtList(regCode); //리스트형식의 푸드트럭객체들을 지역코드를 파라미터를 사용해 테이블로부터 불러옴
+		List<CONSUMER_Ft_InfoDTO> ftList = ftService.getFtList(myAddress.split(" ")[0]); //리스트형식의 푸드트럭객체들을 지역코드를 파라미터를 사용해 테이블로부터 불러옴
+		
 		ftList = SortTruck.getAdjTrucks(ftList, locPosition); // 가까운 트럭들만 모아놓을 리스트 변수 선언
 		ftList = SortTruck.sortFtClose(ftList); // 가까운 거리부터 순서대로 정렬 하여 리스트에 할당
-
+		
 		model.addAttribute("locPositionLat", locPosition[0]); //전송
 		model.addAttribute("locPositionLon", locPosition[1]); //전송
 		model.addAttribute("ftList", ftList); //fList라는 변수로 리턴으로 가져갈 리스트 변수 전송 
@@ -138,135 +141,7 @@ public class CONSUMER_ConsumerController {
 		return "/consumer/cnsmr/findAdjFt";
 	}
 
-	//키워드로 메뉴를 검색한 페이지 
-	@RequestMapping(value="consumer/cnsmr/findFtByMenu", method=RequestMethod.POST)
-	public String findFtByMenu(HttpServletRequest request, Model model) throws Exception {
-		log.info("Access consumer/cnsmr/findFtByMenu");
-		
-		String keyWord = request.getParameter("keyWord"); //cnsmrMain 페이지에서 아이디가 menu인 텍스트 상자에 입력받은 값을 불러옴
-		String []locPosition = request.getParameter("locPosition").split(","); //GET방식으로 받은 locPosition을 분리하여 어레이 변수에 할당
-		String regCode = request.getParameter("regCode"); //GET방식으로 받은 지역코드를 변수에 할당
-		
-		//위치 미 설정시 내 위치 설정 페이지로 이동
-		if("".equals(regCode) || "".equals(locPosition[0]) || "".equals(locPosition[1])) {
-			String msg= "위치 설정을 먼저 해주세요";
-			String url= "/consumer/cnsmr/findMyLoc.do"; 
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-			return "/cmmn/alert";
-		}
-		
-		log.info(keyWord); //검색어 확인
-		
-		//검색어 정규표현식 검사
-		String []keyWordList = keyWord.split(" "); // 검색어를 공백으로 나눠서 어레이에 저장
-		boolean sidoCheck=false, dongCheck= false; //시도구 검사 , 동면읍리 검사
-		for(int i = 0 ; i < keyWordList.length; i++) {
-			log.info("키워드 확인 ......... "+keyWordList[i]);
-			//검색어 정규표현식 검사
-			sidoCheck = UtilRegex.sidoPattern(keyWordList[i]);
-			log.info("시도검사 : " + sidoCheck);
-			log.info("....................................");
-			if(sidoCheck) break;
-			
-			dongCheck = UtilRegex.dongPattern(keyWordList[i]);
-			log.info("동검사 : " + dongCheck);
-			log.info("....................................");
-			if(dongCheck) break;
-		}
-		
-		//검색어 분류
-		//////1. 주소만 검색한 경우
-		if((sidoCheck || dongCheck) && keyWordList.length == 1) {
-			log.info("주소만 검색한 경우");
-			double []coords = GeoUtil.addrToLatLon(keyWordList[0]); 
-			log.info(coords[0] + ", " + coords[1]);
-			
-		}/////2. 주소와 메뉴를 같이 검색한 경우
-		else if ((sidoCheck || dongCheck) && keyWordList.length > 1) {
-			log.info("주소와 메뉴를 같이 검색한 경우");
-			
-			
-		}/////3. 메뉴만 검색한 경우
-		else {
-			log.info("메뉴만 검색한 경우");
-			
-			//검색어가 포함된 메뉴들의 목록 가져오기
-			List<CONSUMER_Menu_InfoDTO> menuDTO = ftService.getMenuList(keyWord); 
-			//받아온 값 확인 해 보기
-			for(int i = 0; i < menuDTO.size(); i++) {
-				log.info(menuDTO.get(i).getMenu_name());
-			}
-			//리스트형식의 푸드트럭 객체들을 테이블로부터 불러옴
-			List<CONSUMER_Ft_InfoDTO> ftList = ftService.getFtList(regCode); 
-			//가까운 거리의 푸드트럭부터 메뉴DTO를 가져오는 정렬 함수
-			List<CONSUMER_Menu_InfoDTO> newMenuDTO = SortTruck.getMenuDTO(menuDTO, ftList, locPosition);
-			
-			//sort 최종 확인
-			for(int i = 0; i < newMenuDTO.size(); i++) {
-				log.info(newMenuDTO.get(i).getMenu_name());	
-			}	
-			
-			//////////////////메뉴 사진들 불러오기////////////////// 	
-			log.info("menuList is NULL?" + newMenuDTO.isEmpty()); //리뷰 테이블에 정보가 있는지 확인하고 있으면 가져옴
-			if(newMenuDTO.isEmpty() == false) {
-				log.info(this.getClass() + " // Menu Images start !!");
-				List<CONSUMER_ImageDTO> imgDTOs = new ArrayList<CONSUMER_ImageDTO>();
-				
-				
-				for(int i = 0; i < newMenuDTO.size(); i++) {
-					CONSUMER_ImageDTO ImgDTO = new CONSUMER_ImageDTO(); //리스트에 추가할 객체 선언
-					ImgDTO.setFileId(newMenuDTO.get(i).getFile_id());	// 각 객체에 필요 파일 id정보 불러오기
-					imgDTOs.add(ImgDTO); //리스트에 추가
-				}
-				
-				imgDTOs = ftService.getMenuImage(imgDTOs);
-				
-				if (imgDTOs == null) {			
-					imgDTOs = new ArrayList<CONSUMER_ImageDTO>();
-				}		
-				log.info("ImgDTOs size is :" + imgDTOs.size());
-				
-				//받아온 이미지 DTO 확인
-				for(int i = 0; i < imgDTOs.size(); i++) {
-					log.info("ImgDTOs. get : " + imgDTOs.get(i).getFileId());											
-					log.info("ImgDTOs. get : " + imgDTOs.get(i).getFileOrgname());
-					log.info("ImgDTOs.get : " + imgDTOs.get(i).getFilePath());				
-					log.info("ImgDTOs. get : " + imgDTOs.get(i).getFileSevname());
-					log.info("ImgDTOs.get : " + imgDTOs.get(i).getUserSeq());
-				}
-				
-				model.addAttribute("imgDTOs",imgDTOs);
-				imgDTOs = null;
-				log.info(this.getClass() + "Menu Image end !!");
-				
-			}
-			model.addAttribute("menuDTO", newMenuDTO); // 메뉴 DTO 전송
-			///////////////////////////////////////////////////////
-			
-		}
-		
-		
-
-		
-		
-		
-		//근처 푸드트럭 검색
-		log.info(".............................");
-		log.info("Current Location's Longitude is :" + locPosition[0]); //받아온 위도 확인
-		log.info("Current Location's Latitude is :" + locPosition[1]);	// 받아온 경도 확인
-		log.info("Regional code is :" + regCode);	// 받아온 지역코드 확인
-		log.info(".............................");
-		
-
-		
-		
-		model.addAttribute("keyWord", keyWord); // 검색한 키워드 전송 
-		log.info("Terminate consumer/cnsmr/findFtByMenu");
-		log.info(".............................");
-		return "/consumer/cnsmr/findFtByMenu";
-	}
-
+	
 	// 푸드트럭 상세 보기
 	@RequestMapping(value="consumer/cnsmr/ftDetail", method=RequestMethod.GET) //POST방식으로 데이터를 받음
 	public String ftDetail(HttpServletRequest request, Model model) throws Exception {

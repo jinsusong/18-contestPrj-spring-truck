@@ -130,21 +130,6 @@
 		WHERE USER_EMAIL = #{userEmail} AND USER_STATUS ='AuthN'
 	</update>
 	
-	<!-- GPS정보 DB저장 -->
-	<insert id="setGps" parameterType="CONSUMER_GpsTableDTO">
-		INSERT INTO GPS_TABLE
-			(
-				USER_SEQ,
-				GPS_DATA,
-				GPS_RENEW_DATE
-			)
-			VALUES
-			(
-				#{user_seq},
-				#{gps_data},
-				#{gps_renew_date}
-			)
-	</insert>
 	
 	
 	<!-- 관심매장 추가 -->

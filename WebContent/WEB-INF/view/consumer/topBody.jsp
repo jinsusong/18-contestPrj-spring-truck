@@ -43,8 +43,8 @@
 						<!-- 로그인이 안된 상태 -->
 						<div><a href="/cmmn/main.do">로그인</a></div>
 					<%} %>
-					<div><a href="/consumer/cnsmr/findMyLoc.do?userSeq=<%=userSeq%>">내 위치 설정</a></div>		
-					<div><a href="/consumer/cnsmr/findAdjFt.do?locPosition=<%=myLat%>,<%=myLon%>&regCode=<%=regCode%>">근처 푸드트럭</a></div>
+					<div><a href="/consumer/cnsmr/findMyLoc.do">내 위치 설정</a></div>		
+					<div><a href="/consumer/cnsmr/findAdjFt.do?locPosition=<%=myLat%>,<%=myLon%>&myAddress=<%=myAddress%>">근처 푸드트럭</a></div>
 					<div><a href="/consumer/weatherInfo.do?myAddress=<%=myAddress%>&regCode=<%=regCode%>">날씨/질병 정보</a>	</div>				
 					<div><a href="/consumer/user/mypage.do?userEmail=<%=userEmail%>&userSeq=<%=userSeq %>">마이페이지</a></div>
 					<div><a href="/consumer/board/noticeList.do">공지사항</a></div>
@@ -111,8 +111,9 @@
 		<form method="POST" action="/consumer/cnsmr/findFtByMenu.do" style="margin:0;">
 			<!-- 검색 박스 부분 (기본 숨겨진 상태/클릭시 열림) -->
 			<div id="searchBarContainer">
-				<input type="hidden" value="<%=myLat%>,<%=myLon %>" name="locPosition" />
-				<input type="hidden" value="<%=regCode%>" name="regCode" />
+				<input type="hidden" value="<%=myAddress%>" name="myAddress" />
+				<input type="hidden" value="<%=myLat%>,<%=myLon%>" name="locPosition" />
+				<%-- <input type="hidden" value="<%=regCode%>" name="regCode" /> --%>
 				<input type="text" name="keyWord"  maxlength="15" placeholder="메뉴를 검색하세요." style="margin-right:-5px;"/>
 				<button type="submit" id="submitBttn">검색</button>
 			</div>

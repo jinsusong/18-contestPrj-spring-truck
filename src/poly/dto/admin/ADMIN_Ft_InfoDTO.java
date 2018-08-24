@@ -8,13 +8,16 @@ public class ADMIN_Ft_InfoDTO {
 	private String sel_no;
 	private String ft_name;
 	private String ft_intro;
-	private String ft_loc;
 	private String ft_join;
 	private String ft_optime;
 	private String ft_func;
 	private String ft_chan;
 	private int ft_status;
+	
+	private String ft_loc;
 	private String ft_regcode;
+	private String sido; //18.08.24 PCW 시도구 정보 추가 
+	private String dong; //18.08.24 PCW 동면읍리 정보 추가
 	
 	private String option;
 	private String value;
@@ -115,5 +118,17 @@ public class ADMIN_Ft_InfoDTO {
 	}
 	public void setFt_status(int ft_status) {
 		this.ft_status = ft_status;
+	}
+	public String getSido() {
+		return sido;
+	}
+	public void setSido(String sido) {
+		this.sido = sido;
+	}
+	public String getDong() {
+		return dong;
+	}
+	public void setDong(String dong) {
+		this.dong = dong;
 	}
 }

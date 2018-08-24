@@ -3,8 +3,6 @@ package poly.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import poly.dto.consumer.CONSUMER_DissInfoDTO;
-import poly.dto.consumer.CONSUMER_GpsTableDTO;
+import poly.dto.consumer.CONSUMER_Gps_TableDTO;
 import poly.dto.consumer.CONSUMER_ImageDTO;
 import poly.dto.consumer.CONSUMER_WeatherDTO;
 import poly.service.CONSUMER_IFtService;
 import poly.service.CONSUMER_IUserService;
-import poly.util.CmmUtil;
 import poly.util.Coord;
 import poly.util.OpenAPI;
 import poly.util.SortRegCode;
@@ -119,7 +116,7 @@ public class CONSUMER_NoticeController {
 		log.info("Terminate weatherInfo");		
 		return "/consumer/weatherInfo";
 	}
-
+	
 	// 내 위치 찾기 페이지 이동
 	@RequestMapping(value="/consumer/cnsmr/findMyLoc")
 	public String findMyLoc() throws Exception{
@@ -139,30 +136,44 @@ public class CONSUMER_NoticeController {
 		String myAddress = request.getParameter("myAddress"); // 지번 주소 명
 		String gridX = request.getParameter("gridX"); //날씨용 좌표 X
 		String gridY = request.getParameter("gridY"); //날씨용 좌표 Y
-
-/*		//미 로그인시 유저번호는 -1로 지정하여 DB에 저장
+		String []myAddrArr = myAddress.split(" "); // 시도구 시군구 읍면동 정보
+		String sido = myAddrArr[0];
+		String sigungu = myAddrArr[1];
+		String dong = myAddrArr[2];
+		//미 로그인시 유저번호는 -1로 지정하여 DB에 저장
 		if(userSeq.equals("")) {
 			userSeq = "-1";
 			System.out.println("null check complete");
-		}*/
+		}
 		
 		log.info(userSeq);
 		log.info(myLat);
 		log.info(myLon);
 		log.info(myAddress);
-		log.info(gridX); //날씨용 지역코드 변환
-		log.info(gridY); //날씨용 지역코드 변환
+		log.info(sido);
+		log.info(sigungu);
+		log.info(dong);
+		log.info("날씨용 지역 코드 X : " + gridX); //날씨용 지역코드 변환
+		log.info("날씨용 지역 코드 Y : " + gridY); //날씨용 지역코드 변환
 		
 		//유저번호, GPS정보 DB저장
-		CONSUMER_GpsTableDTO gpsDTO = new CONSUMER_GpsTableDTO();
-		gpsDTO.setUser_seq(userSeq);
-		gpsDTO.setGps_data(myLat+","+myLon);
+		CONSUMER_Gps_TableDTO gpsDTO = new CONSUMER_Gps_TableDTO();
+		gpsDTO.setUser_seq(Integer.parseInt(userSeq));
+		gpsDTO.setGps_x(myLat);
+		gpsDTO.setGps_y(myLon);
+		gpsDTO.setGps_sido(sido);
+		gpsDTO.setGps_sigungu(sigungu);
+		gpsDTO.setGps_dong(dong);
 		gpsDTO.setGps_renew_date(getDate());
 		
-		int result = userService.setGps(gpsDTO); 
-		log.info("DB저장 결과 >>>>>>>>" + result);
+		int resultSet = userService.setGps(gpsDTO);
+		log.info("gpsDTO " + resultSet);
+		int resultUpdate = userService.updateGps(gpsDTO.getUser_seq());
+		log.info("DB저장 결과(1: 성공)  >>>>>>>> " + resultSet + ", " + resultUpdate);
 		
-		//동네날씨예보 API시작!!!
+		
+		
+		//////////////동네날씨예보 API시작!!!//////////////
 		Coord coord = new Coord(gridX, gridY);	//지역코드
 		String skyCode =null, ptyCode = null, t3hCode = null; 
 		
@@ -181,7 +192,7 @@ public class CONSUMER_NoticeController {
 			}	
 		}
 		
-		String regCode = SortRegCode.chgToRegCode(myAddress); //질병예방 API용, DB저장용 지역코드 변환
+		String regCode = SortRegCode.chgToRegCode(myAddress); //질병예방 API 용 지역코드
 		log.info("Your regCode is : " + regCode);
 		session.setAttribute("myLat", myLat);
 		session.setAttribute("myLon", myLon);
@@ -191,6 +202,7 @@ public class CONSUMER_NoticeController {
 		session.setAttribute("ptyCode", ptyCode);
 		session.setAttribute("t3hCode", t3hCode);
 		weatherDTOs = null;
+		/////////////////////////////////////////////
 		log.info("Terminate myLocProc");
 		return "redirect:/consumer/main.do";
 		
