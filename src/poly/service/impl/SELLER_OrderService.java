@@ -36,6 +36,12 @@ public class SELLER_OrderService implements SELLER_IOrderService {
 		System.out.println("service : " + couponList.getUser_seq());
 		return orderMapper.getCpList(couponList);
 	}
+
+	@Override
+	public int updateCouponUse(ADMIN_Coupon_IssueDTO codeDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return orderMapper.updateCouponUse(codeDTO);
+	}
 	
 	
 }

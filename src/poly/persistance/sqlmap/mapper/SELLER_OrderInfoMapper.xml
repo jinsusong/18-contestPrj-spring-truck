@@ -50,6 +50,14 @@
       WHERE   COUPON_USE <![CDATA[<]]> COUPON_COUNT AND USER_SEQ =#{user_seq}
       ORDER BY ISSUE_CODE DESC
 	</select>
+	<!-- 쿠폰 사용   카운트 증가-->
+	<update id="updateCouponUse" parameterType="ADMIN_Coupon_IssueDTO">
+		UPDATE COUPON_ISSUE
+		SET
+			COUPON_USE = #{coupon_use}
+		WHERE
+			ISSUE_CODE = #{issue_code}
+	</update>
 
 
 </mapper>

@@ -261,6 +261,7 @@
 				success : function(data){
 					console.log(data);
 					
+					
 					 var content = "";
 						content += "<table class='col-sm-12'>";
 						content += " <thead> ";
@@ -287,7 +288,7 @@
 						
 							content += "<tr style='border-bottom:1px solid black;'>";
 							content += "<td style='text-align: center;'>";
-							content += "<input type='radio' name='couponUse' value='"+value.coupon_code+"/"+sale+"/"+useWay+"'";
+							content += "<input type='radio' name='couponUse' value='"+value.coupon_code+"/"+sale+"/"+useWay+"/"+value.coupon_use+"'";
 							content += "</td>";
 							content += "<td style='text-align: center;'>"+ value.coupon_code+"</td>";
 							content += "<td style='text-align: center;'>"+ value.coupon_name+"</td>";
@@ -313,6 +314,7 @@
 </script>
 <script>
 	 var code =0;
+	 var useVal=0;
 	function couponUseFunc(){
 		
 		
@@ -321,25 +323,27 @@
 		
 		
 		var UseSplit = couponUse.split("/");
-
+		//alert("UseSplit : " + UseSplit);
 		code = UseSplit[0];
 		var sale = UseSplit[1];
 		var useWay = UseSplit[2];
+			useVal = UseSplit[3];
+		//alert("useVal : " + useVal);
 		//alert("Code : " + code);
 		//alert("sale : " + sale);
 		//alert("useWay : " + useWay);
 		
 			if(useWay == '원'){
-				alert("원입니다.");
+				//alert("원입니다.");
 				
 				sum = <%=sum%>-sale ;
-				alert("sum  : " + sum);
+				//alert("sum  : " + sum);
 				$('#couponSum').text("총결제 금액 : "+sum+"원");
 				$('#sum').text(sum+"원 결제하기"); 
 			}else{
-				 alert("%입니다.")
+				 //alert("%입니다.")
 				sum = <%=sum%>-(<%=sum%>/sale) ;
-				alert("sum : " + sum);
+				//alert("sum : " + sum);
 				$('#couponSum').text("총결제 금액 : "+sum+"원");
 				$('#sum').text(sum+"원 결제하기");  
 			}
@@ -363,7 +367,7 @@
 			return false;
 		}
 		
-		alert(sum);
+		//alert(sum);
 		f.sumPrice.value=sum;
 		
 		//ajax 로 couponUse 사용 값 컨트롤러 태우기 
@@ -371,7 +375,8 @@
 			url: "/seller/coupon/couponUse.do",
 			method : "post",
 			data : {
-				"couponCode" : code
+				"couponCode" : code,
+				"useVal" : useVal
 			},
 			success : function(data){
 				console.log(data);	

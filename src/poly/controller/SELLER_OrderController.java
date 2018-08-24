@@ -75,13 +75,23 @@ public class SELLER_OrderController {
 	}
 	//쿠폰 사용하면 사용 갯수 하나 늘리기
 	@RequestMapping(value="/seller/coupon/couponUse", method=RequestMethod.POST)
-	public void couponUse() throws Exception{
-		log.info("couponUse start !!!!!");
+	public void couponUse(HttpServletRequest request) throws Exception{
+		log.info(this.getClass() + " couponUse start !!!!!");
+		int code = Integer.parseInt(request.getParameter("couponCode"));
+		log.info("code : " + code);
+		int useVal = Integer.parseInt(request.getParameter("useVal"));
+		log.info("useVal : " + useVal);
+		useVal++;
+		log.info("useVal++ : " + useVal);
 		
+		ADMIN_Coupon_IssueDTO codeDTO = new ADMIN_Coupon_IssueDTO();
+		codeDTO.setIssue_code(code);
+		codeDTO.setCoupon_use(useVal);
 		
+		int result = orderService.updateCouponUse(codeDTO);
+		log.info("result : " + result);
 		
-		log.info("couponUse end !!!!");
-		
+		log.info(this.getClass() + " couponUse end !!!!");
 	}
 	
 	//*******************************************************************************
