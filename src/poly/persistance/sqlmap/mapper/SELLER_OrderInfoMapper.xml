@@ -31,6 +31,24 @@
 		WHERE ORDER_INFO.USER_SEQ=FT_INFO.USER_SEQ AND FT_INFO.USER_SEQ=#{userSeq}
 		ORDER BY ORD_DATE DESC
 	</select>
+	
+	<!-- 주문하기에서 쿠폰 리스트 뽑아오기 -->
+	
+	<select id="getCpList" parameterType="ADMIN_Coupon_IssueDTO" resultType="ADMIN_Coupon_IssueDTO">
+		SELECT 
+         CPIS.ISSUE_CODE as issue_code,
+         CPIS.USER_SEQ as user_seq,
+         CPIS.COUPON_CODE as coupon_code,
+         CPIS.COUPON_COUNT as coupon_count,
+         CPIS.COUPON_USE as coupon_use,
+         CP.COUPON_NAME as coupon_name,
+         CP.COUPON_OPTION as coupon_option,
+         CP.COUPON_DATE as coupon_date
+      FROM COUPON_ISSUE CPIS INNER JOIN COUPON CP
+      ON  CPIS.COUPON_CODE = CP.COUPON_CODE 
+      WHERE   COUPON_USE <![CDATA[<]]> COUPON_COUNT AND USER_SEQ =#{user_seq}
+      ORDER BY ISSUE_CODE DESC
+	</select>
 
 
 </mapper>

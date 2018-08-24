@@ -161,32 +161,7 @@
 		      }   */
 		   });
 		  }); 
-		// submit
-		function doSubmitOrder(){
-			var f = document.getElementById("frmPayment");
-			if(document.getElementById('CUSTOMER_NAME').value==""){
-				alert("이름을 입력해주세요");
-				document.getElementById('CUSTOMER_NAME').focus();
-				return;
-			}
-			if(document.getElementById('CUSTOMER_TEL').value == ""){
-				alert("연락처를 입력해 주세요.");
-				document.getElementById('CUSTOMER_TEL').focus();
-				return;
-			}
-			f.submit();
 		
-			/* var tel1 = $('#CUSTOMER_TEL1').val();
-			var tel2 = $('#CUSTOMER_TEL2').val();
-			var tel3 = $('#CUSTOMER_TEL3').val();
-			
-			if( !telChk('CUSTOMER_TEL1', 'CUSTOMER_TEL2' ,'CUSTOMER_TEL3')){
-				return;
-			}; */
-			/* var tel = tel1 + tel2 + tel3 ;
-			f.CUSTOMER_TEL.value=tel;
-			console.log(f.CUSTOMER_TEL.value); */
-		}
 		function radioPhonCheck(){
 			var phonCheckBox = document.getElementsByName('TRAN_TYPE');
 			phonCheckBox[0].checked = true;
@@ -196,9 +171,6 @@
 			var cardCheckBox = document.getElementsByName('TRAN_TYPE');
 			cardCheckBox[1].checked = true;
 		}
-		
-		
-		
 		
 		
 		/*******************************************************************************
@@ -271,8 +243,157 @@
 	아래 여분 데이터 etc? 인가 있는데 거기에 
 	메뉴 수량이랑 이름 split 으로 ,엮어서 다 보내고 나중에 그 부분을 받아서 DB에 저장합니다 .
  	*/	
+ 	
+ 	
  </script>
+ <script>
+ /* 쿠폰 리스트 가져오기  */
+ 	var sum = 0;
+	function couponList(){
+	var userSeq = <%=uDTO.getUserSeq() %>;
+	sum = <%=sum%>;
+			$.ajax({
+				url:"/seller/orderinfo/coupon.do",
+				method:"post",
+				data : {
+					"userSeq" : userSeq
+				},
+				success : function(data){
+					console.log(data);
+					
+					 var content = "";
+						content += "<table class='col-sm-12'>";
+						content += " <thead> ";
+						content += " <tr style='border-bottom:1px solid black;'> ";
+						content += " <th style='text-align: center;'>선택</th> ";
+						content += " <th style='text-align: center;'>쿠폰코드</th> ";
+						content += " <th style='text-align: center;'>쿠폰명</th> ";
+						content += " <th style='text-align: center;'>기간</th>";
+						content += " <th style='text-align: center;'>수량</th> ";
+						content += " <th style='text-align: center;'>쿠폰옵션</th>";
+						content += " </tr> ";
+						content += " </thead> ";
+						content += " <tbody> ";
+						
+						$.each(data, function(key,value){
+						var option = value.coupon_option.split("/");
+						console.log(option);
+						var sale = option[0];
+						console.log(option[0]);
+						console.log("sale : " + sale);
+						useWay = option[1];
+						option = option[0]+option[1];
+						
+						
+							content += "<tr style='border-bottom:1px solid black;'>";
+							content += "<td style='text-align: center;'>";
+							content += "<input type='radio' name='couponUse' value='"+value.coupon_code+"/"+sale+"/"+useWay+"'";
+							content += "</td>";
+							content += "<td style='text-align: center;'>"+ value.coupon_code+"</td>";
+							content += "<td style='text-align: center;'>"+ value.coupon_name+"</td>";
+							content += "<td style='text-align: center;'>"+ value.coupon_date+"</td>";
+							content += "<td style='text-align: center;'>"+ value.coupon_count+"</td>";
+							content += "<td style='text-align: center;'>"+ option+"</td>";
+							content += "</tr>";
+						});
+						content += "</tbody>";
+						content += "</table>"; 
+						content += "<div style='text-align: center;' id='couponSum'>";
+						content +=  "총결제 금액 : "+sum;
+					 	content += "<button type='button' class='btn btn-default' onclick='JavaScript:couponUseFunc(); return false;'>사용</button>";
+					 	content += "</div>";
+					$('#couponList').html(content);
+					
+					
+				}
+			})
+			
+		 }
+
+</script>
+<script>
+	 var code =0;
+	function couponUseFunc(){
+		
+		
+		
+		var couponUse = document.querySelector('input[name="couponUse"]:checked').value;
+		
+		
+		var UseSplit = couponUse.split("/");
+
+		code = UseSplit[0];
+		var sale = UseSplit[1];
+		var useWay = UseSplit[2];
+		//alert("Code : " + code);
+		//alert("sale : " + sale);
+		//alert("useWay : " + useWay);
+		
+			if(useWay == '원'){
+				alert("원입니다.");
+				
+				sum = <%=sum%>-sale ;
+				alert("sum  : " + sum);
+				$('#couponSum').text("총결제 금액 : "+sum+"원");
+				$('#sum').text(sum+"원 결제하기"); 
+			}else{
+				 alert("%입니다.")
+				sum = <%=sum%>-(<%=sum%>/sale) ;
+				alert("sum : " + sum);
+				$('#couponSum').text("총결제 금액 : "+sum+"원");
+				$('#sum').text(sum+"원 결제하기");  
+			}
+		
+	}
 	
+	
+	
+	// submit
+	function doSubmitOrder(){
+		
+		var f = document.getElementById("frmPayment");
+		if(document.getElementById('CUSTOMER_NAME').value==""){
+			alert("이름을 입력해주세요");
+			document.getElementById('CUSTOMER_NAME').focus();
+			return false;
+		}
+		if(document.getElementById('CUSTOMER_TEL').value == ""){
+			alert("연락처를 입력해 주세요.");
+			document.getElementById('CUSTOMER_TEL').focus();
+			return false;
+		}
+		
+		alert(sum);
+		f.sumPrice.value=sum;
+		
+		//ajax 로 couponUse 사용 값 컨트롤러 태우기 
+		$.ajax({
+			url: "/seller/coupon/couponUse.do",
+			method : "post",
+			data : {
+				"couponCode" : code
+			},
+			success : function(data){
+				console.log(data);	
+			}			
+		});
+		
+		
+		f.submit();
+	
+		/* var tel1 = $('#CUSTOMER_TEL1').val();
+		var tel2 = $('#CUSTOMER_TEL2').val();
+		var tel3 = $('#CUSTOMER_TEL3').val();
+		
+		if( !telChk('CUSTOMER_TEL1', 'CUSTOMER_TEL2' ,'CUSTOMER_TEL3')){
+			return;
+		}; */
+		/* var tel = tel1 + tel2 + tel3 ;
+		f.CUSTOMER_TEL.value=tel;
+		console.log(f.CUSTOMER_TEL.value); */
+	}
+</script>
+
 </head>
 <body>
 	<table style="height: 100%; width: 100%">
@@ -303,6 +424,8 @@
 						<!-- 상품 구분 -->
 						<input type="hidden" id="PRODUCTTYPE_1" name="PRODUCTTYPE" value="1" checked="checked"/>
 						<input type="hidden" id="PRODUCTTYPE_2" name="PRODUCTTYPE" value="2" />
+						<!-- 결제금액 -->
+						<input type="hidden" id="sumPrice" name="sumPrice" value="0" />
 						<!-- 상품명   !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 						<%--  <%
 							String prdtNames = "";
@@ -486,7 +609,7 @@
 							<br/>
 							<section class="section-orderer" style="background-color:white;">
 								<h6 class="title-sugject">
-									<a href="#" onclick="JavaScript:coupon();" style="text-decoration:none; color:black;">
+									<a href="#" onclick="JavaScript:coupon(); return false;" style="text-decoration:none; color:black;">
 										<span class="fas fa-chevron-down" id="couponupdown"></span>
 										<b>쿠폰</b> 
 									</a>
@@ -494,8 +617,9 @@
 								<div style="display:none;" id="coupon">
 										
 									<hr>
-									<div class="col-sm-12">
-										coupon
+									<div class="col-sm-12" id="couponList">
+										<button type="button" class="btn btn-default" onClick="JavaScript:couponList(); return false;">쿠폰조회/적용</button>
+										<small>(쿠폰 허용 상품 / 일부 쿠폰 제외)</small>
 									</div>
 								</div>
 								<br/>
@@ -523,19 +647,18 @@
 								<br/>
 							</section>
 						</form>
-						<button style="height:5%;"class=" btn-dark orderButton02 col-sm-12" onclick="doSubmitOrder();"><%=sum%>원 결제하기</button>
-			
+						<button type="button" style="height:5%;"class=" btn-dark orderButton02 col-sm-12" onclick="doSubmitOrder(); return false;" id="sum"><%=sum%>원 결제하기</button>
 				</div>
 			</td>
 		</tr>
 		<tr height="7%" bgcolor="black">
 			<td>
 				<%@ include file="/WEB-INF/view/seller/bottom.jsp" %>
-			
 			</td>
 		</tr>
 	</table>
 	
 
 </body>
+
 </html>

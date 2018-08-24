@@ -121,7 +121,5 @@
 		        ON  O.USER_SEQ = U.USER_SEQ
 		  WHERE W.FT_SEQ = #{ftSeq}
 		  ORDER BY W.ORD_DATE ASC 
-	
 	</select>
-
 </mapper>
