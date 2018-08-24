@@ -19,7 +19,6 @@
 		<typeAlias type="poly.dto.consumer.CONSUMER_BoardRepleDTO" alias="CONSUMER_BoardRepleDTO"/>
 		<typeAlias type="poly.dto.consumer.CONSUMER_CouponDTO" alias="CONSUMER_CouponDTO"/>
 		<typeAlias type="poly.dto.consumer.CONSUMER_CouponIssueDTO" alias="CONSUMER_CouponIssueDTO"/>
-		<typeAlias type="poly.dto.consumer.CONSUMER_FtInfoDTO" alias="CONSUMER_FtInfoDTO"/>
 		<typeAlias type="poly.dto.consumer.CONSUMER_FtLikeDTO" alias="CONSUMER_FtLikeDTO"/>
 		<typeAlias type="poly.dto.consumer.CONSUMER_FtReviewDTO" alias="CONSUMER_FtReviewDTO"/>
 		<typeAlias type="poly.dto.consumer.CONSUMER_GpsTableDTO" alias="CONSUMER_GpsTableDTO"/>

@@ -12,7 +12,7 @@
 				SEL_NO as selNo,
 				FT_NAME as ftName,
 				FT_INTRO as ftIntro,
-				FT_LOC as ftLoc,
+				<!-- FT_LOC as ftLoc, -->
 				FT_JOIN as ftJoin,
 				FT_OPTIME as ftOptime,
 				FT_FUNC as ftFunc,

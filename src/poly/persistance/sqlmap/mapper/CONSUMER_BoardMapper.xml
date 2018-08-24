@@ -25,11 +25,10 @@
 	
 	<!-- 공공게시판 리스트 보기 -->
 	<select id="getBoardList" resultType="CONSUMER_BoardDTO">	<!-- SQL문은 대문자로 써주어야 함!! -->
-		SELECT BOARD_P_SEQ AS BOARDPSEQ,
-			TITLE,
-			BOARD_CONTENT AS BOARDCONTENT,
-			REG_DATE AS REGDATE,
-			USER_EMAIL AS USEREMAIL
+		SELECT BOARD_P_SEQ AS boardPSeq,
+			TITLE AS title,
+			BOARD_CONTENT AS boardContent,
+			REG_DATE AS regDate,
 		FROM BOARD_POST	
 		WHERE BOARD_SEQ='2'
 		ORDER BY BOARDPSEQ DESC

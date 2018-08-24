@@ -8,29 +8,25 @@ public class CONSUMER_Ft_InfoDTO {
 	private String sel_no;
 	private String ft_name;
 	private String ft_intro;
-	private String ft_loc;
 	private String ft_join;
 	private String ft_optime;
 	private String ft_func;
 	private String ft_chan;
 	private int ft_status;
 	private double ft_dist_order;
+	//위치정보 GPS_TABLE로부터 가져옴
+	private String gps_sido;
+	private String gps_sigungu;
+	private String gps_dong;
+	private String gps_x;
+	private String gps_y;
+
 	
 	private String option;
 	private String value;
 	
-	public String getOption() {
-		return option;
-	}
-	public void setOption(String option) {
-		this.option = option;
-	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
+	
+	
 	public int getFt_seq() {
 		return ft_seq;
 	}
@@ -73,12 +69,6 @@ public class CONSUMER_Ft_InfoDTO {
 	public void setFt_intro(String ft_intro) {
 		this.ft_intro = ft_intro;
 	}
-	public String getFt_loc() {
-		return ft_loc;
-	}
-	public void setFt_loc(String ft_loc) {
-		this.ft_loc = ft_loc;
-	}
 	public String getFt_join() {
 		return ft_join;
 	}
@@ -115,4 +105,48 @@ public class CONSUMER_Ft_InfoDTO {
 	public void setFt_dist_order(double ft_dist_order) {
 		this.ft_dist_order = ft_dist_order;
 	}
+	public String getGps_sido() {
+		return gps_sido;
+	}
+	public void setGps_sido(String gps_sido) {
+		this.gps_sido = gps_sido;
+	}
+	public String getGps_sigungu() {
+		return gps_sigungu;
+	}
+	public void setGps_sigungu(String gps_sigungu) {
+		this.gps_sigungu = gps_sigungu;
+	}
+	public String getGps_dong() {
+		return gps_dong;
+	}
+	public void setGps_dong(String gps_dong) {
+		this.gps_dong = gps_dong;
+	}
+	public String getGps_x() {
+		return gps_x;
+	}
+	public void setGps_x(String gps_x) {
+		this.gps_x = gps_x;
+	}
+	public String getGps_y() {
+		return gps_y;
+	}
+	public void setGps_y(String gps_y) {
+		this.gps_y = gps_y;
+	}
+	public String getOption() {
+		return option;
+	}
+	public void setOption(String option) {
+		this.option = option;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	
 }
