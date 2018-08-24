@@ -23,10 +23,14 @@ import poly.dto.admin.ADMIN_ImageDTO;
 import poly.dto.admin.ADMIN_Menu_InfoDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
 import poly.dto.seller.SELLER_MenuJsDTO;
+import poly.dto.seller.SELLER_OrderInfoDTO;
 import poly.service.ADMIN_IFtService;
 import poly.service.ADMIN_IImageService;
+import poly.service.SELLER_IFtSellerService;
+import poly.service.SELLER_IOrderService;
 import poly.service.SELLER_IOutService;
 import poly.util.CmmUtil;
+import poly.util.UtilTime;
 
 @Controller
 public class SELLER_OutController {
@@ -44,20 +48,39 @@ public class SELLER_OutController {
 	private SELLER_IOutService OutService;
 	//메모리에 올려두고 싱글톤 패턴을 적용시켜줍니다 .
 	
+	@Resource(name="SELLER_OrderService")
+	private SELLER_IOrderService orderService;
 	
+	@Resource(name="SELLER_FtSellerService")
+	private SELLER_IFtSellerService FtSellerService;
 	
 	@RequestMapping(value="/seller/out/out_info")
 	public String out_info(HttpServletRequest request , Model model) throws Exception{
 		log.info(this.getClass() + " out start !!~");
 		String userSeq = CmmUtil.nvl(request.getParameter("userSeq"));
 		log.info("userSeq : " + userSeq);
+		String userAuth = CmmUtil.nvl(request.getParameter("userAuth"));
+		log.info("userAuth : " + userAuth);
+		//소비자가 주문하기 클릭할경루 소비자가 보고 있던 푸드트럭의 번호를 받는다.
+		String ftSeq =CmmUtil.nvl(request.getParameter("ftSeq"));
+		log.info("ftSeq : " + ftSeq);
+		
 		
 		SELLER_FtSellerDTO ftsDTO = new SELLER_FtSellerDTO();
 		ftsDTO.setUserSeq(userSeq);
 		log.info("ftsDTO set : " + ftsDTO.getUserSeq());
+		if(userAuth.equals("2")) {
+			//판재자일 경우에는 판매자 id를 이용하여 ftSeq를 뽑아옵니다.
+			log.info("if userAuth = '2' 시작합니다.");
+			ftsDTO = OutService.getOutTruckInfo(ftsDTO);
+			log.info("ftsDTO .get : " +ftsDTO.getFtSeq());
+		}else {
+			log.info("if else 소비자 시작합니다.");
+			//소비자 화면에서 넘어올경루 소비자가  보고 있던 푸드트럭의 번호를 셋팅해줍니다.
+			ftsDTO.setFtSeq(ftSeq);
+			log.info("ftsDTO .get : " + ftsDTO.getFtSeq());
+		}
 		
-		ftsDTO = OutService.getOutTruckInfo(ftsDTO);
-		log.info("ftsDTO .get : " +ftsDTO.getFtSeq());
 		
 		ADMIN_Ft_InfoDTO fDTO = new ADMIN_Ft_InfoDTO();
 		fDTO = ftService.getFT_Info(Integer.parseInt(ftsDTO.getFtSeq()));
@@ -264,10 +287,63 @@ public class SELLER_OutController {
 		return "/seller/out/inOut";
 	}
 	
+	//seller 판매자 inMain화면
 	@RequestMapping(value="/seller/inMain")
 	public String main(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		
 		System.out.println("main");
+		log.info("chart Start");
+		String userSeq = (String)session.getAttribute("userSeq");
+		log.info("getUserSeq : " + userSeq);
+		
+		/*String userSeq1 = request.getParameter("userSeq");*/
+		/*String ftSeq = request.getParameter("ftSeq");
+		log.info("getFtSeq : " + ftSeq);*/
+		SELLER_FtSellerDTO ftsDTO = new SELLER_FtSellerDTO();
+		ftsDTO.setUserSeq(userSeq);
+		ftsDTO = FtSellerService.getTruckConfig(ftsDTO);
+		log.info("ftSeq : " + ftsDTO.getFtSeq());
+		
+		String todayMD = UtilTime.getDateMD();
+		String todayYMDhms = UtilTime.getDateYMDhms();
+		String todayDD = UtilTime.getDateDD();
+		log.info("todayMD : " + todayMD);
+		log.info("todayYMDhms : " + todayYMDhms);
+		log.info("todayDD : " + todayDD);
+		model.addAttribute("todayMD", todayMD);
+		model.addAttribute("todayYMDhms", todayYMDhms);
+		model.addAttribute("todayDD", todayDD);
+		/*OrderInfoDTO oDTO = new OrderInfoDTO();
+		oDTO.setUserSeq(userSeq);*/
+		
+		
+		List<SELLER_OrderInfoDTO> oList = orderService.getOrderList(userSeq);
+		if(oList.isEmpty()) {
+			log.info("oList is Empty");
+		}
+		log.info("oList size : " + oList.size());
+		log.info("============ 주문내역 시작  ============");
+		for(int i=0; i<oList.size(); i++) {
+			log.info("---------------------------");
+			log.info("oList.getOrd_seq : " + oList.get(i).getOrd_seq());
+			log.info(oList.get(i).getOrd_seq());
+			log.info(oList.get(i).getUser_seq());
+			log.info(oList.get(i).getOrd_status());
+			log.info(oList.get(i).getOrd_date());
+			log.info(oList.get(i).getOrd_way());
+			log.info(oList.get(i).getBuy_way());
+			log.info(oList.get(i).getOrd_sumprice());
+			log.info("---------------------------");
+		}
+		log.info("============ 주문내역 끝  ============");
+
+		model.addAttribute("oList", oList);
+		//데이터를 FtsellerService에 태워
+		
+		SELLER_OrderInfoDTO sumChartWeek = FtSellerService.getChartWeek(userSeq);
+		log.info("sumChart : " + sumChartWeek.getOrd_sumprice());
+		model.addAttribute("sumChartWeek", sumChartWeek);
+		
+		log.info("chart End");
 		return "/seller/inMain";
 	}
 }

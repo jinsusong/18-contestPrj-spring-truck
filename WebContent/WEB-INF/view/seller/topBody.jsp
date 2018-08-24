@@ -8,8 +8,7 @@
 	//nvl 널값이 들어오면 공백으로 바꿔줍니다.
 	
 %>
-    <div class="container">
-		<div class="top">
+		<div class="top topSecondContainer">
 <!-- 창원이형이 주신 top body  -->
 			
 			<div class="navigation" style="color:white;">
@@ -80,7 +79,6 @@
 		
 		
 		
-	</div>
 
 
 <!-- 창원이형이 주신 top script  -->

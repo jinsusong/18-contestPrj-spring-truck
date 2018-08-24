@@ -14,7 +14,6 @@
 <head>
 <title>Write!</title>
 <%@ include file="/WEB-INF/view/consumer/topCssScript.jsp" %>
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
 $(document).ready( function () {	//진수형이 알려주신 게시판

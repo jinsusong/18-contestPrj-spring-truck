@@ -1,5 +1,7 @@
 package poly.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,7 +10,11 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import poly.dto.admin.ADMIN_CouponDTO;
+import poly.dto.admin.ADMIN_Coupon_IssueDTO;
 import poly.dto.cmmn.CMMN_UserDTO;
 import poly.service.SELLER_IOrderService;
 import poly.service.impl.SELLER_OrderService;
@@ -39,12 +45,43 @@ public class SELLER_OrderController {
 		log.info("uDTO. get : " + uDTO.getUserEmail());
 		log.info("uDTO. get : " + uDTO.getUserNick());
 		
+		
 		model.addAttribute("uDTO",uDTO);
 		model.addAttribute("sum",sum);
 		
 		log.info(this.getClass() + "orderInfo end ~~!!!");
 		
 		return "/seller/order/orderInfo";
+	}
+	//쿠폰 가져오기 
+	@RequestMapping(value="/seller/orderinfo/coupon")
+	public @ResponseBody List<ADMIN_Coupon_IssueDTO> coupon(HttpServletRequest request)throws Exception{
+		log.info("coupon start !!!");
+		String userSeq = CmmUtil.nvl(request.getParameter("userSeq"));
+		log.info("userSeq : " + userSeq);
+		//쿠폰 가져오기
+		ADMIN_Coupon_IssueDTO couponList = new ADMIN_Coupon_IssueDTO();
+		couponList.setUser_seq(Integer.parseInt(userSeq));
+		log.info("couponLIst set userSeq : " + couponList.getUser_seq());
+		List<ADMIN_Coupon_IssueDTO> couponListUse = orderService.getCpList(couponList);
+		for(int i=0; i < couponListUse.size(); i++) {
+			System.out.println(couponListUse.get(i).getCoupon_code());
+			System.out.println("================================");
+		}
+		
+		//
+		log.info("coupon end !!!!");
+		return couponListUse;
+	}
+	//쿠폰 사용하면 사용 갯수 하나 늘리기
+	@RequestMapping(value="/seller/coupon/couponUse", method=RequestMethod.POST)
+	public void couponUse() throws Exception{
+		log.info("couponUse start !!!!!");
+		
+		
+		
+		log.info("couponUse end !!!!");
+		
 	}
 	
 	//*******************************************************************************
