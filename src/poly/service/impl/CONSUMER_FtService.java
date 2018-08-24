@@ -1,20 +1,18 @@
 package poly.service.impl;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import poly.dto.consumer.CONSUMER_FtLikeDTO;
+import poly.dto.consumer.CONSUMER_FtMenuCateDTO;
 import poly.dto.consumer.CONSUMER_Ft_InfoDTO;
 import poly.dto.consumer.CONSUMER_Ft_ReviewDTO;
-import poly.dto.consumer.CONSUMER_GpsTableDTO;
 import poly.dto.consumer.CONSUMER_ImageDTO;
 import poly.dto.consumer.CONSUMER_Menu_InfoDTO;
 import poly.persistance.mapper.CONSUMER_FtMapper;
+import poly.persistance.mapper.CONSUMER_Ft_Menu_CateMapper;
 import poly.persistance.mapper.CONSUMER_Ft_ReviewMapper;
 import poly.service.CONSUMER_IFtService;
 
@@ -27,11 +25,9 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 	@Resource(name="CONSUMER_Ft_ReviewMapper")	// 객체를 생성할 때 UserMapper라고 명명
 	private CONSUMER_Ft_ReviewMapper ft_ReviewMapper; // UserMapper 타입의 userMapper라는 변수의 객체 선언
 
+	@Resource(name="CONSUMER_Ft_Menu_CateMapper")	// 객체를 생성할 때 UserMapper라고 명명
+	private CONSUMER_Ft_Menu_CateMapper ft_Menu_CateMapper; // UserMapper 타입의 userMapper라는 변수의 객체 선언
 
-	@Override
-	public List<CONSUMER_Ft_InfoDTO> getFtList(String regCode) throws Exception {
-		return ftMapper.getFtList(regCode);
-	}
 
 
 	@Override
@@ -163,8 +159,32 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 	}
 
 
+	@Override
+	public List<CONSUMER_FtMenuCateDTO> getFT_Cate_List(int ft_seq) throws Exception {
+		return ft_Menu_CateMapper.getFT_Cate_List(ft_seq);
+	}
 
+	//푸드트럭 리스트 가져오기 - 시도 정보
+	@Override
+	public List<CONSUMER_Ft_InfoDTO> getFtList(String sido) throws Exception {
+		return ftMapper.getFtList(sido);
+	}
+	//푸드트럭 리스트 가져오기 - 시군구 정보
+	@Override
+	public List<CONSUMER_Ft_InfoDTO> getFtListSigungu(String sigungu) throws Exception {
+		return ftMapper.getFtListSigungu(sigungu);
+	}
+	//푸드트럭 리스트 가져오기 - 동면읍리 정보
+	@Override
+	public List<CONSUMER_Ft_InfoDTO> getFtListDong(String dong) throws Exception {
+		return ftMapper.getFtListDong(dong);
+	}
 
+	//음식 메뉴 리스트 가져오기 - ftList파라미터
+	@Override
+	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList) {
+		return ftMapper.getMenuListWithFtList(ftList);
+	}
 
 }
 

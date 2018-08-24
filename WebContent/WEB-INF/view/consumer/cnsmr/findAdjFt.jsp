@@ -100,9 +100,8 @@
 		// 위도경도 정보를 split하여 double형으로 형변환
 		var positions = [
 			<%for(int i =0; i< ftList.size(); i++) {%>
-				<% String []locPosition = ftList.get(i).getFt_loc().split(","); %> 
-				<% double truckPositionLat = Double.parseDouble(locPosition[0]); %>
-				<% double truckPositionLon = Double.parseDouble(locPosition[1]); %>
+				<% double truckPositionLat = Double.parseDouble(ftList.get(i).getGps_x()); %>
+				<% double truckPositionLon = Double.parseDouble(ftList.get(i).getGps_y()); %>
 			{
 				title: '<%=ftList.get(i).getFt_name() %>', 
 		        latlng: new daum.maps.LatLng(<%=truckPositionLat%>, <%=truckPositionLon%>)

@@ -5,7 +5,6 @@ import java.util.List;
 
 import config.Mapper;
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
-import poly.dto.consumer.CONSUMER_GpsTableDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
 
 @Mapper("CONSUMER_UserMapper")
@@ -34,8 +33,6 @@ public interface CONSUMER_UserMapper {
 	HashMap<String, Object> updateTmpPass(HashMap<String, Object> hMap) throws Exception;
 	
 	int updateUserStatus(CONSUMER_UserDTO uDTO) throws Exception;
-
-	public int setGps(CONSUMER_GpsTableDTO gpsDTO) throws Exception;
 
 	public int ftAddFavortie(CONSUMER_FtLikeDTO ftLikeDTO) throws Exception;
 
