@@ -26,7 +26,7 @@
 	<table width="100%">
 		<tr style="border-top:1px solid #DDDDDD; border-bottom:1px solid #DDDDDD;">
 			<td width="25%" class="table_Hline">배너 이름</td>
-			<td class="table_line"><input type="text" class="form-control" name="coupon_name"></td>
+			<td class="table_line"><input type="text" class="form-control" name="banner_name"></td>
 		</tr>
 		<tr style="border-bottom:1px solid #DDDDDD;">
 			<td class="table_Hline">이미지 첨부</td>
@@ -38,7 +38,7 @@
 			<td class="table_Hline">배너위치</td>
 			<td class="table_line">
 				<div>
-					<input type="text" name="banner_loc">
+					<input type="text" name="banner_loc" class="form-control">
 				</div>			
 			</td>
 		</tr>

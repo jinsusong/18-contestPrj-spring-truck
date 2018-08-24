@@ -29,7 +29,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html" >
-		<title>쿠폰리스트</title>
+		<title>배너/팝업 리스트</title>
 		
 		<!-- include javascript and css files for the EditableGrid library -->
 		<!--<script src="../editablegrid-1.0.10.js"></script>-->
@@ -75,13 +75,13 @@
 	</head>
 	
 	<body>
-		<h2>쿠폰 리스트</h2>
+		<h2>배너/팝업 리스트</h2>
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
 	<div style="margin-top:15px; margin-bottom:25px;">
         <form class="form-inline" action="<%=request.getContextPath()%>/admin/banner/banner_main.do" method="get">
         	<input type="hidden" name="cmd" value="banner_search_list">
             <div class="form-group">
-            	<h4>쿠폰검색</h4>
+            	<h4>배너/팝업 검색</h4>
                     <select class="form-control" name="option">
                     	<option value="banner_name">배너이름</option>
                         <option value="banner_loc">배너위치</option>
@@ -116,10 +116,10 @@
 		<table id="htmlgrid" class="testgrid" style="margin-top:10px;">
 			<tr>
             	<th width="2%"><input type="checkbox" name="all" onClick="allCheck()"/></th>
-				<th width="12%">배너번호</th>
+				<th width="6%">배너번호</th>
 				<th width="35%">이미지</th>
-				<th width="25%">이름</th>
-				<th width="8%">위치</th>
+				<th width="20%">이름</th>
+				<th width="12%">위치</th>
 				<th>등록일</th>
 				<th width="6%">노출상태</th>
 			</tr>
@@ -134,11 +134,10 @@
 					<tr id="<%=cnt%>"> 
 		            	<td><input type="checkbox" name="banner_check" value="<%=bnDTOarr.get(i).getBanner_seq()%>"/></td>
 		            	<td><%=bnDTOarr.get(i).getBanner_seq() %></td>
-		                <td style="cursor:pointer;" onclick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_edit&banner_seq=<%=bnDTOarr.get(i).getBanner_seq()%>'"><%=bnDTOarr.get(i).getBanner_name()%></td>
-						<td>
+						<td style="cursor:pointer;" onclick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_edit&banner_seq=<%=bnDTOarr.get(i).getBanner_seq()%>'">
 							<%if(!bnDTOarr.get(i).getFile_id().equals("-1")){ %>
 							<div align="center">
-								<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTOarr.get(i).getFile_sevname()%>" style="margin-bottom:5px; min-width:auto; max-width:100%;">
+								<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTOarr.get(i).getFile_sevname()%>" style="margin-bottom:5px; max-height:120px;">
 							</div>
 							<%}%>
 						</td>
@@ -206,7 +205,7 @@
 		        <h3 class="modal-title" id="myModalLabel">&nbsp;<b>배너/팝업 등록</b></h3>
 		      </div>
 		      <div class="modal-body">
-		      		<form action="<%=request.getContextPath()%>/admin/banner/banner_create.do" method="post"  name="banner_create" onsubmit="return false;">
+		      		<form action="<%=request.getContextPath()%>/admin/banner/banner_create.do" method="post" enctype="multipart/form-data" name="banner_create">
 		       			<%@ include file="banner_create.jsp" %>
 		       		</form>
 		      </div>

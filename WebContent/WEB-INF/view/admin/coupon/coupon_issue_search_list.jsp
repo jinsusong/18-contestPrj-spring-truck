@@ -102,7 +102,7 @@
     </div>
     <div style="border-bottom:1px solid #cccccc; margin-top:15px; margin-bottom:15px;"></div>
 		<div style="position:relative; float:left; width:68%;">
-            		<p>전체 발급된 쿠폰 수 : <%=cpisDTOarr.size()%></p>
+            		<p>검색된 발급 쿠폰 수 : <%=cpisDTOarr.size()%></p>
                    선택 쿠폰&nbsp; 
                    <input type="button" value="회수" class="btn btn-default" onClick="javascript:checkIssue(1)"> 
                 </div>

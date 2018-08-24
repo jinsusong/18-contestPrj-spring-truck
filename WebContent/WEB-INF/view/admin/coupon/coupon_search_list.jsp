@@ -59,7 +59,6 @@
 				var cObj = document.getElementsByName("coupon_check"); //체크박스 값 받는 곳
 				var check_Cnt = 0;
 				var check_Arr = ""; //선택항목 값 담는 곳
-				var auth_Arr = ""; //변경등급 값 담는 곳
 				
 				for(var i=0; i<cObj.length; i++){
 					if(cObj[i].checked){

@@ -8,6 +8,24 @@ public class ADMIN_Banner_PopDTO {
 	private String banner_regdate;
 	private int exp_yn;
 	
+	private String option;
+	private String value;
+	
+	public String getOption() {
+		return option;
+	}
+	public void setOption(String option) {
+		this.option = option;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
+	//---------------------------------------------------
+	
 	public int getBanner_seq() {
 		return banner_seq;
 	}

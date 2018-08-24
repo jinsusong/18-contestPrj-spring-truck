@@ -8,6 +8,8 @@
  <% 
  	List<ADMIN_Banner_PopDTO> bnDTOarr = (List<ADMIN_Banner_PopDTO>)request.getAttribute("bnDTOarr");
  	List<ADMIN_ImageDTO> imgDTOarr = (List<ADMIN_ImageDTO>)request.getAttribute("imgDTOarr");
+ 	String option = (String)request.getAttribute("option");
+ 	String value = (String)request.getAttribute("value");
  	
 	 String pageNum = (String)request.getAttribute("pageNum");
 		int startNum;
@@ -29,7 +31,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html" >
-		<title>쿠폰리스트</title>
+		<title>배너/팝업 리스트</title>
 		
 		<!-- include javascript and css files for the EditableGrid library -->
 		<!--<script src="../editablegrid-1.0.10.js"></script>-->
@@ -41,7 +43,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin/bootstrap.css">
 		<script>
 			function pageSizeEdit(pageSize){
-				location.href="<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_list&pageSize="+pageSize+"&pageNum=<%=pageNum%>";
+				location.href="<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_search_list&option=<%=option%>&value=<%=value%>&pageSize="+pageSize+"&pageNum=<%=pageNum%>";
 			}
 		
 			function allCheck(){
@@ -75,13 +77,20 @@
 	</head>
 	
 	<body>
-		<h2>쿠폰 리스트</h2>
-    <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
+	<div style="width:100%;">
+		<div style="float:left;">
+			<h2>배너/팝업 검색 리스트</h2>
+		</div>
+		<div style="float:right; margin-top:20px;">
+			<input type="button" class="btn btn-default" value="뒤로가기" onclick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do'">
+	</div>
+	</div>
+    <div style="border-bottom:1px solid #444444; margin-top:15px; clear:both;"></div>
 	<div style="margin-top:15px; margin-bottom:25px;">
         <form class="form-inline" action="<%=request.getContextPath()%>/admin/banner/banner_main.do" method="get">
         	<input type="hidden" name="cmd" value="banner_search_list">
             <div class="form-group">
-            	<h4>쿠폰검색</h4>
+            	<h4>배너/팝업 검색</h4>
                     <select class="form-control" name="option">
                     	<option value="banner_name">배너이름</option>
                         <option value="banner_loc">배너위치</option>
@@ -93,7 +102,7 @@
     </div>
     <div style="border-bottom:1px solid #cccccc; margin-top:15px; margin-bottom:15px;"></div>
 		<div style="position:relative; float:left; width:68%;">
-            		<p>전체배너 수 : <%=bnDTOarr.size()%></p>
+            		<p>검색된 배너 수 : <%=bnDTOarr.size()%></p>
                    선택 배너&nbsp; 
                    <input type="button" value="삭제" class="btn btn-default" onClick="javascript:checkBanner(1)"> 
                 </div>
@@ -116,10 +125,10 @@
 		<table id="htmlgrid" class="testgrid" style="margin-top:10px;">
 			<tr>
             	<th width="2%"><input type="checkbox" name="all" onClick="allCheck()"/></th>
-				<th width="12%">배너번호</th>
+				<th width="6%">배너번호</th>
 				<th width="35%">이미지</th>
-				<th width="25%">이름</th>
-				<th width="8%">위치</th>
+				<th width="20%">이름</th>
+				<th width="12%">위치</th>
 				<th>등록일</th>
 				<th width="6%">노출상태</th>
 			</tr>
@@ -134,11 +143,10 @@
 					<tr id="<%=cnt%>"> 
 		            	<td><input type="checkbox" name="banner_check" value="<%=bnDTOarr.get(i).getBanner_seq()%>"/></td>
 		            	<td><%=bnDTOarr.get(i).getBanner_seq() %></td>
-		                <td style="cursor:pointer;" onclick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_edit&banner_seq=<%=bnDTOarr.get(i).getBanner_seq()%>'"><%=bnDTOarr.get(i).getBanner_name()%></td>
-						<td>
+						<td style="cursor:pointer;" onclick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_edit&banner_seq=<%=bnDTOarr.get(i).getBanner_seq()%>'">
 							<%if(!bnDTOarr.get(i).getFile_id().equals("-1")){ %>
 							<div align="center">
-								<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTOarr.get(i).getFile_sevname()%>" style="margin-bottom:5px; min-width:auto; max-width:100%;">
+								<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTOarr.get(i).getFile_sevname()%>" style="margin-bottom:5px; max-height:120px;">
 							</div>
 							<%}%>
 						</td>
@@ -181,17 +189,17 @@
 				if (endPage>pageCount) endPage = pageCount;
 				
 				if (startPage>pageBlock){%>
-					<input type="button" value="<" class="btn btn-default" onClick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_list&pageNum=<%=startPage-pageBlock%>&pageSize=<%=pageSize%>'">
+					<input type="button" value="<" class="btn btn-default" onClick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_search_list&option=<%=option%>&value=<%=value%>&pageNum=<%=startPage-pageBlock%>&pageSize=<%=pageSize%>'">
 	<%		}
 				for(int i=startPage; i<=endPage; ++i){%>
 				<%if(Integer.parseInt(pageNum)==i){ %>
-					<input type="button" value="<%=i %>" class="btn btn-primary"  onClick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_list&pageNum=<%=i%>&pageSize=<%=pageSize%>'">		
+					<input type="button" value="<%=i %>" class="btn btn-primary"  onClick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_search_list&option=<%=option%>&value=<%=value%>&pageNum=<%=i%>&pageSize=<%=pageSize%>'">		
 				<%}else{ %>
-					<input type="button" value="<%=i %>" class="btn btn-default"  onClick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_list&pageNum=<%=i%>&pageSize=<%=pageSize%>'">		
+					<input type="button" value="<%=i %>" class="btn btn-default"  onClick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_search_list&option=<%=option%>&value=<%=value%>&pageNum=<%=i%>&pageSize=<%=pageSize%>'">		
 				<%} %>
 	<%		}
 				if (endPage<pageCount){%>
-					<input type="button" value=">" class="btn btn-default" onClick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_list&pageNum=<%=startPage+pageBlock%>&pageSize=<%=pageSize%>'">
+					<input type="button" value=">" class="btn btn-default" onClick="location.href='<%=request.getContextPath()%>/admin/banner/banner_main.do?cmd=banner_search_list&option=<%=option%>&value=<%=value%>&pageNum=<%=startPage+pageBlock%>&pageSize=<%=pageSize%>'">
 	<%			}
 			}
 %>
