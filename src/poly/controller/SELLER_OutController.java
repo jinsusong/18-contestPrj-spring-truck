@@ -287,6 +287,7 @@ public class SELLER_OutController {
 		return "/seller/out/inOut";
 	}
 	
+	//seller 판매자 inMain화면
 	@RequestMapping(value="/seller/inMain")
 	public String main(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
 		System.out.println("main");
@@ -336,6 +337,11 @@ public class SELLER_OutController {
 		log.info("============ 주문내역 끝  ============");
 
 		model.addAttribute("oList", oList);
+		//데이터를 FtsellerService에 태워
+		
+		SELLER_OrderInfoDTO sumChartWeek = FtSellerService.getChartWeek(userSeq);
+		log.info("sumChart : " + sumChartWeek.getOrd_sumprice());
+		model.addAttribute("sumChartWeek", sumChartWeek);
 		
 		log.info("chart End");
 		return "/seller/inMain";

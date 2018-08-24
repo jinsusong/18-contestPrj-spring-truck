@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import poly.dto.seller.SELLER_FtDistrictDataDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
 import poly.dto.seller.SELLER_ImageDTO;
+import poly.dto.seller.SELLER_OrderInfoDTO;
 import poly.persistance.mapper.SELLER_FtSellerMapper;
 import poly.service.SELLER_IFtSellerService;
 
@@ -114,6 +115,12 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 	public List<SELLER_FtSellerDTO> getSalesList(SELLER_FtSellerDTO ftsDTO) throws Exception {
 		// TODO Auto-generated method stub
 		return sELLER_FtSellerMapper.getSalesList(ftsDTO);
+	}
+
+	@Override
+	public SELLER_OrderInfoDTO getChartWeek(String userSeq) throws Exception {
+		// TODO Auto-generated method stub
+		return sELLER_FtSellerMapper.getChartWeek(userSeq);
 	}
 
 

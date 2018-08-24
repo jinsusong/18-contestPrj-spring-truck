@@ -121,5 +121,17 @@
 		        ON  O.USER_SEQ = U.USER_SEQ
 		  WHERE W.FT_SEQ = #{ftSeq}
 		  ORDER BY W.ORD_DATE ASC 
+		  
 	</select>
+
+	<!-- chartWeek 데이터불러오기 -->
+	<select id="getChartWeek" parameterType="string" resultType="SELLER_OrderInfoDTO">
+		SELECT
+			SUM(ORD_SUMPRICE) AS ord_sumprice
+		FROM ORDER_INFO
+		WHERE ORD_DATE BETWEEN SYSDATE-7 
+			AND SYSDATE AND ORD_STATUS=1 
+			AND USER_SEQ=#{userSeq}
+	</select>
+
 </mapper>
