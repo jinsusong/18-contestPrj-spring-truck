@@ -338,6 +338,11 @@ public class SELLER_OutController {
 
 		model.addAttribute("oList", oList);
 		//데이터를 FtsellerService에 태워
+		
+		SELLER_OrderInfoDTO sumChartWeek = FtSellerService.getChartWeek(userSeq);
+		log.info("sumChart : " + sumChartWeek.getOrd_sumprice());
+		model.addAttribute("sumChartWeek", sumChartWeek);
+		
 		log.info("chart End");
 		return "/seller/inMain";
 	}

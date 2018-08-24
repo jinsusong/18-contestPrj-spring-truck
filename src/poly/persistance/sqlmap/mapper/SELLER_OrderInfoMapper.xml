@@ -17,19 +17,20 @@
 	</select>
 	
 	<select id="getOrderList" parameterType="string" resultType="SELLER_OrderInfoDTO">
-		SELECT ORD_SEQ AS ord_seq,
-			FT_INFO.USER_SEQ AS user_seq,
-			ORD_SUMPRICE AS ord_sumprice,
-			ORD_WAY AS ord_way,
-			ORD_DATE AS ord_date,
-			ORD_STATUS AS ord_status,
-			BUY_WAY AS buy_way,
-			USR_RCV_TIME AS usr_rcv_time,
-			RCV_TIME AS rcv_time,
-			FT_SEQ AS ft_seq
-		FROM ORDER_INFO, FT_INFO
-		WHERE ORDER_INFO.USER_SEQ=FT_INFO.USER_SEQ AND FT_INFO.USER_SEQ=#{userSeq}
-		ORDER BY ORD_DATE DESC
+		SELECT 
+			OI.ORD_SEQ AS ord_seq,
+			FI.USER_SEQ AS user_seq,
+			OI.ORD_SUMPRICE AS ord_sumprice,
+			OI.ORD_WAY AS ord_way,
+			OI.ORD_DATE AS ord_date,
+			OI.ORD_STATUS AS ord_status,
+			OI.BUY_WAY AS buy_way,
+			OI.USR_RCV_TIME AS usr_rcv_time,
+			OI.RCV_TIME AS rcv_time,
+			FI.FT_SEQ AS ft_seq
+		FROM ORDER_INFO OI, FT_INFO FI
+		WHERE OI.USER_SEQ=FI.USER_SEQ AND FI.USER_SEQ=#{userSeq}
+		ORDER BY OI.ORD_DATE DESC
 	</select>
 
 
