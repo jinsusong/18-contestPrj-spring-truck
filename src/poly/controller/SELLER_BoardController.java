@@ -14,14 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sun.corba.se.spi.protocol.RequestDispatcherRegistry;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 import poly.dto.seller.SELLER_BoardDTO;
 import poly.dto.seller.SELLER_ReviewDTO;
 import poly.service.SELLER_IBoardService;
 import poly.util.CmmUtil;
-import sun.java2d.cmm.kcms.CMM;
 
 @Controller
 public class SELLER_BoardController {
