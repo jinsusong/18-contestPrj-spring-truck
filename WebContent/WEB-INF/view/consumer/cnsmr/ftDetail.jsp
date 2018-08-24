@@ -29,7 +29,13 @@
 		}
 	}
 	
-
+	String []optime = fDTO.getFt_optime().split("/");
+	//푸드트럭 운영 요일
+	String operateDate = optime[0];
+	String opDay = operateDate.substring(0, 9);
+	String opDayWeek = operateDate.substring(10);
+	//푸드트럭 운영 시간
+	String operateTime = optime[1] + " - " + optime[2];
 %>
 <html>
 <head>
@@ -128,6 +134,9 @@
 		padding: 5px 2px; text-align:center;
 	}
 	
+	.ftIcon {
+		max-width:100%; height:auto; max-height:30px;
+	}
 </style>
 
 
@@ -198,25 +207,51 @@
 					<div class="col-xs-12" style="text-align:center;">
 						<!-- 푸드트럭 대표 사진 -->
 						<%if (imgDTO != null) {%>
-							<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTO.getFileSevname()%>" style="max-width:100%; height:auto;">
+							<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTO.getFileSevname()%>" style=" max-width:100%; height:auto;">
 						<%} else { %>
-	 						<img src="/resources/img/consumer/temp.png" /> 
+	 						<img src="/resources/img/consumer/temp.png" style=" max-width:100%; height:auto;"> 
 	 					<%	} %>
 					</div>
 				</div>
 				<!-- 푸드트럭 운영시간  -->
 				<div class="row">
-				   	<div class="col-xs-12 ftDetailContents">
-						<%=fDTO.getFt_optime()%>
+					<div class="col-xs-2 ftDetailContents">
+						<img src="/resources/img/consumer/clock-circular.png" class="ftIcon" />
+					</div>
+				   	<div class="col-xs-4 ftDetailContents">
+						<p><%=opDay%></p>
+						<p style="font-size:5px;"><%=opDayWeek%></p>
+					</div>
+			   		<div class="col-xs-2 ftDetailContents" style="height:2px; margin:14px; background: #cccccc">
+					</div>
+			   		<div class="col-xs-2 ftDetailContents">
+						<%=operateTime%>
 					</div>
 				</div>
+				<!-- 소개 -->
 				<div class="row">
-					<div class="col-xs-12 ftDetailContents">
+					<div class="col-xs-2 ftDetailContents">
+						<img src="/resources/img/consumer/left-quote.png" class="ftIcon"/>
+					</div>
+					<div class="col-xs-10 ftDetailContents">
 						<%=fDTO.getFt_intro()%>
 					</div>
 				</div>
+				<!-- 위치 -->
 				<div class="row">
-					<div class="col-xs-12 ftDetailContents">
+					<div class="col-xs-2 ftDetailContents">
+						<img src="/resources/img/consumer/placeholder-filled-point.png" class="ftIcon"/>
+					</div>
+					<div class="col-xs-10 ftDetailContents">
+						<%=fDTO.getGps_sido() +" " + fDTO.getGps_sigungu() + " " + fDTO.getGps_dong()%>
+					</div>
+				</div>
+				<!-- 사업자번호 -->
+				<div class="row">
+					<div class="col-xs-2 ftDetailContents">
+						<img src="/resources/img/consumer/man-with-tie.png" class="ftIcon"/>
+					</div>
+					<div class="col-xs-10 ftDetailContents">
 						사업자번호:&nbsp;<%=fDTO.getSel_no()%>
 					</div>
 				</div>
