@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="poly.persistance.mapper.CONSUMER_RcmmndMenuMapper">
+	<!-- 푸드트럭 리뷰 리스트 - 답글 포함 -->
+	<select id="getRcmmndMenuList" parameterType="string" resultType="CONSUMER_RcmmndMenuDTO">
+		SELECT 
+			FR.REVIEW_SEQ,
+			FR.FT_SEQ,
+			FR.USER_SEQ,
+			FR.FILE_ID,
+			FR.REV_TITLE,
+			FR.REV_POINT,
+			FR.REV_TEXT,
+			FR.REV_REGDATE,
+			FR.REV_LEVEL,
+			FR.EXP_YN,
+			UI.USER_NICK
+		FROM 
+			FT_REVIEW FR, USER_INFO UI
+		WHERE 
+			FR.FT_SEQ=#{ft_seq} AND
+		 	UI.USER_SEQ = FR.USER_SEQ
+		ORDER BY 
+			FR.REV_LEVEL DESC
+	</select>
+	
+
+</mapper>

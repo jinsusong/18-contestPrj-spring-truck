@@ -11,9 +11,11 @@ import poly.dto.consumer.CONSUMER_Ft_InfoDTO;
 import poly.dto.consumer.CONSUMER_Ft_ReviewDTO;
 import poly.dto.consumer.CONSUMER_ImageDTO;
 import poly.dto.consumer.CONSUMER_Menu_InfoDTO;
+import poly.dto.consumer.CONSUMER_RcmmndMenuDTO;
 import poly.persistance.mapper.CONSUMER_FtMapper;
 import poly.persistance.mapper.CONSUMER_Ft_Menu_CateMapper;
 import poly.persistance.mapper.CONSUMER_Ft_ReviewMapper;
+import poly.persistance.mapper.CONSUMER_RcmmndMenuMapper;
 import poly.service.CONSUMER_IFtService;
 
 @Service("CONSUMER_FtService") //단순한 이름 설정
@@ -27,6 +29,9 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 
 	@Resource(name="CONSUMER_Ft_Menu_CateMapper")	// 객체를 생성할 때 UserMapper라고 명명
 	private CONSUMER_Ft_Menu_CateMapper ft_Menu_CateMapper; // UserMapper 타입의 userMapper라는 변수의 객체 선언
+	
+	@Resource(name="CONSUMER_RcmmndMenuMapper")	// 객체를 생성할 때 UserMapper라고 명명
+	private CONSUMER_RcmmndMenuMapper rcmmndMenuMapper ; // UserMapper 타입의 userMapper라는 변수의 객체 선언
 
 
 
@@ -184,6 +189,12 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 	@Override
 	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList) {
 		return ftMapper.getMenuListWithFtList(ftList);
+	}
+
+
+	@Override
+	public List<CONSUMER_RcmmndMenuDTO> getRcmmndMenuList(String sido) throws Exception {
+		return rcmmndMenuMapper.getRcmmndMenuList(sido);
 	}
 
 }

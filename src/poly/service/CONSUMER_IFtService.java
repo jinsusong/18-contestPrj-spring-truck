@@ -5,6 +5,7 @@ import java.util.List;
 import poly.dto.consumer.CONSUMER_Ft_ReviewDTO;
 import poly.dto.consumer.CONSUMER_ImageDTO;
 import poly.dto.consumer.CONSUMER_Menu_InfoDTO;
+import poly.dto.consumer.CONSUMER_RcmmndMenuDTO;
 import poly.dto.consumer.CONSUMER_FtMenuCateDTO;
 import poly.dto.consumer.CONSUMER_Ft_InfoDTO;
 
@@ -52,5 +53,8 @@ public interface CONSUMER_IFtService {
 	public List<CONSUMER_Ft_InfoDTO> getFtListSigungu(String sigungu) throws Exception; 
 	public List<CONSUMER_Ft_InfoDTO> getFtListDong(String dong) throws Exception;
 	//음식 메뉴 리스트 가져오기 - ftList파라미터
-	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList); 
+	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList) throws Exception;
+	
+	//메뉴 추천
+	public List<CONSUMER_RcmmndMenuDTO> getRcmmndMenuList(String sido) throws Exception;
 }
