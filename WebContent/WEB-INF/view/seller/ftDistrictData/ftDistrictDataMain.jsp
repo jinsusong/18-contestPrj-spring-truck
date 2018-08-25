@@ -38,12 +38,12 @@ body { font-family:gulim; font-size:12px; }
 					<select name="gugun2" id="gugun2"></select>
 					<select name="dong2" id="dong2"></select>
 					</fieldset> -->
-					<fieldset style="display:inline-block;">
-						<legend>구군 별 푸드트럭 분포</legend>
-						<select name="sido1" id="sido1" class="col-sm-9"></select>
-						<select name="gugun1" id="gugun1" style="display:none;"></select>
+					<fieldset style="margin-top:2%">
+						<h3 style="display:inline; margin:0; padding:0;" class="col-sm-8">구군 별 푸드트럭 분포</h3>
+							<select name="sido1" id="sido1" style="margin:0; padding:0;" class="col-sm-2"></select>
+							<select name="gugun1" id="gugun1" style="display:none;"></select>
+							<button type="button" onclick="findMap(); return false;" id="submitBttn" style="margin:0; padding:0;" class="col-sm-1">찾기</button>
 					</fieldset>
-					<button onclick="findMap(); return false;" id="submitBttn">찾기</button>
 					
 				
 				</div>

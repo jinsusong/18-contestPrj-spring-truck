@@ -4,6 +4,7 @@ import java.io.File;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,24 +13,36 @@ import java.util.Spliterator;
 import javax.annotation.Resource;
 import javax.mail.Multipart;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import poly.dto.consumer.CONSUMER_DissInfoDTO;
+import poly.dto.consumer.CONSUMER_Gps_TableDTO;
+import poly.dto.consumer.CONSUMER_WeatherDTO;
+import poly.dto.seller.SELLER_DissInfoDTO;
 import poly.dto.seller.SELLER_FtDistrictDataDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
+import poly.dto.seller.SELLER_Gps_TableDTO;
 import poly.dto.seller.SELLER_ImageDTO;
+import poly.dto.seller.SELLER_WeatherDTO;
 import poly.service.SELLER_IFtSellerService;
 import poly.service.SELLER_IImageService;
 import poly.util.SELLER_UtilFile;
+import poly.util.SortRegCode;
 import poly.util.CmmUtil;
+import poly.util.Coord;
+import poly.util.OpenAPI;
 
 
 
@@ -37,6 +50,12 @@ import poly.util.CmmUtil;
 public class SELLER_FtSellerController {
 	private Logger log = Logger.getLogger(this.getClass());
 	//로그를 찍고 파일로 남깁니다 .
+	public String getDate() {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy. MM. dd / hh:mm:ss");
+		String date = sdf1.format(cal.getTime());
+		return date;
+	}
 	
 	/* String savePath= "C:\\Users\\data20\\Desktop\\TwSpring\\SpringPRJ\\WebContent\\uploadImg\\"; 
 	 // 이거는 로컬 경로를 뜻하는지 알아야됨
@@ -414,6 +433,163 @@ public class SELLER_FtSellerController {
 		log.info(this.getClass() + " sales end !!!!!!!!!!!!!!!!!!!!!!!");
 		return "/seller/sales/sales";
 	}
+	
+	//날씨 정보, 식중독 예방 정보 페이지
+		@RequestMapping(value="/seller/weatherInfo", method=RequestMethod.GET) 
+		public String weatherInfoSel(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+			log.info("Access weatherInfo");
+			String myAddress = request.getParameter("myAddress");
+			String regCode = request.getParameter("regCode");
+			
+			if("".equals(myAddress) || "".equals(regCode)) {
+				//위치설정 안되어 있는 경우
+				String url= "/seller/weather/findMyLoc.do";
+				String msg ="위치 설정 후 사용해주세요.";
+
+				model.addAttribute("msg", msg);
+				model.addAttribute("url", url);
+				
+				return "/cmmn/alert";
+			}
+			String url = "http://apis.data.go.kr/B550928/dissForecastInfoSvc/getDissForecastInfo"
+					//서비스 키
+					+ "?serviceKey=NM1oJvYCcGILHPKU0R8dmv9P%2BvAxnAXIoSLH29uHh4TFUkRZdD9iqZF7HnKPYCQHBM1eM29GDwkz5of%2BiHtT0g%3D%3D"
+					// 반환 데이터 타입
+					+ "&type=json"
+					// 질병 코드:3 식중독
+					+ "&dissCd=3"
+					// 지역코드
+					+ "&znCd="+ regCode;
+			SELLER_DissInfoDTO dissInfoDTO = OpenAPI.getDissInfoSel(url);
+			model.addAttribute("dissInfoDTO", dissInfoDTO); //식중독 예방정보가 할당된 1개의 객체 전송
+			dissInfoDTO = null; url = null;
+			/*model.addAttribute("myAddress", myAddress);*/ //topBody.jsp에 세션이 있기 때문에 model 사용하지 않음
+			log.info("Terminate weatherInfo");		
+			return "/seller/weather/weatherInfo";
+		}
+	
+	// 내 위치 찾기 페이지 이동
+		@RequestMapping(value="/seller/weather/findMyLoc")
+		public String findMyLocSel() throws Exception{
+			log.info(this.getClass() + "seller weather start ~~~");
+			log.info("access FindMyLoc");
+			log.info(this.getClass() + "seller weather end ~~~~");
+			return "/seller/weather/findMyLoc";
+		}
+		//위치정보 받아와서 처리 -- PROCEDURE
+		@RequestMapping(value="/seller/myLocProc", method=RequestMethod.POST) 
+		public String myLocProcSel(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
+			log.info("Access myLocProc");
+			
+			String userSeq = request.getParameter("userSeq"); // 유저번호
+			String myLat = request.getParameter("myLat"); // 위도
+			String myLon = request.getParameter("myLon"); // 경도
+			String myAddress = request.getParameter("myAddress"); // 지번 주소 명
+			String gridX = request.getParameter("gridX"); //날씨용 좌표 X
+			String gridY = request.getParameter("gridY"); //날씨용 좌표 Y
+			String []myAddrArr = myAddress.split(" "); // 시도구 시군구 읍면동 정보
+			String sido = myAddrArr[0];
+			String sigungu = myAddrArr[1];
+			String dong = myAddrArr[2];
+			//미 로그인시 유저번호는 -1로 지정하여 DB에 저장
+			if(userSeq.equals("")) {
+				userSeq = "-1";
+				System.out.println("null check complete");
+			}
+			
+			log.info(userSeq);
+			log.info(myLat);
+			log.info(myLon);
+			log.info(myAddress);
+			log.info(sido);
+			log.info(sigungu);
+			log.info(dong);
+			log.info("날씨용 지역 코드 X : " + gridX); //날씨용 지역코드 변환
+			log.info("날씨용 지역 코드 Y : " + gridY); //날씨용 지역코드 변환
+			
+			//유저번호, GPS정보 DB저장
+			SELLER_Gps_TableDTO gpsDTO = new SELLER_Gps_TableDTO();
+			gpsDTO.setUser_seq(Integer.parseInt(userSeq));
+			gpsDTO.setGps_x(myLat);
+			gpsDTO.setGps_y(myLon);
+			gpsDTO.setGps_sido(sido);
+			gpsDTO.setGps_sigungu(sigungu);
+			gpsDTO.setGps_dong(dong);
+			gpsDTO.setGps_renew_date(getDate());
+			
+			int resultSet = FtSellerService.setGps(gpsDTO);
+			log.info("gpsDTO " + resultSet);
+			int resultUpdate = FtSellerService.updateGps(gpsDTO.getUser_seq());
+			log.info("DB저장 결과(1: 성공)  >>>>>>>> " + resultSet + ", " + resultUpdate);
+			
+			
+			
+			//////////////동네날씨예보 API시작!!!//////////////
+			Coord coord = new Coord(gridX, gridY);	//지역코드
+			String skyCode =null, ptyCode = null, t3hCode = null; 
+			
+			//skycode 하늘상태(맑음:1, 구름조금:2, 구름많음:3, 흐림:4)
+			//ptyCode 강수형태(없음:0, 비:1, 비/눈:2, 눈:3)
+			//t3hCode 3시간 동안의 기온(단위 ℃)
+			List<SELLER_WeatherDTO> weatherDTOs = OpenAPI.getWeatherSeller(coord);
+			if(weatherDTOs != null) {
+				for(SELLER_WeatherDTO weatherDTO: weatherDTOs) {
+					switch(weatherDTO.getCategory()) {
+						case "SKY": skyCode = weatherDTO.getFcstValue(); break; 
+						case "PTY": ptyCode = weatherDTO.getFcstValue(); break; 
+						case "T3H": t3hCode = weatherDTO.getFcstValue(); break;
+						default: break;
+					}
+				}	
+			}
+			
+			String regCode = SortRegCode.chgToRegCode(myAddress); //질병예방 API 용 지역코드
+			log.info("Your regCode is : " + regCode);
+			session.setAttribute("myLat", myLat);
+			session.setAttribute("myLon", myLon);
+			session.setAttribute("myAddress", myAddress);
+			session.setAttribute("regCode", regCode);
+			session.setAttribute("skyCode", skyCode);
+			session.setAttribute("ptyCode", ptyCode);
+			session.setAttribute("t3hCode", t3hCode);
+			weatherDTOs = null;
+			/////////////////////////////////////////////
+			log.info("Terminate myLocProc");
+			
+			log.info("Access weatherInfo");
+
+			if("".equals(myAddress) || "".equals(regCode)) {
+				//위치설정 안되어 있는 경우
+				String url= "/seller/weather/findMyLoc.do";
+				String msg ="위치 설정 후 사용해주세요.";
+
+				model.addAttribute("msg", msg);
+				model.addAttribute("url", url);
+				
+				return "/cmmn/alert";
+			}
+			String url = "http://apis.data.go.kr/B550928/dissForecastInfoSvc/getDissForecastInfo"
+					//서비스 키
+					+ "?serviceKey=NM1oJvYCcGILHPKU0R8dmv9P%2BvAxnAXIoSLH29uHh4TFUkRZdD9iqZF7HnKPYCQHBM1eM29GDwkz5of%2BiHtT0g%3D%3D"
+					// 반환 데이터 타입
+					+ "&type=json"
+					// 질병 코드:3 식중독
+					+ "&dissCd=3"
+					// 지역코드
+					+ "&znCd="+ regCode;
+			SELLER_DissInfoDTO dissInfoDTO = OpenAPI.getDissInfoSel(url);
+			session.setAttribute("dissInfoDTO", dissInfoDTO);
+			//model.addAttribute("dissInfoDTO", dissInfoDTO); //식중독 예방정보가 할당된 1개의 객체 전송
+			log.info("dissInfoDTO.getRisk() : " +dissInfoDTO.getRisk());
+			dissInfoDTO = null; url = null;
+			/*model.addAttribute("myAddress", myAddress);*/ //topBody.jsp에 세션이 있기 때문에 model 사용하지 않음
+			log.info("Terminate weatherInfo");	
+			
+			return "redirect:/seller/inMain.do";
+			
+		}
+		
+	
 	
 	
 	

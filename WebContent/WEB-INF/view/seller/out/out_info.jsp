@@ -93,8 +93,8 @@
 	
 	//item btn 마다 cmd 다르게 줘서 다른 action 이루어지게 항거임
 	function itemBtn(index,cmd){
-		alert(cmd);	
-		alert(index);
+		//alert(cmd);	
+		//alert(index);
 			//location.href="/out/itemBtn.do?index="+index+"&cmd="+cmd;
 			 $.ajax({
 					url : "/seller/out/itemBtn.do",

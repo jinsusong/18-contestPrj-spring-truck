@@ -10,9 +10,12 @@ import org.springframework.stereotype.Service;
 
 import poly.dto.seller.SELLER_FtDistrictDataDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
+import poly.dto.seller.SELLER_Gps_TableDTO;
 import poly.dto.seller.SELLER_ImageDTO;
 import poly.dto.seller.SELLER_OrderInfoDTO;
+import poly.persistance.mapper.CONSUMER_Gps_TableMapper;
 import poly.persistance.mapper.SELLER_FtSellerMapper;
+import poly.persistance.mapper.SELLER_Gps_TableMapper;
 import poly.service.SELLER_IFtSellerService;
 
 @Service("SELLER_FtSellerService")//service이름
@@ -21,6 +24,9 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 
 	@Resource(name="SELLER_FtSellerMapper")
 	private SELLER_FtSellerMapper sELLER_FtSellerMapper;
+	
+	@Resource(name="SELLER_Gps_TableMapper")
+	private SELLER_Gps_TableMapper gpsMapper;
 
 	/*@Override
 	public int insertFtSInfo(FtSellerDTO ftSDTO) throws Exception {
@@ -127,6 +133,18 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 	public List<SELLER_OrderInfoDTO> getOrderWeek(String userSeq) throws Exception {
 		// TODO Auto-generated method stub
 		return sELLER_FtSellerMapper.getOrderWeek(userSeq);
+	}
+
+	@Override
+	public int setGps(SELLER_Gps_TableDTO gpsDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return gpsMapper.setGps(gpsDTO);
+	}
+
+	@Override
+	public int updateGps(int user_seq) throws Exception {
+		// TODO Auto-generated method stub
+		return gpsMapper.updateGps(user_seq);
 	}
 
 

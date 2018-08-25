@@ -3,8 +3,10 @@ package poly.service;
 import java.util.HashMap;
 import java.util.List;
 
+import poly.dto.consumer.CONSUMER_Gps_TableDTO;
 import poly.dto.seller.SELLER_FtDistrictDataDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
+import poly.dto.seller.SELLER_Gps_TableDTO;
 import poly.dto.seller.SELLER_ImageDTO;
 import poly.dto.seller.SELLER_OrderInfoDTO;
 
@@ -25,6 +27,11 @@ public interface SELLER_IFtSellerService {
 	public SELLER_OrderInfoDTO getChartWeek(String userSeq)throws Exception;
 
 	public List<SELLER_OrderInfoDTO> getOrderWeek(String userSeq)throws Exception;
+	
+	//위치정보 DB저장
+		public int setGps(SELLER_Gps_TableDTO gpsDTO) throws Exception;
+
+		public int updateGps(int user_seq) throws Exception;
 	
 	
 }

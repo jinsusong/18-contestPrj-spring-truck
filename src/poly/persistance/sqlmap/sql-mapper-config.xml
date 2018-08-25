@@ -59,6 +59,7 @@
 		<typeAlias type="poly.dto.seller.SELLER_OrderInfoDTO" alias="SELLER_OrderInfoDTO"/>
 		<typeAlias type="poly.dto.seller.SELLER_ImageDTO" alias="SELLER_ImageDTO"/>
 		<typeAlias type="poly.dto.seller.SELLER_TmpDTO" alias="SELLER_TmpDTO"/>
+		<typeAlias type="poly.dto.seller.SELLER_Gps_TableDTO" alias="SELLER_Gps_TableDTO"/>
 		
     </typeAliases>
 </configuration>

@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
 import poly.dto.consumer.CONSUMER_DissInfoDTO;
 import poly.dto.consumer.CONSUMER_WeatherDTO;
+import poly.dto.seller.SELLER_DissInfoDTO;
+import poly.dto.seller.SELLER_WeatherDTO;
 
 public class OpenAPI {
 	
@@ -135,5 +137,77 @@ public class OpenAPI {
 		
 		return calBase;
 	}
+	
+	//SELLER WEATHER 
+	public static List<SELLER_WeatherDTO> getWeatherSeller(Coord coord) throws IOException, JSONException {
+		Calendar baseTimeDate = getLastBaseTime();
+		String baseTimeDateStr = new SimpleDateFormat("yyyyMMddHHmmss").format(baseTimeDate.getTime());
+		String baseDate = baseTimeDateStr.substring(0,8);
+		String baseTime = baseTimeDateStr.substring(8,12);
+		
+		String urlstr = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData"
+			  + "?ServiceKey=" //API KEY입력
+			  + "NM1oJvYCcGILHPKU0R8dmv9P%2BvAxnAXIoSLH29uHh4TFUkRZdD9iqZF7HnKPYCQHBM1eM29GDwkz5of%2BiHtT0g%3D%3D"
+			  + "&base_date="+baseDate //기준 년, 월, 일
+			  + "&base_time="+baseTime	//기준 시각
+			  + "&nx="+coord.getSx() + "&ny="+coord.getSy()	//좌표
+			  + "&_type=json";	//데이터 타입
+		
+
+        String jsonText = readJsonFromUrl(urlstr);
+        JSONObject jsonObject = new JSONObject(jsonText);
+        JSONObject responseJson = jsonObject.getJSONObject("response");
+        JSONObject headerJson = responseJson.getJSONObject("header");
+        String resultMsg = (String) headerJson.get("resultMsg");
+
+        //API요청 OK
+        if(resultMsg.equals("OK")) {
+        	
+        	List<SELLER_WeatherDTO> weatherDTOs = new ArrayList<SELLER_WeatherDTO>();
+        	JSONObject bodyJson = responseJson.getJSONObject("body");
+            JSONObject itemsJson = bodyJson.getJSONObject("items");
+            JSONArray itemJson = itemsJson.getJSONArray("item");
+            
+            for(int i = 0; i < itemJson.length(); i++) {
+            	JSONObject itm = (JSONObject) itemJson.get(i);
+            	SELLER_WeatherDTO weatherDTO = new SELLER_WeatherDTO();
+            	weatherDTO.setBaseDate(itm.get("baseDate").toString());
+            	weatherDTO.setBaseTime(itm.get("baseTime").toString());
+            	weatherDTO.setCategory(itm.get("category").toString());
+            	weatherDTO.setFcstDate(itm.get("fcstDate").toString());
+            	weatherDTO.setFcstTime(itm.get("fcstTime").toString());
+            	weatherDTO.setFcstValue(itm.get("fcstValue").toString());
+            	weatherDTO.setNx(itm.get("nx").toString());
+            	weatherDTO.setNy(itm.get("ny").toString());
+            	weatherDTOs.add(weatherDTO);
+            }
+            
+            
+            return weatherDTOs;
+        } else {
+        	return null;
+        }
+        
+	}
+	
+	//식중독 예방 정보 json파일 deserialization seller
+		public static SELLER_DissInfoDTO getDissInfoSel(String url) throws IOException, JSONException {
+			SELLER_DissInfoDTO dissInfoDTO = new SELLER_DissInfoDTO();
+			String jsonText = readJsonFromUrl(url);
+	        		
+			JSONObject jsonObject = new JSONObject(jsonText);
+			JSONObject responseJson = jsonObject.getJSONObject("response");
+			JSONObject bodyJson = responseJson.getJSONObject("body");
+			JSONArray itemsJson = bodyJson.getJSONArray("items");
+			JSONObject itm = (JSONObject) itemsJson.get(0);
+			dissInfoDTO.setDt(itm.getString("dt"));
+			dissInfoDTO.setCnt(itm.get("cnt").toString());
+			dissInfoDTO.setRisk(itm.get("risk").toString());
+			dissInfoDTO.setDissRiskXpln(itm.getString("dissRiskXpln"));
+			
+			return dissInfoDTO; 
+		}
+
+	
 	
 }

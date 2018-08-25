@@ -97,6 +97,7 @@
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#Week" aria-controls="profile" role="tab" data-toggle="tab">이번주 매출</a></li>
 				<li role="presentation"><a href="#Month" aria-controls="messages" role="tab" data-toggle="tab">이번달 매출</a></li>
+				<li role="#"><a href="/seller/sales/sales.do?userSeq=<%=userSeq%>" aria-controls="#" role="#" data-toggle="#">매출분석</a></li>
 			</ul>
 		
 			<!-- Tab panes -->
@@ -109,6 +110,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- 매출 정보 숫자 시작  -->
 		<div style="margin-top:35px;">
 			<div style="float:left; width:48%;">	<!-- float은 구석으로 차곡차곡 밀어 넣는 속성이기 때문에 두 div를 같은 위치에 밀어 넣고 싶은 땐  style="clear:both"를 해주어야 함 -->
 				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
@@ -128,7 +130,6 @@
 			</div>
 			<div style="clear:both; border-bottom:1px solid #cccccc;"></div>
 		</div>
-		
 		
 		
 	</div>

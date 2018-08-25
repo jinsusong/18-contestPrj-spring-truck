@@ -24,6 +24,7 @@ import poly.dto.admin.ADMIN_Ft_InfoDTO;
 import poly.dto.admin.ADMIN_Ft_Menu_CateDTO;
 import poly.dto.admin.ADMIN_ImageDTO;
 import poly.dto.admin.ADMIN_Menu_InfoDTO;
+import poly.dto.seller.SELLER_DissInfoDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
 import poly.dto.seller.SELLER_MenuJsDTO;
 import poly.dto.seller.SELLER_OrderInfoDTO;
@@ -33,6 +34,7 @@ import poly.service.SELLER_IFtSellerService;
 import poly.service.SELLER_IOrderService;
 import poly.service.SELLER_IOutService;
 import poly.util.CmmUtil;
+import poly.util.OpenAPI;
 import poly.util.UtilTime;
 
 @Controller
@@ -386,7 +388,6 @@ public class SELLER_OutController {
 		SELLER_OrderInfoDTO sumChartWeek = FtSellerService.getChartWeek(userSeq);
 		log.info("sumChart : " + sumChartWeek.getOrd_sumprice());
 		model.addAttribute("sumChartWeek", sumChartWeek);
-		
 		log.info("chart End");
 		return "/seller/inMain";
 	}
