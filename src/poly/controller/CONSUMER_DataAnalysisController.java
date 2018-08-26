@@ -60,11 +60,12 @@ public class CONSUMER_DataAnalysisController {
 	@RequestMapping(value="consumer/rcmmnd/rcmmndMenu", method=RequestMethod.GET)
 	public String rcmmndMenu(HttpServletRequest request, Model model) throws Exception{
 			log.info("Access rcmmndMenu.........");
-			
-			String sido = "서울"; //임시 테스트
-			
+			String myAddress= CmmUtil.nvl(request.getParameter("myAddress"));
+			String sido = "서울"; //기본 값 시도 명 서울
+			if(!"".equals(myAddress)) sido = myAddress.split(" ")[0]; //값이 존재할 경우 시도 명 지정
+			System.out.println(sido);
 			List<CONSUMER_RcmmndMenuDTO> rcmmndMenuDTO = ftService.getRcmmndMenuList(sido);
-			
+			model.addAttribute("rcmmndMenuDTO", rcmmndMenuDTO);
 			
 			log.info("Terminate rcmmndMenu.........");
 			return "/consumer/rcmmnd/rcmmndMenu";

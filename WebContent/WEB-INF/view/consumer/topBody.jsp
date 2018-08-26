@@ -18,6 +18,7 @@
 	String t3hCode = CmmUtil.nvl((String)session.getAttribute("t3hCode"));	//t3hCode 3시간 동안의 기온(단위 ℃)
 	//nvl 널값이 들어오면 공백으로 바꿔줍니다.
 	
+
 %>
 	<!-- 반응형 웹 설정 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,6 +47,7 @@
 					<div><a href="/consumer/cnsmr/findMyLoc.do">내 위치 설정</a></div>		
 					<div><a href="/consumer/cnsmr/findAdjFt.do?locPosition=<%=myLat%>,<%=myLon%>&myAddress=<%=myAddress%>">근처 푸드트럭</a></div>
 					<div><a href="/consumer/weatherInfo.do?myAddress=<%=myAddress%>&regCode=<%=regCode%>">날씨/질병 정보</a>	</div>				
+					<div><a href="/consumer/rcmmnd/rcmmndMenu.do?myAddress=<%=myAddress%>">트럭왔냠 추천 메뉴</a>	</div>				
 					<div><a href="/consumer/user/mypage.do?userEmail=<%=userEmail%>&userSeq=<%=userSeq %>">마이페이지</a></div>
 					<div><a href="/consumer/board/noticeList.do">공지사항</a></div>
 					<div><a href="/consumer/board/boardList.do?userEmail=<%=userEmail%>&userSeq=<%=userSeq %>" >고객센터</a></div>

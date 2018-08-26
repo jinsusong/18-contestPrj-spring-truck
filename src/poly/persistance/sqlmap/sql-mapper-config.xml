@@ -28,6 +28,7 @@
 		<typeAlias type="poly.dto.consumer.CONSUMER_UserInfoDTO" alias="CONSUMER_UserInfoDTO"/>
 		<typeAlias type="poly.dto.consumer.CONSUMER_FtMenuCateDTO" alias="CONSUMER_FtMenuCateDTO"/>
 		<typeAlias type="poly.dto.consumer.CONSUMER_Gps_TableDTO" alias="CONSUMER_Gps_TableDTO"/>
+		<typeAlias type="poly.dto.consumer.CONSUMER_RcmmndMenuDTO" alias="CONSUMER_RcmmndMenuDTO"/>
 		
 		<!-- 관리자 -->
 		<!--  사용할 DTO 등록   -->

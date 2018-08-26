@@ -146,8 +146,8 @@ public class CONSUMER_ConsumerController {
 	@RequestMapping(value="consumer/cnsmr/ftDetail", method=RequestMethod.GET) //POST방식으로 데이터를 받음
 	public String ftDetail(HttpServletRequest request, Model model) throws Exception {
 		log.info("Access cnsmr/ftDetail.do");
-		String user_seq = request.getParameter("userSeq");
-		String ft_seq = request.getParameter("ft_seq");
+		String user_seq = CmmUtil.nvl(request.getParameter("userSeq"));
+		String ft_seq = CmmUtil.nvl(request.getParameter("ft_seq"));
 		// 푸드트럭 상세 보기 페이지 내의 어느 탭으로 이동할지를 결정 ---  0-정보 1-메뉴 2-리뷰
 		String cmd = request.getParameter("cmd"); 
 		if("".equals(cmd)) { //cmd 값이 지정되지 않았다면 정보 탭으로 이동합니다.

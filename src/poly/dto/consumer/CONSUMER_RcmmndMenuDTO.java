@@ -3,10 +3,10 @@ package poly.dto.consumer;
 public class CONSUMER_RcmmndMenuDTO {
 	private String ft_seq;	//푸드트럭 번호
 	private String ft_name;	//푸드트럭 이름
-	private String file_path; //메뉴 이미지 경로
+	private String file_sevname; //메뉴 이름
 	private String menu_name; //메뉴 이름
 	private String menu_intro; //메뉴 소개
-	private String RevScore; // 푸드트럭 점수 (리뷰갯수 X 평균 평점)
+	private String rev_score; // 푸드트럭 점수 (리뷰갯수 X 평균 평점)
 	
 	public String getFt_seq() {
 		return ft_seq;
@@ -20,12 +20,7 @@ public class CONSUMER_RcmmndMenuDTO {
 	public void setFt_name(String ft_name) {
 		this.ft_name = ft_name;
 	}
-	public String getFile_path() {
-		return file_path;
-	}
-	public void setFile_path(String file_path) {
-		this.file_path = file_path;
-	}
+
 	public String getMenu_name() {
 		return menu_name;
 	}
@@ -38,12 +33,20 @@ public class CONSUMER_RcmmndMenuDTO {
 	public void setMenu_intro(String menu_intro) {
 		this.menu_intro = menu_intro;
 	}
-	public String getRevScore() {
-		return RevScore;
+
+	public String getFile_sevname() {
+		return file_sevname;
 	}
-	public void setRevScore(String revScore) {
-		RevScore = revScore;
+	public void setFile_sevname(String file_sevname) {
+		this.file_sevname = file_sevname;
 	}
+	public String getRev_score() {
+		return rev_score;
+	}
+	public void setRev_score(String rev_score) {
+		this.rev_score = rev_score;
+	}
+
 	
 	
 }

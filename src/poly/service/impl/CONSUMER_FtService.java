@@ -191,7 +191,7 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 		return ftMapper.getMenuListWithFtList(ftList);
 	}
 
-
+	//소비자 메뉴 추천
 	@Override
 	public List<CONSUMER_RcmmndMenuDTO> getRcmmndMenuList(String sido) throws Exception {
 		return rcmmndMenuMapper.getRcmmndMenuList(sido);

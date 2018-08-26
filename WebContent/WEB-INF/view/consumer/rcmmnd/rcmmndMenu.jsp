@@ -1,11 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+    
+<%@page import="java.util.List" %>
+<%@page import="poly.dto.consumer.CONSUMER_RcmmndMenuDTO" %>
+
+<% 
+	List<CONSUMER_RcmmndMenuDTO> rcmmndMenuDTO =  (List<CONSUMER_RcmmndMenuDTO>) request.getAttribute("rcmmndMenuDTO");
+%>
+
 <html>
 <head>
 	<title>트럭왔냠 - 추천 메뉴</title>
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<!-- 반응형 웹 설정 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<style>
 	
 		html, body {
@@ -14,6 +30,9 @@
 			box-sizing: border-box;
 			font-family: Helvetica, Calibri, Roboto, Open Sans, sans-serif
 			-webkit-backface-visibility: hidden;
+		}
+		a:link {
+			color:black; text-decoration: none;
 		}
 		* {
 			box-sizing: inherit;
@@ -47,74 +66,48 @@
 			opacity: 0.5;
 		}
 		.legend-size circle {
-			fill: rgb(31, 119, 180);
+			fill: #eeeeee;
 		}
 	</style>
 </head>
 <body>
+
 	<h1>트럭 왔냠이 추천하는 메뉴</h1>
 	<svg width="100%" height="700" font-family="sans-serif" font-size="10" text-anchor="middle"></svg>
+	<div style="height:20px"></div>
+	<div style="text-align:center; margin:0 auto;">
+		<button type="button" onclick="location.href='/consumer/main.do'" class="btn btn-default"><h3>트럭왔냠 홈으로 가기</h3></button>
+	</div>
 	
-	<script src="/resources/js/consumer/d3.min.js"></script>
-	<script src="/resources/js/consumer/d3-legend.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/consumer/d3.min.js"></script>
+	<!-- <script src="/resources/js/consumer/d3-legend.min.js"></script> -->
+	<!-- 범주 처리 추가 시 사용 -->
+	
 	<script>
 		// Based loosely from this D3 bubble graph https://bl.ocks.org/mbostock/4063269
 		// And this Forced directed diagram https://bl.ocks.org/mbostock/4062045
-		let data = [{
-			cat: 'library', name: '솜사탕맛아이스크림', value: 50,
-			icon: '/resources/img/consumer/img/somsatang.jpg',
-			desc: `
-				D3.js (or just D3 for Data-Driven Documents) is a JavaScript library for
-				producing dynamic, interactive data visualizations in web browsers.
-				It makes use of the widely implemented SVG, HTML5, and CSS standards.<br>
-				This infographic you are viewing is made with D3.
-			`
-			
-		}, {
-			cat: 'library', name: '라면라면', value: 100,
-			icon: '/resources/img/consumer/img/201808061150.jpg',
-			desc: `
-				Raphaël is a cross-browser JavaScript library that draws Vector graphics for web sites.
-				It will use SVG for most browsers, but will use VML for older versions of Internet Explorer.
-			`
-		}, {
-			cat: 'library', name: 'Relay', value: 70,
-			icon: '/resources/img/consumer/img/relay.svg',
-			desc: `
-				A JavaScript framework for building data-driven React applications.
-				It uses GraphQL as the query language to exchange data between app and server efficiently.
-				Queries live next to the views that rely on them, so you can easily reason
-				about your app. Relay aggregates queries into efficient network requests to fetch only what you need.
-			`
-		}, {
-			cat: 'library', name: 'Three.js', value: 100,
-			icon: '/resources/img/consumer/img/201808061650.jpg',
-			desc: `
-				Three.js allows the creation of GPU-accelerated 3D animations using
-				the JavaScript language as part of a website without relying on
-				proprietary browser plugins. This is possible thanks to the advent of WebGL.
-			`
-		}, {
-			cat: 'library', name: 'Lodash', value: 20,
-			icon: '/resources/img/consumer/img/201808061650.jpg',
-			desc: `
-				Lodash is a JavaScript library which provides <strong>utility functions</strong> for
-				common programming tasks using the functional programming paradigm.`
-		}, {
-			cat: 'library', name: 'Moment JS', value: 50,
-			icon: '/resources/img/consumer/img/201808061450.jpg',
-			desc: `
-				Handy and resourceful JavaScript library to parse, validate, manipulate, and display dates and times.
-			`
+		var data = [];
+		var foo= {};
 		
-		}, {
-			cat: 'library', name: 'abcd', value: 50,
-			icon: '/resources/img/consumer/img/201808061650.jpg',
-			desc: `
-				Lodash is common programming tasks using the functional programming paradigm.`
-		}];
+		<% for(int i = 0; i < rcmmndMenuDTO.size(); i++) {%>
+		
+			foo = {
+				cat: 'first', name: '<%=rcmmndMenuDTO.get(i).getMenu_name()%>', 
+				value: <%=Double.parseDouble(rcmmndMenuDTO.get(i).getRev_score())%>,
+				icon: '<%=request.getContextPath()%>/resources/files/<%=rcmmndMenuDTO.get(i).getFile_sevname()%>' ,
+				desc: 
+				`	
+					<a href="/consumer/cnsmr/ftDetail.do?ft_seq=<%=rcmmndMenuDTO.get(i).getFt_seq()%> ">
+						<h3><%=rcmmndMenuDTO.get(i).getFt_name()%></h3><br/>
+						<%=rcmmndMenuDTO.get(i).getMenu_intro()%>
+					</a>
+				`
+				};
+			
+			data.push(foo);
+			
+		<%}%>
 	</script>
-
 	<script>
 		let svg = d3.select('svg');
 		let width = document.body.clientWidth; // get width in pixels
@@ -197,7 +190,7 @@
 		node.append('circle')
 			.attr('id', d => d.id)
 			.attr('r', 0)
-			.style('fill', d => scaleColor(d.cat))
+			.style('fill', d => '#eeeeee') /* 원 안의 배경색 */
 			.transition().duration(2000).ease(d3.easeElasticOut)
 				.tween('circleIn', (d) => {
 					let i = d3.interpolateNumber(0, d.radius);
@@ -213,7 +206,7 @@
 			.attr('xlink:href', d => `#\${d.id}`);
 
 		// display text as circle icon
-		node.filter(d => !String(d.icon).includes('img/'))
+		node.filter(d => !String(d.icon).includes('files/'))
 			.append('text')
 			.classed('node-icon', true)
 			.attr('clip-path', d => `url(#clip-\${d.id})`)
@@ -226,7 +219,7 @@
 				.text(name => name);
 		
 		// display image as circle icon
-		node.filter(d => String(d.icon).includes('img/'))
+		node.filter(d => String(d.icon).includes('files/'))
 			.append('image')
 			.classed('node-icon', true)
 			.attr('clip-path', d => `url(#clip-\${d.id})`)
@@ -239,7 +232,7 @@
 		node.append('title')
 			.text(d => (d.cat + '::' + d.name + '\n' + format(d.value)));
 
-/* 		let legendOrdinal = d3.legendColor()
+ 		/* let legendOrdinal = d3.legendColor()
 			.scale(scaleColor)
 			.shape('circle');
 
@@ -265,8 +258,8 @@
 			.attr('text-anchor', 'start')
 			.attr('transform', 'translate(150, 25)')
 			.style('font-size', '12px')
-			.call(legendSize); */
-
+			.call(legendSize); 
+ */
 
 		/*
 		<foreignObject class="circle-overlay" x="10" y="10" width="100" height="150">
@@ -285,7 +278,7 @@
 				.append('xhtml:div')
 				.classed('circle-overlay__inner', true);
 
-		infoBox.append('h2')
+		infoBox.append('h3')
 			.classed('circle-overlay__title', true)
 			.text(d => d.name);
 
@@ -401,5 +394,6 @@
 		}
 		
 	</script>
+	
 </body>
 </html>
