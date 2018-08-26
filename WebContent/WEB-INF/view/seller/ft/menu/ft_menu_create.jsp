@@ -38,7 +38,7 @@
 <h3>푸드트럭 메뉴추가</h3>
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
 	<div style="margin-top:15px; margin-bottom:25px;">
-		<form action="<%=request.getContextPath()%>/admin/ft/ft_menu_create.do" method="post" name="ft_menu_create" enctype="multipart/form-data">
+		<form action="<%=request.getContextPath()%>/seller/ft/ft_menu_create.do" method="post" name="ft_menu_create" enctype="multipart/form-data">
 			<input type="hidden" name="ft_seq" value="<%=ftDTO2.getFt_seq()%>">
 			<table width="100%">
 				<tr style="border-top:1px solid #DDDDDD; border-bottom:1px solid #DDDDDD;">

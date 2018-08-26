@@ -30,6 +30,9 @@ public interface SELLER_FtSellerMapper {
 
 	public List<SELLER_OrderInfoDTO> getOrderWeek(String userSeq)throws Exception;
 	
+	//monthChart
+	public List<SELLER_OrderInfoDTO> getMonthChart(SELLER_FtSellerDTO ftsDTO)throws Exception;
+	
 
 	
 	

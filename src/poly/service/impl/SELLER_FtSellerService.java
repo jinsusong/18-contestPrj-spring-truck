@@ -147,6 +147,12 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 		return gpsMapper.updateGps(user_seq);
 	}
 
+	@Override
+	public List<SELLER_OrderInfoDTO> getMonthChart(SELLER_FtSellerDTO ftsDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sELLER_FtSellerMapper.getMonthChart(ftsDTO);
+	}
+
 
 
 

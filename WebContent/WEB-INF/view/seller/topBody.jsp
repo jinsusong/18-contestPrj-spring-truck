@@ -75,11 +75,17 @@
 							<%} %>
 						</div>
 						
+						<div><a href="JavaScript:truckConfig()">내 트럭 관리</a></div>
+						<%-- <%if(!userSeq.equals("")){ %>
+						<div><a href=/seller/orderWait/orderWait.do?userSeq=<%=userSeq%>">주문 대기열</a></div>
+						<%}%> --%>
 						<%if(!userSeq.equals("")){ %>
-						<div><a href="/seller/user/userDetail.do?userSeq=<%=userSeq%>">마이페이지</a></div>
-						<%}%>
+						<div><a href="/seller/sales/sales.do?userSeq=<%=userSeq%>">매출분석</a></div>
+						<%} %>
 						<div><a href="/seller/ftDistrictData/ftDistrictDataMain.do">상권분석</a></div>
-						<div><a href="#">리뷰</a></div>
+						<div><a href="/seller/gasStation/gas.do">주유정보</a></div>
+						<div><a href="/seller/loc/loc.do">행사정보</a></div>
+						
 						<div><a href="/seller/board/boardList.do">게시판</a></div>
 					</div>
 				</div>
