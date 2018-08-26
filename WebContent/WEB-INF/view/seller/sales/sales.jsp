@@ -79,7 +79,7 @@ String stringTime ="";
 								}
 						%>
 						<%=stringDay%>
-						시의 매출비중이 높고 , *40~44세* 
+						시의 매출비중이 높고 , *20~30세* 
 						<%if(percentM > percentF){ %>
 						남성 (<%= percentM%>%)
 						<%}else{ %>
@@ -92,7 +92,7 @@ String stringTime ="";
 						<%=stringDay%>요일
 						(<%=percentD %>%),
 						<%=stringDay%>
-						(<%=percentT %>%) 사이의 매출이 높은 것으로 나타났고 , *40~44세*
+						(<%=percentT %>%) 사이의 매출이 높은 것으로 나타났고 , *20~30세*
 						<%if(percentM > percentF){ %>
 						남성 (<%= percentM%>%)
 						<%}else{ %>

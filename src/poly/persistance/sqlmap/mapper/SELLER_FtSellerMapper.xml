@@ -145,5 +145,16 @@
 			AND USER_SEQ=#{userSeq}
 		ORDER BY ORD_DATE DESC
 	</select>
+	<!-- 월별 매출 차트 불러오기 -->
+	<select id="getMonthChart" parameterType="SELLER_FtSellerDTO" resultType="SELLER_OrderInfoDTO">
+		SELECT 
+		  SUM(ORD_SUMPRICE) AS ord_sumprice,
+		  SUBSTR(ORD_DATE,1,5) AS ord_date
+		FROM ORDER_INFO
+		WHERE FT_SEQ = 5 AND ORD_DATE LIKE '18%'
+		GROUP BY SUBSTR(ORD_DATE,1,5)
+		ORDER BY SUBSTR(ORD_DATE,1,5) ASC
+	</select>
+
 	
 </mapper>

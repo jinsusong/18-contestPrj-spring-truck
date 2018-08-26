@@ -32,6 +32,9 @@ public interface SELLER_IFtSellerService {
 		public int setGps(SELLER_Gps_TableDTO gpsDTO) throws Exception;
 
 		public int updateGps(int user_seq) throws Exception;
+		
+	//monthChart
+	public List<SELLER_OrderInfoDTO> getMonthChart(SELLER_FtSellerDTO ftsDTO)throws Exception;
 	
 	
 }

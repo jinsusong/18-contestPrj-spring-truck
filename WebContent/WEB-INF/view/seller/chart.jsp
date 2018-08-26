@@ -25,9 +25,11 @@
 	   	int todayD = Integer.parseInt(todayYMDhms.substring(8, 10));
 	   	out.println(todayD);
     %>
-    
-
-	
+	<!-- 월별 매출액  -->
+	<%
+		List<SELLER_OrderInfoDTO> monthChart = (List<SELLER_OrderInfoDTO>)request.getAttribute("monthChart");
+		String ss_userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
+	%>
 	<!-- 일간 매출액 시작 -->
 	<%
 		int sumpriceT = 0;	//오늘 총매출
@@ -96,8 +98,8 @@
 		 	 <!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#Week" aria-controls="profile" role="tab" data-toggle="tab">이번주 매출</a></li>
-				<li role="presentation"><a href="#Month" aria-controls="messages" role="tab" data-toggle="tab">이번달 매출</a></li>
-				<li role="#"><a href="/seller/sales/sales.do?userSeq=<%=userSeq%>" aria-controls="#" role="#" data-toggle="#">매출분석</a></li>
+				<li role="presentation"><a href="#Month" aria-controls="messages" role="tab" data-toggle="tab">월별 매출</a></li>
+				<li role="#"><a href="/seller/sales/sales.do?userSeq=<%=ss_userSeq%>" aria-controls="#" role="#" data-toggle="#">매출분석</a></li>
 			</ul>
 		
 			<!-- Tab panes -->
@@ -225,14 +227,31 @@ var myChartWeek = new Chart(ctx, {
 </script>
 
 <script>//이번달 매출
+var arraySum = []; // 월별 매출 금액 
+<%for(int i=0; i < monthChart.size();i++){%>
+	arraySum.push(<%=monthChart.get(i).getOrd_sumprice()%>);
+<%}%>
+
+/* for(var i=0; i< arraySum.length; i++){
+	console.log("arraySum " + i + ":" + arraySum[i]);
+} */
+var arrayMonth = [];
+
+<%for(int i=0; i < monthChart.size(); i++){%>
+	arrayMonth.push('<%=monthChart.get(i).getOrd_date() %>');
+<%}%>
+for(var i=0; i< arrayMonth.length; i++){
+	console.log("arrayMonth " + i + " : " + arrayMonth[i]);
+}
+
 var ctx = document.getElementById("myChartMonth").getContext('2d');
 var myChartMonth = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["7월 셋째주", "7월 넷째주", "8월 첫째주", "8월 둘째주"],		//월간
+        labels: arrayMonth,		//월간
         datasets: [{
-            label: '최근 한달간 매출',
-            data: [287000000, 266000000, 265400000, 301400000],	//데이터 들어가는 곳
+            label: '연간 매출',
+            data: arraySum,	//데이터 들어가는 곳
             backgroundColor: 
                 'rgba(102, 195, 214, 0.2)',
             borderColor: 

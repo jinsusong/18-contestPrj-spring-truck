@@ -105,60 +105,6 @@
 		</tr>
 	</table>
 	<script>
-	function createHTML(data){
-		console.log(data);
-		console.log("data[0].boardPSeq : " + data[0].boardPSeq);
-		var tmp = 0;
-		var contents = "";
-		var userEmail = '<%=userEmail%>';
-		var boardSeq = data[0].boardSeq;
-		console.log("boardSeq : " + boardSeq);
-		contents += " <table class='table table-striped' style='text-align: center; border: 1px solid #dddddd' id='datatable" + boardSeq + "'> ";
-		contents += " <thead> ";
-		contents += " <tr style='bgcolor:#d9edf7;'> ";
-		contents += " <th style='text-align: center;'>번호</th> ";
-		contents += " <th style='text-align: center;'>제목</th> ";
-		contents += " <th style='text-align: center;'>조회수</th>";
-		contents += " <th style='text-align: center;'>작성일</th> ";
-		contents += " <th style='text-align: center;'>작성자</th>";
-		contents += " </tr> ";
-		contents += " </thead> ";
-		contents += " <tbody> ";
-		$.each(data,function (key,value){
-			
-			/*console.log("-------------------------");
-			console.log(tmp);
-			console.log("boardSeq : " + value.boardPSeq);
-			console.log("title : " + value.title);
-			console.log("regDate  : " + value.regDate);
-			console.log("userNick : " + value.userNick);
-			console.log("-------------------------");
-			tmp++; */
-			contents += "<tr>";
-			contents += "<td>" + value.boardPSeq + "</td>";
-	//		contents += "<td>" + value.title + "</td>";
-			 
-			contents += "<td>";
-			contents += " <a href='/seller/board/boardDetail.do?boardPSeq="+value.boardPSeq+"'>"+value.title+"</a>";
-			contents += " </td>"; 
-			contents += " <td>" + value.boardCount + "</td>";
-			contents += " <td>" + value.regDate + "</td>";
-			contents += " <td>" + value.userNick + "</td>";
-			contents += " </tr>";
-		});
-		
-		contents += "</tbody>";
-		contents += "</table>";
-		contents += "<div align='right'>";
-	
-		contents += "<a href='Javascript:userLoginCk(\""+userEmail+"\",\""+boardSeq+"\");'>글쓰기</a>"
-			
-		contents += "</div>";
-		
-		return contents;
-		
-
-	}
 	
 	$(function(){
 		// 공지사항 ajax 시작
@@ -268,6 +214,63 @@
 			    }
 			})
 			//업주 커뮤니티 ajax 끝 
+			
+			function createHTML(data){
+				console.log(data);
+				console.log("data.length : " +Object.keys(data).length);
+				
+				console.log("data[0].boardPSeq : " + data[0].boardPSeq);
+				var tmp = 0;
+				var contents = "";
+				var userEmail = '<%=userEmail%>';
+				var boardSeq = data[0].boardSeq;
+				console.log("boardSeq : " + boardSeq);
+				contents += " <table class='table table-striped' style='text-align: center; border: 1px solid #dddddd' id='datatable" + boardSeq + "'> ";
+				contents += " <thead> ";
+				contents += " <tr style='bgcolor:#BDBDBD;'> ";
+				contents += " <th style='text-align: center;'>번호</th> ";
+				contents += " <th style='text-align: center;'>제목</th> ";
+				contents += " <th style='text-align: center;'>조회수</th>";
+				contents += " <th style='text-align: center;'>작성일</th> ";
+				contents += " <th style='text-align: center;'>작성자</th>";
+				contents += " </tr> ";
+				contents += " </thead> ";
+				contents += " <tbody> ";
+				$.each(data,function (key,value){
+					
+					/*console.log("-------------------------");
+					console.log(tmp);
+					console.log("boardSeq : " + value.boardPSeq);
+					console.log("title : " + value.title);
+					console.log("regDate  : " + value.regDate);
+					console.log("userNick : " + value.userNick);
+					console.log("-------------------------");
+					tmp++; */
+					contents += "<tr>";
+					contents += "<td>" + value.boardPSeq + "</td>";
+			//		contents += "<td>" + value.title + "</td>";
+					 
+					contents += "<td>";
+					contents += " <a href='/seller/board/boardDetail.do?boardPSeq="+value.boardPSeq+"'>"+value.title+"</a>";
+					contents += " </td>"; 
+					contents += " <td>" + value.boardCount + "</td>";
+					contents += " <td>" + value.regDate + "</td>";
+					contents += " <td>" + value.userNick + "</td>";
+					contents += " </tr>";
+				});
+				
+				contents += "</tbody>";
+				contents += "</table>";
+				contents += "<div align='right'>";
+			
+				contents += "<a href='Javascript:userLoginCk(\""+userEmail+"\",\""+boardSeq+"\");'>글쓰기</a>"
+					
+				contents += "</div>";
+				
+				return contents;
+				
+
+			}
 			
 			
 			
