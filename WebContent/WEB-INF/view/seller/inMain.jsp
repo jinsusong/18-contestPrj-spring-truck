@@ -1,5 +1,10 @@
+<%@page import="poly.dto.seller.SELLER_FtSellerDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	int chart = (int)request.getAttribute("chart");
+%>
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -275,9 +280,16 @@
 						<%-- <div align="right">
 							<button class="btn btn-default" onClick='location.href="/seller/sales/sales.do?userSeq=<%=userSeq%>"' >매출분석</button>
 						</div> --%>
-						<div>
-							<%@ include file="/WEB-INF/view/seller/chart.jsp" %>
+						<% if(chart == 1){%>
+						<div> 
+							 <%@ include file="/WEB-INF/view/seller/chart.jsp" %>
 						</div>
+						<% }else{%>
+						<div> 
+							 <%@ include file="/WEB-INF/view/seller/chartNo.jsp" %>
+						</div>
+						
+						<%} %>
 					</div>
 				<!-- 중간 내용부분 -->
 				<div id="contents">

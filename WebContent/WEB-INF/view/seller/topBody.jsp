@@ -6,6 +6,7 @@
 	String userEmail = CmmUtil.nvl( (String)session.getAttribute("userEmail") );
 	String userNick = CmmUtil.nvl( (String)session.getAttribute("userNick") );
 	String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
+	
 	//nvl 널값이 들어오면 공백으로 바꿔줍니다.
 	
 	
@@ -21,7 +22,11 @@
 	//식중독 위럼지수
 	SELLER_DissInfoDTO dissInfoDTO = (SELLER_DissInfoDTO)session.getAttribute("dissInfoDTO");
 %>
-
+<% if(userSeq == null){ %>
+<script>
+	location.href="/cmmn/main.do";
+</script>
+<%}%>
 		<div class="top topSecondContainer">
 <!-- 창원이형이 주신 top body  -->
 			
