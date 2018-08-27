@@ -12,7 +12,9 @@
 		String todayDD = (String)request.getAttribute("todayDD");
 		SELLER_OrderInfoDTO sumChartWeek = (SELLER_OrderInfoDTO)request.getAttribute("sumChartWeek");
 		List<SELLER_OrderInfoDTO> oList = (List<SELLER_OrderInfoDTO>)request.getAttribute("oList");
-    	out.println(todayMD);
+		List<SELLER_OrderInfoDTO> wList = (List<SELLER_OrderInfoDTO>)request.getAttribute("wList");
+    	
+		out.println(todayMD);
     	out.println(todayYMDhms);
     	out.println(todayDD);
     	out.println(sumChartWeek.getOrd_sumprice());
@@ -54,12 +56,12 @@
 			   	}
 			   	
 			   	if(todayY == orderY && todayM == orderM && ((todayD - orderD)<=30)) {
-			   		System.out.println("------------------------");
+			   		/* System.out.println("------------------------");
 			   		System.out.println("substring 년도 : " + orderY);
 				   	System.out.println("substring 월 : " + orderM);
 				   	System.out.println("substring 일 : " + orderD);
 			   		System.out.println("일 수 차이 : " + (todayD - orderD));
-			   		System.out.println("------------------------");
+			   		System.out.println("------------------------"); */
 			   		sumpriceM += sumprice;
 					
 			   	}
@@ -197,16 +199,28 @@
 </script>
 
 <script>//이번주 매출
+var arraylatelySum = []; //7일 매출 
+<%for(int i=0; i< wList.size(); i++){%>
+	arraylatelySum.push(<%=wList.get(i).getOrd_sumprice()%>);
+<%}%>
+var arraylatelyDate =[];//7일 날짜 
+<%for(int i=0; i< wList.size(); i++){%>
+	arraylatelyDate.push('<%=wList.get(i).getOrd_date()%>');
+<%}%>
+for(var i=0; i< arraylatelyDate.length; i++){
+	console.log("arraylatelyDate " + i + " : " + arraylatelyDate[i]);
+}
+
 var ctx = document.getElementById("myChartWeek").getContext('2d');
 var myChartWeek = new Chart(ctx, {
     type: 'bar',
     data: {
     	
-	    labels: ["8월 16일",  "8월 17일", "8월 18일", "8월 19일", "8월 20일", "8월 21일", "8월 22일"],		
+	    labels: arraylatelyDate,		
 	    
 	    datasets: [{
 	            label: '최근 일주일간 매출',
-	            data: [28700000, 26600000, 26540000, 30140000, 28890000, 24500000, 41200000],	//데이터 들어가는 곳
+	            data: arraylatelySum,	//데이터 들어가는 곳
 	            backgroundColor: 
 	                'rgba(75, 192, 192, 0.2)',
 	            borderColor: 

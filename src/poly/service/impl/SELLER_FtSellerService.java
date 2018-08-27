@@ -153,6 +153,12 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 		return sELLER_FtSellerMapper.getMonthChart(ftsDTO);
 	}
 
+	@Override
+	public List<SELLER_OrderInfoDTO> latelyWeek(String userSeq) throws Exception {
+		// TODO Auto-generated method stub
+		return sELLER_FtSellerMapper.latelyWeek(userSeq);
+	}
+
 
 
 

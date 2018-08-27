@@ -335,12 +335,12 @@ public class SELLER_OutController {
 			
 			
 			
-			List<SELLER_OrderInfoDTO> wList = FtSellerService.getOrderWeek(userSeq);
+			/*List<SELLER_OrderInfoDTO> wList = FtSellerService.getOrderWeek(userSeq);
 			
 			//여기부터 test
 			String testDate =wList.get(0).getOrd_date();
 			log.info("test orddate : " + testDate);
-			System.out.println(UtilTime.getDateYYMMDD(testDate));
+			System.out.println(UtilTime.getDateYYMMDD(testDate));*/
 			
 			/*SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 			 
@@ -380,7 +380,7 @@ public class SELLER_OutController {
 			}
 			log.info("oList size : " + oList.size());
 			log.info("============ 주문내역 시작  ============");
-			for(int i=0; i<oList.size(); i++) {
+			/*for(int i=0; i<oList.size(); i++) {
 				log.info("---------------------------");
 				log.info("oList.getOrd_seq : " + oList.get(i).getOrd_seq());
 				log.info(oList.get(i).getOrd_seq());
@@ -391,7 +391,7 @@ public class SELLER_OutController {
 				log.info(oList.get(i).getBuy_way());
 				log.info(oList.get(i).getOrd_sumprice());
 				log.info("---------------------------");
-			}
+			}*/
 			log.info("============ 주문내역 끝  ============");
 	
 			model.addAttribute("oList", oList);
@@ -402,6 +402,17 @@ public class SELLER_OutController {
 			model.addAttribute("sumChartWeek", sumChartWeek);
 			log.info("chart End");
 			
+			//최근 7일 매충 그래프 
+			List<SELLER_OrderInfoDTO> wList = FtSellerService.latelyWeek(userSeq);
+	         for(int i=0; i < wList.size(); i++) {
+	            log.info("--------------------------");
+	            log.info("sumWeek : " + wList.get(i).getOrd_sumprice());
+	            log.info("ordDate : " + wList.get(i).getOrd_date());
+	            log.info("--------------------------");
+	            
+	         }
+	         model.addAttribute("wList", wList);
+			
 			
 			//jinsu 월간매출 시작 !!
 			log.info(this.getClass() + "monthChart start =====================");
@@ -410,10 +421,10 @@ public class SELLER_OutController {
 			List<SELLER_OrderInfoDTO> monthChart = FtSellerService.getMonthChart(ftsDTO);
 			log.info("===================monthChart");
 			log.info("monthChart : " + monthChart);
-			for(int i=0; i < monthChart.size(); i++) {
+			/*for(int i=0; i < monthChart.size(); i++) {
 				log.info("monthchart date " +i+ " : " +monthChart.get(i).getOrd_date());
 				log.info("monthchart sum  " +i+" : " + monthChart.get(i).getOrd_sumprice());
-			}
+			}*/
 			
 			int chart = 1;
 			model.addAttribute("monthChart",monthChart);

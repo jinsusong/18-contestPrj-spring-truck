@@ -8,7 +8,7 @@ public class SELLER_BoardDTO {
 	private String userSeq;
 	private String fileId;
 	private String title;
-	private String boardContent;
+	private String Content;
 	private String boardCount;
 	private String regDate;
 	private String boardLevel;
@@ -51,11 +51,11 @@ public class SELLER_BoardDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getBoardContent() {
-		return boardContent;
+	public String getContent() {
+		return Content;
 	}
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
+	public void setContent(String boardContent) {
+		this.Content = boardContent;
 	}
 	public String getBoardCount() {
 		return boardCount;
