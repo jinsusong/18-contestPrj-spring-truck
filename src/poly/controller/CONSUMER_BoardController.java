@@ -76,12 +76,12 @@ public class CONSUMER_BoardController {
 		CONSUMER_BoardDTO bDTO = new CONSUMER_BoardDTO();
 		bDTO.setTitle(title);
 		log.info("setTitle : " + bDTO.getTitle());
-		bDTO.setBoardContent(boardContent);
-		log.info("setBoardContent : " + bDTO.getBoardContent());
+		bDTO.setContent(boardContent);
+		log.info("setBoardContent : " + bDTO.getContent());
 		bDTO.setBoardSeq(boardSeq);
 		log.info("setBoardSeq : " + bDTO.getBoardSeq());
-		bDTO.setUserEmail(userEmail);
-		log.info("setUserEmail : " + bDTO.getUserEmail());
+		bDTO.setUserSeq(userSeq);
+		log.info("setUserSeq : " + bDTO.getUserSeq());
 		
 		int result = boardService.insertBoardDTO(bDTO);
 		log.info("result full!!");
@@ -160,10 +160,11 @@ public class CONSUMER_BoardController {
 		log.info("userSeq : " + userSeq);
 		String content = CmmUtil.nvl(request.getParameter("content"));
 		log.info("content : " + content);
+		String boardSeq = CmmUtil.nvl(request.getParameter("boardSeq"));
+		log.info("boardSeq : " + boardSeq);
 	
-		
 		CONSUMER_BoardRepleDTO rDTO = new CONSUMER_BoardRepleDTO();
-
+		
 		rDTO.setBoardPSeq(boardPSeq);
 	    log.info("리뷰 rDTO getboardPSeq : " + rDTO.getBoardPSeq());
 		rDTO.setUserSeq(userSeq);
@@ -171,17 +172,22 @@ public class CONSUMER_BoardController {
 		rDTO.setContent(content);
 		log.info("리뷰 rDTO getContent : "+rDTO.getContent());
 		
+		//공지사항 게시글 자세히 보기
+		if(boardSeq.equals("1")) {
+			CONSUMER_BoardDTO bDTO = boardService.getNoticeDetail(boardPSeq);
+			model.addAttribute("bDTO", bDTO);
+			return "/consumer/board/noticeDetail";
+		}
+		
 		List<CONSUMER_BoardRepleDTO> rList = boardService.commentList(boardPSeq);
 		model.addAttribute("rList", rList);
 		
 		CONSUMER_BoardDTO bDTO = boardService.getBoardDetail(boardPSeq);
 		
 		model.addAttribute("bDTO", bDTO);
-		
-		
-		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
-		
+		log.info("boardSeq : " + bDTO.getBoardSeq());
 		log.info("boardDetail End");
+		
 		return "/consumer/board/boardDetail";
 	}
 	
@@ -252,7 +258,7 @@ public class CONSUMER_BoardController {
 		CONSUMER_BoardDTO bDTO = new CONSUMER_BoardDTO();
 		bDTO.setBoardPSeq(boardPSeq);
 		bDTO.setTitle(title);
-		bDTO.setBoardContent(boardContent);
+		bDTO.setContent(boardContent);
 		
 		int result = boardService.updateBoard(bDTO);
 		log.info(result);

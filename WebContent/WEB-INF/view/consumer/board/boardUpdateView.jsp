@@ -33,7 +33,7 @@
 							<input type="text" class="form-control"  name="title" value="<%=bDTO.getTitle() %>"> 
 							<label for="boardContent">Comment:</label>
 							<textarea class="form-control" rows="5"
-								name="boardContent"><%=bDTO.getBoardContent() %></textarea>
+								name="boardContent"><%=bDTO.getContent() %></textarea>
 						</div>
 						<button type="submit" class="btn btn-primary">수정하기</button>
 					</form>

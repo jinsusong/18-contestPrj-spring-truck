@@ -1,10 +1,10 @@
-<%@page import="poly.dto.consumer.CONSUMER_UserDTO"%>
+<%@page import="poly.dto.cmmn.CMMN_UserDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%
-	CONSUMER_UserDTO uDTO = (CONSUMER_UserDTO)request.getAttribute("uDTO");
+	CMMN_UserDTO uDTO = (CMMN_UserDTO)request.getAttribute("uDTO");
 %>
 
 

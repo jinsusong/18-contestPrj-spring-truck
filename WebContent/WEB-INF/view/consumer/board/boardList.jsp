@@ -12,11 +12,11 @@
 	%>
 <html>
 <head>
-<title>Write!</title>
+<title>트럭왔냠 - 고객센터</title>
 <%@ include file="/WEB-INF/view/consumer/topCssScript.jsp" %>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script>
-$(document).ready( function () {	//진수형이 알려주신 게시판
+$(document).ready( function () {	
     $('#boardList').DataTable();
 } );
 
@@ -49,16 +49,16 @@ $(document).ready( function () {	//진수형이 알려주신 게시판
 					<%for (int i = 0; i < bList.size(); i++) {%>
 					<tr>
 						<td style="text-align:center;"><%=bList.get(i).getBoardPSeq() %></td>
-						<td class="ellipsis" style="text-align:center;"><a href="/board/boardDetail.do?boardPSeq=<%=bList.get(i).getBoardPSeq()%>"><%=bList.get(i).getTitle() %></a></td>			
+						<td class="ellipsis" style="text-align:center;"><a href="/consumer/board/boardDetail.do?boardPSeq=<%=bList.get(i).getBoardPSeq()%>"><%=bList.get(i).getTitle() %></a></td>			
 						<td style="text-align:center;"><%=bList.get(i).getRegDate() %></td>
-						<td style="text-align:center;"><%=bList.get(i).getUserEmail() %></td>
+						<td style="text-align:center;"><%=bList.get(i).getUserNick() %></td>
 					</tr>
 					<%}%>
 				</tbody>
 			</table>
 		</div>
 		<div style="margin:20px; align:right">
-			<form action="/board/boardWrite.do">
+			<form action="/consumer/board/boardWrite.do">
 				<input type="hidden" name="userSeq" value="<%=userSeq %>" />
 				<input type="hidden" name="userNick" value="<%=userNick %>" /> 
 				<input type="hidden" name="userEmail" value="<%=userEmail %>" />

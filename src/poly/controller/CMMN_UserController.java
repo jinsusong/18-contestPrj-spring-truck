@@ -552,7 +552,7 @@ public class CMMN_UserController {
 		log.info("mypage End");
 		
 		if(!"".equals(userSeq)) {
-			return "/cmmn/user/mypage";
+			return "/consumer/user/mypage";
 		} else {
 			model.addAttribute("msg", "로그인 후 이용하시기 바랍니다.");
 			model.addAttribute("url", "/cmmn/main.do");

@@ -72,5 +72,10 @@ public class CONSUMER_BoardService implements CONSUMER_IBoardService{
 		return boardMapper.commentList(boardPSeq);
 	}
 
+	@Override
+	public CONSUMER_BoardDTO getNoticeDetail(String boardPSeq) throws Exception {
+		return boardMapper.getNoticeDetail(boardPSeq);
+	}
+
 	
 }

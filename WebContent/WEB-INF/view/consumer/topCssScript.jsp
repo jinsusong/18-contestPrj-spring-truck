@@ -44,24 +44,18 @@
 	    top: 0;
 	    left: 0;
 	    overflow-x: hidden;
-	    transition: 0.4s;
-
 	}
 
 
 	.sidenav a {
-	    padding: 8px 8px 8px 32px;
+	    
 	    text-decoration: none;
-	    font-size: 20px;
-	    color: #818181;
+	    font-size: 17px;
+	    color: #000000;
 	    display:block;
-	    transition: 0.3s;
 
 	}
 
-	.sidenav a:hover {
-	    color: #f1f1f1;
-	}
 	#mySidenav{
 		z-index:101;
 	}
@@ -75,16 +69,23 @@
 		z-index:100;
 
 	}
+	
 	#sidenav_inner {
-		background-color: rgba(0,0,0);
-		width: 200px;
+		height:100%; width:100%;
+		background-color: #ffffff;
 		float:left;
-		height:100%;
-
-
 	}
 	.closebtn {
 		font-size:50px;
+	}
+	#sidenav_inner div {
+		padding: 8px 8px 8px 16px;
+	    border-bottom: 1px solid #eeeeee;	
+	}
+	#sidenav_inner img {
+		height: 18px; float:left;
+		margin-right: 10px;
+		margin-top: 3px;
 	}
 	/**************/
 	

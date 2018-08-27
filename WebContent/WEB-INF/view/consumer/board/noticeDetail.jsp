@@ -9,7 +9,7 @@
 		%>
 <html>
 <head>
-<title>Detail!</title>
+<title>트럭왔냠 - 공지사항</title>
 <%@ include file="/WEB-INF/view/consumer/topCssScript.jsp" %>
 
 
@@ -25,7 +25,7 @@
 							<td>번호</td>
 							<td><%=bDTO.getBoardPSeq() %></td>
 							<td>작성자</td>
-							<td><%=bDTO.getUserEmail() %></td>
+							<td>관리자</td>
 						</tr>
 						<tr>
 							<td>제목</td>
@@ -33,7 +33,7 @@
 						</tr>
 						<tr>	
 							<td>내용</td>
-							<td colspan="3"><%=bDTO.getBoardContent() %></td>
+							<td colspan="3"><%=bDTO.getContent() %></td>
 						</tr>
 						<tr>	
 							<td>작성일</td>

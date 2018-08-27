@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>Write!</title>
+<title>트럭왔냠 - 게시글 작성</title>
 <%@ include file="/WEB-INF/view/consumer/topCssScript.jsp" %>
 </head>
 <body>

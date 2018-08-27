@@ -16,5 +16,6 @@ public interface CONSUMER_IBoardService {
 	public int insertComment(CONSUMER_BoardRepleDTO rDTO) throws Exception;
 	public List<CONSUMER_BoardRepleDTO> getComment(CONSUMER_BoardRepleDTO rDTO) throws Exception;
 	public List<CONSUMER_BoardRepleDTO> commentList(String boardPSeq) throws Exception;
+	public CONSUMER_BoardDTO getNoticeDetail(String boardPSeq) throws Exception;
 
 }

@@ -11,7 +11,7 @@
 		%>
 <html>
 <head>
-<title>Detail!</title>
+<title>트럭왔냠 - 게시판 상세보기</title>
 <%@ include file="/WEB-INF/view/consumer/topCssScript.jsp" %>
 <script type="text/javascript">
 	function deleteBoard(boardPSeq){
@@ -89,7 +89,7 @@
 				</ul>
 				<hr/>
 				<ul style="list-style:none;">
-					<li>작성자 : <%=bDTO.getUserEmail()%></li>
+					<li>작성자 : <%=bDTO.getUserNick()%></li>
 				</ul>
 				<hr/>
 				<ul style="list-style:none;">
@@ -97,7 +97,7 @@
 				</ul>
 				<hr/>
 				<ul style="list-style:none;">
-					<li>내용 : <%=bDTO.getBoardContent()%></li>
+					<li>내용 : <%=bDTO.getContent()%></li>
 				</ul>
                 
 				</div>

@@ -10,6 +10,7 @@
 	List<CONSUMER_ImageDTO> imgDTOs = (List<CONSUMER_ImageDTO>)request.getAttribute("imgDTOs");
 	String myLocLat = (String)request.getAttribute("locPositionLat");
 	String myLocLon = (String)request.getAttribute("locPositionLon");
+	
 %>
 
 <html>
@@ -35,24 +36,32 @@
 
 </style>
 <title>트럭왔냠 - 근처 푸드트럭 찾기</title>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
 <%@include file="/WEB-INF/view/consumer/topBody.jsp" %>
 
+
 <body>
+
 	<!-- 다음 맵이 차지할 공간 -->
 	<div id="map" style="width:100%;height:350px;"></div>
 	<!-- 푸드트럭 목록 -->  
-	<%if(ftList != null && ftList.isEmpty() == false) {%>
-		<%for(int i = 0; i <ftList.size(); i++) {%>
-			<div class="row">
-			    	<div class="col-xs-12">
-						<div class="panel panel-default">
-							<%if(ftList.get(i).getFile_id() != null) {%> <!-- 푸드트럭 이미지가 있는 트럭의 경우 -->
+	<div class="container">
+		<div class="row">
+		<%if(ftList != null && ftList.isEmpty() == false) {%>
+			<%for(int i = 0; i <ftList.size(); i++) {%>
+		    	<div class="col-xs-6" style="margin-top:20px; margin-bottom:20px;">
+					<div class="card bg-light text-dark" style="text-align:center;">
+						<div class="card-header" style="height:230px; background:#eeeeee;">
+							<%if(ftList.get(i).getFile_id() != null) {%> 
+								<!-- 푸드트럭 이미지가 있는 트럭의 경우 -->
 								<% for(int j = 0; j < imgDTOs.size(); j++) {%>
 									<%String fFileId = ftList.get(i).getFile_id();%>	
-									<%String iFileId = imgDTOs.get(j).getFileId();%>	
+									<%String iFileId = imgDTOs.get(j).getFileId();%>
 									<% if(fFileId.equals(iFileId)) { %>
 										<!-- 트럭이미지의 포스트방식 전송 히든 양식-->
 										<img src="<%=request.getContextPath()%>/resources/files/<%=imgDTOs.get(j).getFileSevname()%>" height="100%" width="100%">
@@ -61,23 +70,31 @@
 							<%}else {%> <!-- 푸드트럭 이미지가 없는 트럭의 경우 -->
 							<%} %>
 						</div>
-						<div class="panel-body">
-							<%=ftList.get(i).getFt_name() %> 
+							
+						<div class="card-body">
+							<%=ftList.get(i).getFt_name() %>
+						</div> 
 							<input type="hidden" name="ft_seq" value="<%=ftList.get(i).getFt_seq()%>" />
+						<div class="card-body">
+							<%=ftList.get(i).getFt_intro() %>
+						</div> 
+						<div class="card-body">
+							<%String []optime = ftList.get(i).getFt_optime().split("/"); %>
+							<%= optime[0] %>
 						</div>
-						<div class="panel-body">
-							<%=ftList.get(i).getFt_intro() %> 
+						<div class="card-body">
+							<%= optime[1] + " ~ " + optime[2] %>
 						</div>
-						<div class="panel-body">
-							<%=ftList.get(i).getFt_optime() %>
-						</div>
-						<div class="panel-body">
-							<a href="/consumer/cnsmr/ftDetail.do?ft_seq=<%=ftList.get(i).getFt_seq()%>&userSeq=<%=userSeq%>"><button type="button" class="btn btn-primary">푸드트럭 자세히 보기</button></a> 
+						<div class="card-body">
+							<button onclick="location.href='/consumer/cnsmr/ftDetail.do?ft_seq=<%=ftList.get(i).getFt_seq()%>&userSeq=<%=userSeq%>'" 
+								type="button" class="btn btn-primary">푸드트럭 자세히 보기</button>
 						</div>
 					</div>
+				</div>
+					<%} %>
+				<%}else { %>
 			</div>
-		<%} %>
-	<%}else { %>
+		</div>
 		<div class="alert alert-danger">
 		  <strong>!!</strong> 근처에 푸드트럭이 없습니다.
 		</div>
@@ -87,11 +104,10 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60f4f121242d90c886eacd9609c92e78&libraries=services,clusterer,drawing"></script>
 	<script>
 	
-		var mapContainer = document.getElementById('map') // 지도를 표시할 div 
+		var mapContainer = document.getElementById('map') 
 	    var mapOption = { 
-			// 지도의 중심좌표
 	        center: new daum.maps.LatLng(<%=myLocLat%>, <%=myLocLon%>), 
-	        level: 3 // 지도의 확대 레벨
+	        level: 3 
 	    };
 	
 		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다	

@@ -7,11 +7,13 @@ public class CONSUMER_BoardDTO {
 	private String userEmail;
 	private String fileId;
 	private String title;
-	private String boardContent;
+	private String content;
 	private String boardCount;
 	private String regDate;
 	private String boardLevel;
 	private String expYn;
+	private String userNick;
+	
 	
 	public String getBoardPSeq() {
 		return boardPSeq;
@@ -49,12 +51,6 @@ public class CONSUMER_BoardDTO {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getBoardContent() {
-		return boardContent;
-	}
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
-	}
 	public String getBoardCount() {
 		return boardCount;
 	}
@@ -78,6 +74,18 @@ public class CONSUMER_BoardDTO {
 	}
 	public void setExpYn(String expYn) {
 		this.expYn = expYn;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
 	}
 	
 	

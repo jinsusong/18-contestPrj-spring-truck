@@ -95,8 +95,9 @@
 				icon: '<%=request.getContextPath()%>/resources/files/<%=rcmmndMenuDTO.get(i).getFile_sevname()%>' ,
 				desc: 
 				`	
+					<br/>
 					<a href="/consumer/cnsmr/ftDetail.do?ft_seq=<%=rcmmndMenuDTO.get(i).getFt_seq()%> ">
-						<h3><%=rcmmndMenuDTO.get(i).getFt_name()%></h3><br/>
+						<h4><%=rcmmndMenuDTO.get(i).getFt_name()%></h4><br/>
 						<%=rcmmndMenuDTO.get(i).getMenu_intro()%>
 					</a>
 				`

@@ -8,53 +8,76 @@
 				BOARD_SEQ,
 				BOARD_P_SEQ,
 				TITLE,
-				BOARD_CONTENT,
+				CONTENT,
 				REG_DATE,
-				USER_EMAIL
+				USER_SEQ,
+				FILE_ID,
+				BOARD_LEVEL,
+				EXP_YN
 			)
 			VALUES
 			(
 				#{boardSeq},
 				BOARD_P_SEQ.NEXTVAL,
 				#{title},
-				#{boardContent},
+				#{content},
 				SYSDATE,
-				#{userEmail}
+				#{userSeq},
+				'-1',
+				#{boardSeq},
+				'1'
 			)
 	</insert>
 	
-	<!-- 공공게시판 리스트 보기 -->
+	<!-- 고객센터게시판 리스트 보기 -->
 	<select id="getBoardList" resultType="CONSUMER_BoardDTO">	<!-- SQL문은 대문자로 써주어야 함!! -->
 		SELECT BOARD_P_SEQ AS boardPSeq,
 			TITLE AS title,
-			BOARD_CONTENT AS boardContent,
+			CONTENT,
 			REG_DATE AS regDate,
+			USER_NICK AS userNick
 		FROM BOARD_POST	
-		WHERE BOARD_SEQ='2'
-		ORDER BY BOARDPSEQ DESC
+			INNER JOIN USER_INFO ON BOARD_POST.USER_SEQ = USER_INFO.USER_SEQ
+		WHERE BOARD_SEQ = '2'
+		ORDER BY BOARD_P_SEQ DESC
 	</select>
 	
 	<!-- 공지사항 리스트 보기 -->
 	<select id="getNoticeList" resultType="CONSUMER_BoardDTO">
 		SELECT 
-			BOARD_P_SEQ AS BOARDPSEQ,
-			TITLE,
-			CONTENT AS BOARDCONTENT,
-			REG_DATE AS REGDATE
+			BOARD_P_SEQ AS boardPSeq,
+			TITLE AS title,
+			CONTENT,
+			REG_DATE AS regDate
 		FROM BOARD_POST	
 		WHERE BOARD_SEQ='1'
-		ORDER BY BOARDPSEQ DESC
+		ORDER BY BOARD_P_SEQ DESC
 	</select>
 	
-	<!-- 공지사항 글 자세히 보기 -->
-	<select id="getBoardDetail" parameterType="string" resultType="CONSUMER_BoardDTO">	<!-- SQL문은 대문자로 써주어야 함!! -->
-		SELECT BOARD_P_SEQ AS BOARDPSEQ,
-			TITLE,
-			BOARD_CONTENT AS BOARDCONTENT,
-			REG_DATE AS REGDATE
+	<!-- 고객센터 글 자세히 보기 -->
+	<select id="getBoardDetail" parameterType="string" resultType="CONSUMER_BoardDTO">	
+		SELECT 
+			BOARD_SEQ AS boardSeq,
+			BOARD_P_SEQ AS boardPSeq,
+			TITLE AS title,
+			CONTENT,
+			REG_DATE AS regDate,
+			USER_NICK AS userNick
 		FROM BOARD_POST
-		WHERE BOARD_P_SEQ=#{boardPSeq}
-		
+				INNER JOIN USER_INFO ON BOARD_POST.USER_SEQ = USER_INFO.USER_SEQ
+		WHERE BOARD_P_SEQ = #{boardPSeq}
+	</select>
+
+	<!-- 공지사항 글 자세히 보기 -->
+	<select id="getNoticeDetail" parameterType="string" resultType="CONSUMER_BoardDTO">	
+		SELECT 
+			BOARD_SEQ AS boardSeq,
+			BOARD_P_SEQ AS boardPSeq,
+			TITLE AS title,
+			CONTENT,
+			REG_DATE AS regDate
+		FROM BOARD_POST
+		WHERE BOARD_P_SEQ = #{boardPSeq}
 	</select>
 	
 	<!-- 게시글 삭제 -->
@@ -62,17 +85,15 @@
 		DELETE 
 		FROM BOARD_POST
 		WHERE BOARD_P_SEQ=#{boardPSeq} 
-	
 	</delete>
 	
 	<!-- 게시글 수정 -->
 	<update id="updateBoard" parameterType="CONSUMER_BoardDTO">
 		UPDATE BOARD_POST
 			SET TITLE=#{title},
-				BOARD_CONTENT=#{boardContent},
+				CONTENT=#{content},
 				REG_DATE=SYSDATE
 			WHERE BOARD_P_SEQ=#{boardPSeq}
-			
 	</update>
 	
 	<!-- 코멘트 추가 -->
@@ -82,7 +103,7 @@
 			REPLE_SEQ,
 			BOARD_P_SEQ,
 			USER_SEQ,
-			BOARD_CONTENT,
+			CONTENT,
 			REG_DATE
 			)
 			VALUES
@@ -100,7 +121,7 @@
 	<select id="getComment" parameterType="CONSUMER_BoardRepleDTO" resultType="CONSUMER_BoardRepleDTO">
 		SELECT BOARD_P_SEQ as boardPSeq,
 			USER_SEQ as userSeq,
-			BOARD_CONTENT as content,
+			BOARD_REPLE_CONTENT,
 			REG_DATE as regDate
 		FROM BOARD_REPLE 
 		WHERE BOARD_P_SEQ=#{boardPSeq}
@@ -110,9 +131,10 @@
 	
 	<!-- 코멘트 리스트 불러오기 -->
 	<select id="commentList" parameterType="string" resultType="CONSUMER_BoardRepleDTO">
-		SELECT BOARD_P_SEQ as boardPSeq,
+		SELECT 
+			BOARD_P_SEQ as boardPSeq,
 			USER_SEQ as userSeq,
-			BOARD_CONTENT as content,
+			BOARD_REPLE_CONTENT,
 			REG_DATE as regDate
 		FROM BOARD_REPLE 
 		WHERE BOARD_P_SEQ=#{boardPSeq}

@@ -103,18 +103,17 @@ public class CONSUMER_ConsumerController {
 		
 		////////////////////트럭 사진 리스트 불러오기////////////////// 											
 		log.info(this.getClass() + " // truckImages start !!");
-		List<String> ftSeqs = new ArrayList<String>();
-		List<String> userSeqs = new ArrayList<String>();
 		List<CONSUMER_ImageDTO> imgDTOs = new ArrayList<CONSUMER_ImageDTO>();
 		
 		if(ftList.isEmpty() == false) {
 			for(int i = 0; i < ftList.size(); i++) {
-				ftSeqs.add(CmmUtil.nvl(Integer.toString(ftList.get(i).getFt_seq())));	
-				userSeqs.add(CmmUtil.nvl(Integer.toString(ftList.get(i).getUser_seq())));
-				imgDTOs.add(new CONSUMER_ImageDTO());
-				imgDTOs.get(i).setUserSeq(userSeqs.get(i));
-				log.info("file ftSeqs : " + ftSeqs.get(i));
-				log.info("file userSeqs : " + userSeqs.get(i));
+				CONSUMER_ImageDTO imgDTO = new CONSUMER_ImageDTO();
+				imgDTO.setFtSeq(CmmUtil.nvl(Integer.toString(ftList.get(i).getFt_seq())));
+				imgDTO.setUserSeq(CmmUtil.nvl(Integer.toString(ftList.get(i).getUser_seq())));
+				imgDTO.setFileId(CmmUtil.nvl((ftList.get(i).getFile_id())));
+				imgDTOs.add(imgDTO);
+				log.info("file ftSeqs : " + imgDTO.getFtSeq());
+				log.info("file userSeqs : " + imgDTO.getUserSeq());
 			}
 															
 			imgDTOs = ftService.getTruckImage(imgDTOs);
