@@ -71,13 +71,10 @@
 	</style>
 </head>
 <body>
-
+	<%@include file="/WEB-INF/view/consumer/topBody.jsp" %>
 	<h1>트럭 왔냠이 추천하는 메뉴</h1>
-	<svg width="100%" height="700" font-family="sans-serif" font-size="10" text-anchor="middle"></svg>
 	<div style="height:20px"></div>
-	<div style="text-align:center; margin:0 auto;">
-		<button type="button" onclick="location.href='/consumer/main.do'" class="btn btn-default"><h3>트럭왔냠 홈으로 가기</h3></button>
-	</div>
+	<svg width="100%" height="640" font-family="sans-serif" font-size="10" text-anchor="middle"></svg>
 	
 	<script src="<%=request.getContextPath()%>/resources/js/consumer/d3.min.js"></script>
 	<!-- <script src="/resources/js/consumer/d3-legend.min.js"></script> -->
@@ -86,8 +83,9 @@
 	<script>
 		// Based loosely from this D3 bubble graph https://bl.ocks.org/mbostock/4063269
 		// And this Forced directed diagram https://bl.ocks.org/mbostock/4062045
-		var data = [];
-		var foo= {};
+		
+		let data = [];
+		let foo= {};
 		
 		<% for(int i = 0; i < rcmmndMenuDTO.size(); i++) {%>
 		
@@ -103,10 +101,11 @@
 					</a>
 				`
 				};
-			
 			data.push(foo);
 			
 		<%}%>
+		console.log("data is ", data);
+		/* test  */
 	</script>
 	<script>
 		let svg = d3.select('svg');
@@ -138,20 +137,23 @@
 			.force('y', d3.forceY(centerY ).strength(strength));
 
 		// reduce number of circles on mobile screen due to slow computation
-		if ('matchMedia' in window && window.matchMedia('(max-device-width: 767px)').matches) {
+	/* 	if ('matchMedia' in window && window.matchMedia('(max-device-width: 767px)').matches) {
 			data = data.filter(el => {
 				return el.value >= 50;
 			});
-		}
-
+		} */
+		
 		let root = d3.hierarchy({ children: data })
 			.sum(d => d.value);
-
+		
 		// we use pack() to automatically calculate radius conveniently only
 		// and get only the leaves
+	
+		
 		let nodes = pack(root).leaves().map(node => {
 			console.log('node:', node.x, (node.x - centerX) * 2);
 			const data = node.data;
+			
 			return {
 				x: centerX + (node.x - centerX) * 3, // magnify start position to have transition to center movement
 				y: centerY + (node.y - centerY) * 3,

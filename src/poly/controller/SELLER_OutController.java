@@ -285,8 +285,10 @@ public class SELLER_OutController {
 		
 	}
 	@RequestMapping(value="/seller/out/inOut")
-	public String inout () throws Exception{
+	public String inout (HttpSession session) throws Exception{
 		log.info("inout view start !!!");
+		String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
+		log.info("Check userSeq : " + userSeq);
 		
 		log.info("inout view end !!!");
 		return "/seller/out/inOut";
@@ -294,10 +296,10 @@ public class SELLER_OutController {
 	
 	//seller 판매자 inMain화면
 	@RequestMapping(value="/seller/inMain")
-	public String main(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
-		System.out.println("main");
-		log.info("chart Start");
-		String userSeq = (String)session.getAttribute("userSeq");
+	public String main(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		log.info("seller main start !!!"); 
+		log.info("chart Start"); 
+		String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
 		log.info("getUserSeq : " + userSeq);
 		
 		/*String userSeq1 = request.getParameter("userSeq");*/

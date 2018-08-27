@@ -32,17 +32,16 @@
 		UPDATE FT_INFO
 			SET
 				GPS_SEQ = 
-				(	SELECT GPS_SEQ
+				(	
+					SELECT GPS_SEQ
 					
 					FROM 
-						( SELECT GPS_SEQ,USER_SEQ FROM GPS_TABLE WHERE USER_SEQ = #{user_seq} ORDER BY GPS_RENEW_DATE DESC)
+						( SELECT GPS_SEQ, USER_SEQ FROM GPS_TABLE WHERE USER_SEQ = #{user_seq} ORDER BY GPS_RENEW_DATE DESC)
 					WHERE
 						<![CDATA[ROWNUM = 1]]>	
 	    	    )
 			WHERE
 				USER_SEQ = #{user_seq}
-				
-		
 	</update>
 	
 </mapper>

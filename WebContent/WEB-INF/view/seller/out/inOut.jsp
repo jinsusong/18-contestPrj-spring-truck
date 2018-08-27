@@ -4,13 +4,12 @@
 <%
 	String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
 	String userAuth = CmmUtil.nvl((String)session.getAttribute("userAuth"));
-			
 %>
 
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>board</title>
+	<title>트럭왔냠 관리자 페이지</title>
 	<style>
 	    body {
 	    	margin: 0 auto;
@@ -132,6 +131,7 @@
 
 </head>
 <body>
+
 	<table style="height: 100%; width: 100%">
 		<tr height="7%" bgcolor="#333333">
 			<td>
@@ -149,14 +149,13 @@
 				                <h1>IN</h1>
 				                <hr width="80%"/>
 				                <p>푸드트럭 안</p>
-				
 				            </div>
 				        </a>
 				        <a href="/seller/out/out_info.do?userSeq=<%=userSeq%>&userAuth=<%=userAuth%>">
 				            <div id="truck_out"  onmouseover="changeBg('out')" onmouseout="changeBg_out('out')">
 				                <h1>OUT</h1>
 				                <hr width="80%"/>
-				                <p><a href="#">푸드트럭 밖</a></p>
+				                <p>푸드트럭 밖</p>
 				            </div>
 				        </a>
 				    </div>
