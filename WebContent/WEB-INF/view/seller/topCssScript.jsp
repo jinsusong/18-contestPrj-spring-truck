@@ -22,7 +22,7 @@
 	}
 	.navigation {
 		position:relative;
-		height:130px;
+		height:140px;
 		overflow:hidden;
 	}
 

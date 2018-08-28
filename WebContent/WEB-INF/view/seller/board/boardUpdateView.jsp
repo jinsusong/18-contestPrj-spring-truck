@@ -50,7 +50,7 @@
 									<td><input type="text" class="form-control" value="<%=bDTO.getTitle()%>" name="Title" maxlength="50" /></td>
 								</tr>
 								<tr>
-									<td><textarea class="form-control" name="boardContent" maxlength="2048" style="height: 350px;"><%=bDTO.getBoardContent() %></textarea></td>
+									<td><textarea class="form-control" name="boardContent" maxlength="2048" style="height: 350px;"><%=bDTO.getContent() %></textarea></td>
 								</tr>
 							</tbody>
 							
