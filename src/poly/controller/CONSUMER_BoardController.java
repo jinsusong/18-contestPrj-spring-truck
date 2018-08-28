@@ -19,6 +19,7 @@ import poly.dto.consumer.CONSUMER_UserDTO;
 import poly.service.CONSUMER_IBoardService;
 import poly.service.CONSUMER_IUserService;
 import poly.util.CmmUtil;
+import poly.util.UtilTime;
 
 @Controller
 public class CONSUMER_BoardController {
@@ -104,9 +105,9 @@ public class CONSUMER_BoardController {
 	
 	//고객센터 보기
 	@RequestMapping(value="consumer/board/boardList")
-	public String boardList(HttpServletRequest request, Model model) throws Exception{
+	public String boardList(HttpServletRequest request, Model model, HttpSession session) throws Exception{
 		log.info("boardList Start");
-		String userEmail = CmmUtil.nvl(request.getParameter("userEmail"));
+		String userEmail = CmmUtil.nvl((String)session.getAttribute("userEmail"));
 		if("".equals(userEmail)) {
 			model.addAttribute("msg", "로그인 후 이용하시기 바랍니다.");
 			model.addAttribute("url", "/cmmn/main.do");
@@ -121,8 +122,12 @@ public class CONSUMER_BoardController {
 		
 		List<CONSUMER_BoardDTO> bList = boardService.getBoardList();
 		model.addAttribute("bList", bList);
-		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
 		
+		//현재 날짜를 보냅니다.
+		String now = UtilTime.getDateYMDhms().split("/")[0];
+		String []today = now.split("\\.");
+		System.out.println(today[2]);
+		model.addAttribute("today", today);
 		
 		log.info("boardList End");
 		return "/consumer/board/boardList";
@@ -143,7 +148,12 @@ public class CONSUMER_BoardController {
 		
 		List<CONSUMER_BoardDTO> bList = boardService.getNoticeList();
 		model.addAttribute("bList", bList);
-		log.info("이전 페이지 : " + request.getHeader("referer"));		//이전페이지 주소를 불러오는 함수
+		
+		//현재 날짜를 보냅니다.
+		String now = UtilTime.getDateYMDhms().split("/")[0];
+		String []today = now.split("\\.");
+		System.out.println(today[2]);
+		model.addAttribute("today", today);
 		
 		log.info("noticeList End");
 		return "/consumer/board/noticeList";

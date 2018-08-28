@@ -15,7 +15,8 @@
 			USER_NICK,
 			USER_GENDER,
 			USER_HP,
-			USER_STATUS
+			USER_STATUS,
+			STATUS
 		)
 		VALUES
 		(
@@ -26,7 +27,8 @@
 			#{userNick},
 			#{userGender},
 			#{userHp},
-			#{userStatus}
+			#{userStatus},
+			0
 			<!-- DTO 변수 이름으로 등록  -->
 		)
 	</insert>

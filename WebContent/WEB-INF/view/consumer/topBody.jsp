@@ -68,7 +68,7 @@
 					</div>				
 					<div>
 						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/mypage.png" />
-						<a href="/cmmn/user/mypage.do?userEmail=<%=userEmail%>&userSeq=<%=userSeq %>">마이페이지</a>
+						<a href="/consumer/user/mypage.do">마이페이지</a>
 					</div>
 					<div>
 						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/notice.png" />
@@ -76,7 +76,7 @@
 					</div>
 					<div>
 						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/info_centre.png" />
-						<a href="/consumer/board/boardList.do?userEmail=<%=userEmail%>&userSeq=<%=userSeq %>" >고객센터</a>
+						<a href="/consumer/board/boardList.do" >고객센터</a>
 					</div>
 				</div>
 			</div>

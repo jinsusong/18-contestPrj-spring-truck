@@ -9,7 +9,7 @@
 <!-- 지도 검색을 위한 services 라이브러리 불러오기 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=60f4f121242d90c886eacd9609c92e78&libraries=services,clusterer"></script>
 </head>
-<body>
+<body style="width:100%;">
 
 <%@include file="/WEB-INF/view/consumer/topBody.jsp" %>
 
@@ -24,20 +24,21 @@
 	          <div class="form-group">
 	              <form onsubmit="searchPlaces(); return false;">
 	              	<div class="row" style="padding-top:15px;">
-		              	<div class="col-sm-2"></div>
-		              	<div class="col-sm-6">
+		              	<div class="col-xs-2"></div>
+		              	<div class="col-xs-6">
 		             	<input type="text" class="form-control" value="한국폴리텍대학 서울강서캠퍼스" id="keyword" size="15">
 		             	</div> 
-		                <div class="col-sm-2">
+		                <div class="col-xs-2">
 		                  <button type="submit" class="btn btn-default">검색하기</button>
 		                </div>
-	            	    <div class="col-sm-2"></div>
+	            	    <div class="col-xs-2"></div>
+	            	    <div class="clearfix visible-xs"></div>		
 	          		</div>
 	              </form>
 	          </div>
 	      </div>
 	      <hr>
-	      <ul id="placesList" style="padding-right: 40px;"></ul>
+	      <ul id="placesList" style="padding: 0px;"></ul>
 	      <div id="pagination" style="text-align:center; font-size:20px;"></div>
 	</div>
 </body>
@@ -197,13 +198,16 @@ function displayPlaces(places) {
 function getListItem(index, places) {
 
     var el = document.createElement('li'),
-    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
+    itemStr = '<span class="markerbg marker_' + (index+1) + '" style="margin: 10px; margin-right: 20px; float: left; font-size:20px;">'+(index+1)+'</span>' +
+                '<div class="info"  style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">' +
                 '   <h5>' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
+        itemStr += 
+        			'    <span>' + places.road_address_name + '</span>' +
+                    '   <span class="jibun gray">' +  places.address_name  + '</span>'
+                    ;
+                    
     } else {
         itemStr += '    <span>' +  places.address_name  + '</span>'; 
     }
