@@ -3,43 +3,7 @@
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.CONSUMER_UserMapper">
 
-	<!-- 회원가입  -->
-	<insert id="insertUserDTO" parameterType="CONSUMER_UserDTO">
-		INSERT INTO USER_INFO
-		(
-			USER_SEQ,
-			USER_EMAIL,
-			USER_PWD,
-			USER_NICK,
-			USER_GENDER,
-			USER_HP,
-			USER_STATUS
-		)
-		VALUES
-		(
-			USER_SEQ.NEXTVAL,
-			#{userEmail},
-			#{userPwd},
-			#{userNick},
-			#{userGender},
-			#{userHp},
-			#{userStatus}
-			<!-- DTO 변수 이름으로 등록  -->
-		)
-	</insert>
-	<!-- 회원목록  select -->
-	
-	<!-- DTO 객체가 넘어오면 받는  -->
-	<select id="getUserList" resultType="CONSUMER_UserDTO">
-		SELECT USER_SEQ as userSeq,
-				USER_EMAIL as userEmail,
-				USER_PWD as userPwd,
-				USER_NICK as userNick,
-				USER_GENDER as userGender,
-				USER_HP as userHp,
-		FROM	USER_INFO
-	</select>
-	
+
 	<!-- 회원 상세보기  -->
 	<select id="getUserDetail" parameterType="CONSUMER_UserDTO" resultType="CONSUMER_UserDTO">
 			SELECT USER_SEQ as userSeq,

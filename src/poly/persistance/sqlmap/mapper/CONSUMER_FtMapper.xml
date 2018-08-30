@@ -115,12 +115,12 @@
 			UI.USER_NICK as user_nick,
 			FR.FILE_ID as file_id
 			
-		FROM FT_REVIEW FR, USER_INFO UI
+		FROM FT_REVIEW FR
+			INNER JOIN USER_INFO UI ON FR.USER_SEQ = UI.USER_SEQ 
 		
 		WHERE 
 			FR.FT_SEQ = #{ft_seq} AND 
-			FR.EXP_YN = 1 AND 
-			FR.USER_SEQ = UI.USER_SEQ
+			FR.EXP_YN = 1 
 	</select> 
 	
 	<!-- 푸드트럭 상세 보기 내의 메뉴들 가져오기 -->
@@ -156,9 +156,9 @@
 			MN.ORIGN as orign,
 			FT.FT_NAME as ft_name
 		FROM 
-			MENU_INFO MN, FT_INFO FT
+			MENU_INFO MN
+			INNER JOIN FT_INFO FT ON MN.FT_SEQ = FT.FT_SEQ 
 		WHERE 
-			MN.FT_SEQ = FT.FT_SEQ AND
 			MN.EXP_YN = 1 AND
 			FT.FT_STATUS = 0 AND
 			FT.FT_SEQ IN 
@@ -184,10 +184,10 @@
 			FT.FT_NAME as ft_name,
   		    GT.GPS_SIDO || ' ' || GT.GPS_SIGUNGU || ' ' || GT.GPS_DONG AS ftAddress
 		FROM 
-			MENU_INFO MN, FT_INFO FT, GPS_TABLE GT
+			MENU_INFO MN 
+			INNER JOIN FT_INFO FT ON MN.FT_SEQ = FT.FT_SEQ  
+			INNER JOIN GPS_TABLE GT ON FT.GPS_SEQ = GT.GPS_SEQ
 		WHERE 
-			MN.FT_SEQ = FT.FT_SEQ AND
-			FT.GPS_SEQ = GT.GPS_SEQ AND
 			MN.EXP_YN = 1 AND
 			FT.FT_STATUS = 0 AND
 			MN.MENU_NAME like '%' ||  #{keyWord} || '%'
@@ -235,10 +235,9 @@
 				IMG.FILE_SEVNAME as fileSevname,
 				IMG.FILE_PATH as filePath
 				
-		FROM	IMAGE IMG, FT_REVIEW FR
-		
+		FROM	IMAGE IMG
+			INNER JOIN FT_REVIEW FR ON 	IMG.FILE_ID = FR.FILE_ID 
 		WHERE	
-			IMG.FILE_ID = FR.FILE_ID AND
 			<!-- 이미지테이블의 유저 번호 조건 -->	
 			IMG.USER_SEQ IN 
 	    	<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
@@ -261,10 +260,10 @@
 				IMG.FILE_SEVNAME as fileSevname,
 				IMG.FILE_PATH as filePath
 				
-		FROM	IMAGE IMG, BANNER_POP BP
+		FROM	IMAGE IMG
+			INNER JOIN BANNER_POP BP ON IMG.FILE_ID = BP.FILE_ID 
 		
 		WHERE	
-			IMG.FILE_ID = BP.FILE_ID AND 
 			BP.EXP_YN = 1
 			
 	</select>
