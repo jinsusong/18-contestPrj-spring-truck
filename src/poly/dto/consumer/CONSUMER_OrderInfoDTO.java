@@ -12,6 +12,7 @@ public class CONSUMER_OrderInfoDTO {
 	private String usr_rcv_time;
 	private String rcv_time;
 	private String tid;
+	private String menu_name;
 	
 	public int getOrd_seq() {
 		return ord_seq;
@@ -79,4 +80,11 @@ public class CONSUMER_OrderInfoDTO {
 	public void setTid(String tid) {
 		this.tid = tid;
 	}
+	public String getMenu_name() {
+		return menu_name;
+	}
+	public void setMenu_name(String menu_name) {
+		this.menu_name = menu_name;
+	}
+	
 }

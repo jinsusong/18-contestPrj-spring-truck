@@ -26,9 +26,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //import com.sun.java.util.jar.pack.Package.Class.Method;
 import com.sun.mail.handlers.message_rfc822;
 
+import poly.dto.consumer.CONSUMER_CouponIssueDTO;
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
+import poly.dto.consumer.CONSUMER_OrderInfoDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
 import poly.dto.seller.SELLER_OrderInfoDTO;
+import poly.service.CONSUMER_ICouponService;
 import poly.service.CONSUMER_IUserService;
 import poly.service.SELLER_IOrderService;
 import poly.util.CmmUtil;
@@ -49,7 +52,8 @@ public class CONSUMER_UserController {
 	@Resource(name="CONSUMER_UserService")
 	private CONSUMER_IUserService UserService;
 	
-	
+	@Resource(name="CONSUMER_CouponService")
+	private CONSUMER_ICouponService CouponService;
 	
 	//현재 날짜를 구하는 함수
 	public String getDate() {
@@ -171,14 +175,25 @@ public class CONSUMER_UserController {
 		}
 		
 	}
+	
+	//주문내역
 	@RequestMapping(value="consumer/user/userOrderInfo", method=RequestMethod.GET)
 	public String userOrderInfo(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		log.info("Access userOrderInfo");
-		
+		//dupyo 주문내역
+		String userSeq = (String)session.getAttribute("userSeq");
+		List<CONSUMER_OrderInfoDTO> oList = UserService.getOrderList(userSeq);
+		if(oList == null) {
+			log.info("주문내역 불러오기 실패;;");
+		} else {
+			log.info("주문내역 불러오기 성공 oList : " + oList);
+			model.addAttribute("oList", oList);
+		}
 		log.info("Terminate userOrderInfo");
 		return "/consumer/user/userOrderInfo";
 	}
 	
+	//관심매장
 	@RequestMapping(value="consumer/user/userFavortieFt", method=RequestMethod.GET)
 	public String userFavortieFt(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		log.info("Access userFavortieFt");
@@ -187,9 +202,19 @@ public class CONSUMER_UserController {
 		return "/consumer/user/userFavortieFt";
 	}
 	
+	//내 쿠폰목록
 	@RequestMapping(value="consumer/user/userCouponList", method=RequestMethod.GET)
 	public String mycoupon(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		log.info("Access mycoupon");
+		//dupyo쿠폰목록
+		String userSeq = (String)session.getAttribute("userSeq");
+		List<CONSUMER_CouponIssueDTO> cList = CouponService.couponList(userSeq);
+		if(cList == null) {
+			log.info("쿠폰목록 불러오기 실패;;");
+		} else {
+			log.info("쿠폰목록 불러오기 성공 couponList : " + cList);
+			model.addAttribute("cList", cList);
+		}
 		
 		log.info("Terminate mycoupon");
 		return "/consumer/user/userCouponList";

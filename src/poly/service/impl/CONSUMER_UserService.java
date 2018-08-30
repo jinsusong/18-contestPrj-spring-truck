@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
 import poly.dto.consumer.CONSUMER_Gps_TableDTO;
+import poly.dto.consumer.CONSUMER_OrderInfoDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
 import poly.persistance.mapper.CONSUMER_Gps_TableMapper;
 import poly.persistance.mapper.CONSUMER_UserMapper;
@@ -132,6 +133,11 @@ public class CONSUMER_UserService implements CONSUMER_IUserService {
 	@Override
 	public int updateGps(int user_seq) throws Exception {
 		return gpsMapper.updateGps(user_seq);
+	}
+
+	@Override
+	public List<CONSUMER_OrderInfoDTO> getOrderList(String userSeq) throws Exception {
+		return userMapper.getOrderList(userSeq);
 	}
 	
 
