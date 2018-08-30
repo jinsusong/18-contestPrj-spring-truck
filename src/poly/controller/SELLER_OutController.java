@@ -417,7 +417,7 @@ public class SELLER_OutController {
 			//jinsu 월간매출 시작 !!
 			log.info(this.getClass() + "monthChart start =====================");
 			log.info("ftsDTO userSeq : " + ftsDTO.getUserSeq()); // ?null
-			log.info("ftsDTO ftSEq : " + ftsDTO.getFtSeq()); // 5
+			log.info("ftsDTO ftSEq : " + ftsDTO.getFtSeq()); // 3
 			List<SELLER_OrderInfoDTO> monthChart = FtSellerService.getMonthChart(ftsDTO);
 			log.info("===================monthChart");
 			log.info("monthChart : " + monthChart);
@@ -438,6 +438,7 @@ public class SELLER_OutController {
 			model.addAttribute("chart",chart);
 			
 		}
+		log.info(this.getClass() + "inMain end !!!!");
 		return "/seller/inMain";
 	}
 }

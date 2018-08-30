@@ -4,7 +4,7 @@
 <%@ page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
+  <%--   <%
 		
 	
     	String todayMD = (String)request.getAttribute("todayMD");
@@ -26,13 +26,13 @@
 	   	out.println(todayM);
 	   	int todayD = Integer.parseInt(todayYMDhms.substring(8, 10));
 	   	out.println(todayD);
-    %>
+    %> --%>
 	<!-- 월별 매출액  -->
 	<%
 		List<SELLER_OrderInfoDTO> monthChart = (List<SELLER_OrderInfoDTO>)request.getAttribute("monthChart");
 		String ss_userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
 	%>
-	<!-- 일간 매출액 시작 -->
+ 	<%-- <!-- 일간 매출액 시작 -->
 	<%
 		int sumpriceT = 0;	//오늘 총매출
 		int sumpriceW = 0;	//이번주 총매출
@@ -76,7 +76,7 @@
 		String sumpriceMonth = CmmUtil.addComma(sumpriceM);
 		
 	%>
-	<!-- 일간 매출액 끝 -->
+	<!-- 일간 매출액 끝 --> --%>
     
     
     
@@ -99,23 +99,23 @@
 		
 		 	 <!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#Week" aria-controls="profile" role="tab" data-toggle="tab">이번주 매출</a></li>
+				<!-- <li role="presentation" class="active"><a href="#Week" aria-controls="profile" role="tab" data-toggle="tab">이번주 매출</a></li> -->
 				<li role="presentation"><a href="#Month" aria-controls="messages" role="tab" data-toggle="tab">월별 매출</a></li>
 				<li role="#"><a href="/seller/sales/sales.do?userSeq=<%=ss_userSeq%>" aria-controls="#" role="#" data-toggle="#">매출분석</a></li>
 			</ul>
 		
 			<!-- Tab panes -->
 			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane fade in active" id="Week">
+				<!-- <div role="tabpanel" class="tab-pane fade in active" id="Week">
 					<canvas id="myChartWeek" style="width: 100%;"></canvas>
-				</div>
+				</div> -->
 				<div role="tabpanel" class="tab-pane fade" id="Month">
 					<canvas id="myChartMonth" style="width: 100%;"></canvas>
 				</div>
 			</div>
 		</div>
 		<!-- 매출 정보 숫자 시작  -->
-		<div style="margin-top:35px;">
+		<%-- <div style="margin-top:35px;">
 			<div style="float:left; width:48%;">	<!-- float은 구석으로 차곡차곡 밀어 넣는 속성이기 때문에 두 div를 같은 위치에 밀어 넣고 싶은 땐  style="clear:both"를 해주어야 함 -->
 				<div style="padding-bottom:5px; border-bottom:1px solid #cccccc; margin-bottom:15px;">
 					<span style="border:1px solid #cccccc; padding-left:20px; padding-right:20px; padding-top:8px; padding-bottom:8px;">today - <%=todayMD %></span>
@@ -133,7 +133,7 @@
 				</div>
 			</div>
 			<div style="clear:both; border-bottom:1px solid #cccccc;"></div>
-		</div>
+		</div> --%>
 		
 		
 	</div>
@@ -198,6 +198,7 @@
 
 </script>
 
+<%-- 두표꺼 나중에 다시 살려야함 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 <script>//이번주 매출
 var arraylatelySum = []; //7일 매출 
 <%for(int i=0; i< wList.size(); i++){%>
@@ -238,7 +239,7 @@ var myChartWeek = new Chart(ctx, {
         }
     }
 });
-</script>
+</script> --%>
 
 <script>//이번달 매출
 var arraySum = []; // 월별 매출 금액 

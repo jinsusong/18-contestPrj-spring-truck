@@ -165,6 +165,7 @@
 						upBtnView += "</div>";
 						
 					$(upView).html(upBtnView);
+					console.log(upBtnView);
 				},
 				error : function(){
 					alert("error");

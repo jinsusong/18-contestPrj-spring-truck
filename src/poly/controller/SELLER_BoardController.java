@@ -160,6 +160,9 @@ public class SELLER_BoardController {
 		bDTO.setBoardSeq(boardSeq);
 		
 		List<SELLER_BoardDTO> bList = BoardService.getBoardCommunity(bDTO);
+		for(int i=0; i< bList.size(); i++) {
+			log.info("bList.get" + i + ":" + bList.get(i).getBoardPSeq());
+		}
 		
 		log.info(this.getClass() + "============Comuunity end !!!");
 		return bList;

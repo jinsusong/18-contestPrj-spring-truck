@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.mysql.jdbc.Util;
+
 import poly.dto.consumer.CONSUMER_DissInfoDTO;
 import poly.dto.consumer.CONSUMER_Gps_TableDTO;
 import poly.dto.consumer.CONSUMER_WeatherDTO;
@@ -40,6 +42,7 @@ import poly.service.SELLER_IFtSellerService;
 import poly.service.SELLER_IImageService;
 import poly.util.SELLER_UtilFile;
 import poly.util.SortRegCode;
+import poly.util.UtilTime;
 import poly.util.CmmUtil;
 import poly.util.Coord;
 import poly.util.OpenAPI;
@@ -91,6 +94,10 @@ public class SELLER_FtSellerController {
 		String ftStatus = CmmUtil.nvl(request.getParameter("ftStatus"));
 		String ftOptime = request.getParameter("ft_bday")+"/"+request.getParameter("ft_open_time")+"/"+request.getParameter("ft_close_time");
 		String ftFunc=""; 
+		String ftJoin="";
+		
+		ftJoin=UtilTime.getDateYMDhms();
+		
 		if(request.getParameter("delivery")!=null) {
 			ftFunc += request.getParameter("delivery")+"/";
 		}
@@ -110,6 +117,7 @@ public class SELLER_FtSellerController {
 		log.info("ftsellerController ftFunc : " + ftFunc);
 		log.info("ftsellerController ftOptiom : " + ftOptime);
 		log.info("ftsellerController ftStatus  : " + ftStatus);
+		log.info("ftsellerControoler ftJoin : " + ftJoin);
 		
 		SELLER_FtSellerDTO ftSDTO = new SELLER_FtSellerDTO();
 		ftSDTO.setUserSeq(userSeq);
@@ -120,6 +128,8 @@ public class SELLER_FtSellerController {
 		ftSDTO.setFtStatus(ftStatus);
 		ftSDTO.setFtFunc(ftFunc);
 		ftSDTO.setFtOptime(ftOptime);
+		ftSDTO.setFtJoin(ftJoin);
+		
 		
 		SELLER_ImageDTO imgDTO = new SELLER_ImageDTO();
 		
@@ -140,7 +150,8 @@ public class SELLER_FtSellerController {
 		}else { //업로드된 파일 없을때
 			ftSDTO.setFileId("-1");
 		}
-	/*	//트럭 이미지 파일 업로드 
+		/*
+	  	//트럭 이미지 파일 업로드 
 		String fileSevname= "";//파일 이름을 재정의 하기 위한 변수 선언
 		String fileOrgname= file.getOriginalFilename();
 		//requestParam 요청으로 불러온 이미지의 원래 파일명 
@@ -165,7 +176,6 @@ public class SELLER_FtSellerController {
 		imgDTO.setFileSevname(now+extended);
 		imgDTO.setFilePath(savePath);
 		imgDTO.setFileOrgname(fileOrgname);
-		
 		*/
 		
 		HashMap<String, Object> hMap = new HashMap<>();
