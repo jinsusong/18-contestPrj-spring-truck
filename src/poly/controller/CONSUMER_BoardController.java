@@ -75,6 +75,7 @@ public class CONSUMER_BoardController {
 		log.info("getUesrEmail : " + userEmail);
 		String userSeq = request.getParameter("userSeq");
 		log.info("getUserSeq : " + userSeq);
+		String regDate = UtilTime.getDateYMDhms();
 		
 		//변수들을 각각 넘기면 코드가 길어지고 귀찮으니까 DTO를 사용한다.
 		CONSUMER_BoardDTO bDTO = new CONSUMER_BoardDTO();
@@ -86,6 +87,8 @@ public class CONSUMER_BoardController {
 		log.info("setBoardSeq : " + bDTO.getBoardSeq());
 		bDTO.setUserSeq(userSeq);
 		log.info("setUserSeq : " + bDTO.getUserSeq());
+		bDTO.setRegDate(regDate);
+		log.info("setRegDate: " + bDTO.getRegDate());
 		
 		int result = boardService.insertBoardDTO(bDTO);
 		log.info("result full!!");

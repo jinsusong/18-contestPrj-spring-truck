@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.CONSUMER_BoardMapper">
-	<insert id="insertBoardDTO" parameterType="CONSUMER_BoardDTO">	<!-- 대문자로 써주어야 함!! -->
+	<!-- 게시글 작성 -->
+	<insert id="insertBoardDTO" parameterType="CONSUMER_BoardDTO">
 		INSERT INTO BOARD_POST
 			(
 				BOARD_SEQ,
-				BOARD_P_SEQ,
 				TITLE,
 				CONTENT,
 				REG_DATE,
@@ -18,10 +18,9 @@
 			VALUES
 			(
 				#{boardSeq},
-				BOARD_P_SEQ.NEXTVAL,
 				#{title},
 				#{content},
-				SYSDATE,
+				#{regDate},
 				#{userSeq},
 				'-1',
 				#{boardSeq},
@@ -50,11 +49,13 @@
 			TITLE AS title,
 			CONTENT,
 			REG_DATE AS regDate
-		FROM (
-			SELECT * FROM BOARD_POST
-			WHERE BOARD_SEQ='1'
-			ORDER BY REG_DATE DESC
-		)
+		FROM 
+			SELECT *, <![CDATA[@RNUM := @RNUM+1 ROWNUM ]]>
+			(
+				SELECT * FROM BOARD_POST
+				WHERE BOARD_SEQ='1'
+				ORDER BY REG_DATE DESC 
+			) BP, <![CDATA[(SELECT @RNUM:=0) R]]> 
 		WHERE 
 			<![CDATA[ ROWNUM <=  5]]>
 	</select>
@@ -68,7 +69,7 @@
 			REG_DATE AS regDate,
       		rnum
 		FROM 	(
-					SELECT BOARD_P_SEQ, TITLE, CONTENT, REG_DATE, ROWNUM AS rnum 
+					SELECT * 
 					FROM BOARD_POST
 					WHERE BOARD_SEQ='1'
 					ORDER BY rnum DESC
@@ -124,25 +125,23 @@
 	</update>
 	
 	<!-- 코멘트 추가 -->
-	<insert id="insertComment" parameterType="CONSUMER_BoardRepleDTO">
+	<!-- <insert id="insertComment" parameterType="CONSUMER_BoardRepleDTO">
 		INSERT INTO BOARD_REPLE
 			(
-			REPLE_SEQ,
 			BOARD_P_SEQ,
 			USER_SEQ,
 			CONTENT,
-			REG_DATE
+			REG_DATf
 			)
 			VALUES
 			(
-			REPLE_SEQ.NEXTVAL,
 			#{boardPSeq},
 			#{userSeq},
 			#{content},
 			SYSDATE
 			) 
 			
-	</insert>
+	</insert> -->
 	
 	<!-- 코멘트 불러오기 -->
 	<select id="getComment" parameterType="CONSUMER_BoardRepleDTO" resultType="CONSUMER_BoardRepleDTO">
