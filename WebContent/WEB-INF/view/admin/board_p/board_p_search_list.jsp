@@ -23,10 +23,10 @@
 	}
 </script>
 </head>
-<body>
+<body background="<%=request.getContextPath()%>/resources/img/admin/truck_background.jpg" style="background-size: 100%;">
 <%@ include file="../admin_top.jsp" %>
 
-<div class="container">
+<div class="container" style="background-color:rgba(255,255,255,0.9);  padding-top:15px; padding-bottom:30px;  padding-left:30px; padding-right:30px;">
 	<div style="width:100%;">
 		<div style="float:left;">
 			<h2>게시물검색 리스트</h2>
@@ -62,14 +62,12 @@
                     <input type="text" name="value" class="form-control">
                     <input type="submit" value="검색" class="btn btn-default">
             </div>
-            <div style="border-bottom:1px solid #cccccc; margin-top:15px;"></div>
         </form>
     </div>
 	<div id="table_container">
 		<%@ include file="board_p_search_table.jsp" %>
     	<!-- <iframe src="./editablegrid-1.0.10/examples/ft_table.html" width="100%" style="border:0px; max-height:auto; min-height:450px;"></iframe> -->
     </div>
-    <div style="border-bottom:1px solid #cccccc; margin-top:15px;"></div>
 </div>
 <hr>
 <footer class="text-center">

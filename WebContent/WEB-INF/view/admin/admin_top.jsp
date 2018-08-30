@@ -3,16 +3,16 @@
 	
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/admin/bootstrap.css">
 	
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
+<nav class="navbar navbar-inverse" style="border-radius:0;">
+	<div class="container-fluid" style="background-color:#161616;">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div
-			style="width: 350px; height: 25px; border-radius: 0 0 10px 10px; background-color: #454545; margin: 0 auto; color: #fefefe; padding-right: 10px; padding-left: 15px; padding-top: 2px;">
+			style="width: 350px; height: 25px; border-radius: 0 0 10px 10px; background-color: #333333; margin: 0 auto; color: #fefefe; padding-right: 10px; padding-left: 15px; padding-top: 2px;">
 			<p align="center" style="font-size: 12px;">
 				<span style="color: #cccccc;">관리자 접속일시 : 2018.06.04 18:29</span>
 				&nbsp;&nbsp;&nbsp;<input type="button" value="로그아웃"
 					onClick="location.href='#'"
-					style="border: #333333 1px solid; background-color: #666666; width: 70px; height: 21px;" />
+					style="border: #333333 1px solid; background-color: #454545; width: 70px; height: 21px;" />
 			</p>
 		</div>
 		<div class="navbar-header">
