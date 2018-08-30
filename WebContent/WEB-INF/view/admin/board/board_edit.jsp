@@ -28,10 +28,10 @@
 <title>게시판 수정</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin/bootstrap.css">
 </head>
-<body>
+<body background="<%=request.getContextPath()%>/resources/img/admin/truck_background.jpg" style="background-size: 100%;">
 <%@ include file="../admin_top.jsp" %>
 
-<div class="container">
+<div class="container" style="background-color:rgba(255,255,255,0.9);  padding-top:15px; padding-bottom:30px;  padding-left:30px; padding-right:30px;">
 <h2>게시판수정</h2>
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
 	<div style="margin-top:15px; margin-bottom:25px;">

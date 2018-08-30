@@ -21,10 +21,10 @@
     <![endif]-->
           
 </head>
-<body>
+<body background="<%=request.getContextPath()%>/resources/img/admin/truck_background.jpg" style="background-size: 100%;">
 <%@ include file="../admin_top.jsp" %>
 
-<div class="container">
+<div class="container" style="background-color:rgba(255,255,255,0.9);  padding-top:15px; padding-bottom:30px;  padding-left:30px; padding-right:30px;">
 	<div style="width:100%;">
 		<div style="float:left;">
 			<h2>회원검색 검색리스트</h2>
@@ -53,7 +53,6 @@
 		<%@ include file="user_search_table.jsp" %>
     	<!-- <iframe src="./editablegrid-1.0.10/examples/ft_table.html" width="100%" style="border:0px; max-height:auto; min-height:450px;"></iframe> -->
     </div>
-    <div style="border-bottom:1px solid #cccccc; margin-top:15px;"></div>
 </div>
 <hr>
 <footer class="text-center">

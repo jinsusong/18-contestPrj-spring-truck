@@ -141,9 +141,9 @@
 					<td><%=uDTOArr.get(i).getUser_hp()%></td>
 					<td><%=uDTOArr.get(i).getUser_regdate()%></td>
 					<td>
-						<%if(uDTOArr.get(i).getUser_status()=="0"){ %>정상<%} 
-						else if(uDTOArr.get(i).getUser_status()=="1"){ %>활동정지<%}
-						else if(uDTOArr.get(i).getUser_status()=="-1"){ %>탈퇴대기<%}%>
+						<%if(uDTOArr.get(i).getStatus().equals("0")){ %>정상<%} 
+						else if(uDTOArr.get(i).getStatus().equals("1")){ %>활동정지<%}
+						else if(uDTOArr.get(i).getStatus().equals("-1")){ %>탈퇴대기<%}%>
 					</td>
 					</tr>
 					<%cnt++;

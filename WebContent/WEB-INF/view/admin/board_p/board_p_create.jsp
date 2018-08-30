@@ -56,10 +56,10 @@
     <![endif]-->
 
 </head>
-<body>
+<body background="<%=request.getContextPath()%>/resources/img/admin/truck_background.jpg" style="background-size: 100%;">
 <%@ include file="../admin_top.jsp" %>
 
-<div class="container">
+<div class="container" style="background-color:rgba(255,255,255,0.9);  padding-top:15px; padding-bottom:30px;  padding-left:30px; padding-right:30px;">
 <form action="<%=request.getContextPath()%>/admin/board_p/board_p_create_ok.do" method="post" enctype="multipart/form-data">
 	<h2>게시물쓰기</h2>
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
