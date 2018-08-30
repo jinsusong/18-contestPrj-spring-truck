@@ -29,8 +29,7 @@
 	}
 	/* 메뉴의 이미지를 높이를 고정 */
 	.imgRow > img{
-		height:auto; margin:10px 0;
-		min-height:180px; max-height:300px;
+		height:100%;
 	}
 </style>
 <body>
@@ -52,10 +51,10 @@
 			
 			<%for (int i = 0; i < menuDTOs.size(); i++) { %>
 				<%if(cateDTOs.get(k).getCate_sort_no() == menuDTOs.get(i).getCate_sort_no()) {%>
-					<div class="col-sm-6">
+					<div class="col-sm-6" style="height:368px; overflow:hidden">
 						<div class="contentBox" style="text-align:center;">
 							<!-- 메뉴 이미지 -->
-							<div class="row ftMenuRow imgRow">
+							<div class="row ftMenuRow imgRow" style="height:68%; overflow:hidden; padding:8% 0;">
 								<%for(int j = 0; j < imgDTOs.size(); j++) {%>
 									<!--fileId NULL 확인 -->
 									<%if(!"".equals(imgDTOs.get(j).getFileSevname())) {%>
@@ -75,9 +74,7 @@
 							<div class="row ftMenuRow">가격:&nbsp;<%=menuDTOs.get(i).getMenu_price() %></div>
 						</div>
 					</div>
-					<%if(i%2 == 1 && i > 0) {%> <!-- 각각 높이가 같은 각 행에 2개씩 들어가도록 위치를 맞춰 줌 -->
-						<div class="clearfix visible-sm"></div> 
-					<%} %>
+					
 				<%} %>
 			<%} %>
 			<!-- 등록된 음식이 없을 경우 -->	

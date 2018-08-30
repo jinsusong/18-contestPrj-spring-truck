@@ -61,7 +61,7 @@ public class SELLER_BoardController {
 		
 		SELLER_BoardDTO bDTO = new SELLER_BoardDTO();
 		bDTO.setTitle(Title);
-		bDTO.setBoardContent(boardContent);
+		bDTO.setContent(boardContent);
 		bDTO.setRegDate(regDate);
 		bDTO.setBoardSeq(boardSeq);// 게시판 공지사항 구분 번호 1
 		bDTO.setUserSeq(userSeq);
@@ -273,7 +273,7 @@ public class SELLER_BoardController {
 			
 			SELLER_BoardDTO bDTO = new SELLER_BoardDTO();
 			bDTO.setTitle(Title);
-			bDTO.setBoardContent(boardContent);
+			bDTO.setContent(boardContent);
 			bDTO.setRegDate(regDate);
 			bDTO.setBoardPSeq(boardPSeq);
 			log.info("bDTO : " +bDTO.getTitle());

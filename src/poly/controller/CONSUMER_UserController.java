@@ -140,15 +140,14 @@ public class CONSUMER_UserController {
 	
 	
 	
-	///////마이페이지
+	//////////////마이페이지
 	//마이페이지 - 회원정보
 	@RequestMapping(value="consumer/user/mypage", method=RequestMethod.GET)
-	public String mypage(HttpServletRequest request, Model model) throws Exception {
+	public String mypage(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		log.info("mypage Start");
-		
-		String userSeq = CmmUtil.nvl(request.getParameter("userSeq"));
+		String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
 		log.info("getuserSeq : " + userSeq);
-		String userEmail = CmmUtil.nvl(request.getParameter("userEmail"));
+		String userEmail = CmmUtil.nvl((String)session.getAttribute("userEmail"));
 		log.info("getUserEmail : " + userEmail);
 		
 		CONSUMER_UserDTO uDTO = new CONSUMER_UserDTO();
@@ -172,6 +171,34 @@ public class CONSUMER_UserController {
 		}
 		
 	}
+	@RequestMapping(value="consumer/user/userOrderInfo", method=RequestMethod.GET)
+	public String userOrderInfo(HttpServletRequest request, Model model, HttpSession session) throws Exception {
+		log.info("Access userOrderInfo");
+		
+		log.info("Terminate userOrderInfo");
+		return "/consumer/user/userOrderInfo";
+	}
+	
+	@RequestMapping(value="consumer/user/userFavortieFt", method=RequestMethod.GET)
+	public String userFavortieFt(HttpServletRequest request, Model model, HttpSession session) throws Exception {
+		log.info("Access userFavortieFt");
+		
+		log.info("Terminate userFavortieFt");
+		return "/consumer/user/userFavortieFt";
+	}
+	
+	@RequestMapping(value="consumer/user/userCouponList", method=RequestMethod.GET)
+	public String mycoupon(HttpServletRequest request, Model model, HttpSession session) throws Exception {
+		log.info("Access mycoupon");
+		
+		log.info("Terminate mycoupon");
+		return "/consumer/user/userCouponList";
+	}
+	
+	
+	
+	
+	
 	
 	
 	//관심매장 추가 - ajax

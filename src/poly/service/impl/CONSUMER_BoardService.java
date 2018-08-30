@@ -23,8 +23,8 @@ public class CONSUMER_BoardService implements CONSUMER_IBoardService{
 	}
 
 	@Override
-	public List<CONSUMER_BoardDTO> getBoardList() throws Exception {
-		return boardMapper.getBoardList();
+	public List<CONSUMER_BoardDTO> getBoardList(String userSeq) throws Exception {
+		return boardMapper.getBoardList(userSeq);
 	}
 
 	@Override
@@ -70,6 +70,16 @@ public class CONSUMER_BoardService implements CONSUMER_IBoardService{
 	public List<CONSUMER_BoardRepleDTO> commentList(String boardPSeq) throws Exception {
 	
 		return boardMapper.commentList(boardPSeq);
+	}
+
+	@Override
+	public CONSUMER_BoardDTO getNoticeDetail(String boardPSeq) throws Exception {
+		return boardMapper.getNoticeDetail(boardPSeq);
+	}
+
+	@Override
+	public List<CONSUMER_BoardDTO> getNoticeListMore(int count) throws Exception {
+		return boardMapper.getNoticeListMore(count);
 	}
 
 	

@@ -284,7 +284,7 @@
 						<tr>
 							<td >글내용 :</td>
 							<td colspan="2" style="min-height:200px; text-align:left;">
-								<%=bDTO.getBoardContent() %>
+								<%=bDTO.getContent() %>
 							</td>
 						</tr>
 						<tr>

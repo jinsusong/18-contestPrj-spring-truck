@@ -35,22 +35,49 @@
 			</div>
 			<div id="mySidenav" class="sidenav">
 				<div id="sidenav_inner">
-					<div><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">닫기</a></div>
-					<%if(!"".equals(userEmail) && !"".equals(userSeq) && !"".equals(userNick)) { %>
-						<!-- 로그인 된 상태 -->
-						<div><a href="Javascript:logout();" >로그아웃</a></div>
-							
-					<%}else{ %>
-						<!-- 로그인이 안된 상태 -->
-						<div><a href="/cmmn/main.do">로그인</a></div>
-					<%} %>
-					<div><a href="/consumer/cnsmr/findMyLoc.do">내 위치 설정</a></div>		
-					<div><a href="/consumer/cnsmr/findAdjFt.do?locPosition=<%=myLat%>,<%=myLon%>&myAddress=<%=myAddress%>">근처 푸드트럭</a></div>
-					<div><a href="/consumer/weatherInfo.do?myAddress=<%=myAddress%>&regCode=<%=regCode%>">날씨/질병 정보</a>	</div>				
-					<div><a href="/consumer/rcmmnd/rcmmndMenu.do?myAddress=<%=myAddress%>">트럭왔냠 추천 메뉴</a>	</div>				
-					<div><a href="/consumer/user/mypage.do?userEmail=<%=userEmail%>&userSeq=<%=userSeq %>">마이페이지</a></div>
-					<div><a href="/consumer/board/noticeList.do">공지사항</a></div>
-					<div><a href="/consumer/board/boardList.do?userEmail=<%=userEmail%>&userSeq=<%=userSeq %>" >고객센터</a></div>
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/cancel.png" />
+						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">닫기</a>
+					</div>
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/logout.png" />
+						<%if(!"".equals(userEmail) && !"".equals(userSeq) && !"".equals(userNick)) { %>
+							<!-- 로그인 된 상태 -->
+							<a href="Javascript:logout();" >로그아웃</a>
+								
+						<%}else{ %>
+							<!-- 로그인이 안된 상태 -->
+							<a href="/cmmn/main.do">로그인</a>
+						<%} %>
+					</div>
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/set_location.png" />
+						<a href="/consumer/cnsmr/findMyLoc.do">내 위치 설정</a>
+					</div>		
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/adjacent_ft.png" />
+						<a href="/consumer/cnsmr/findAdjFt.do?locPosition=<%=myLat%>,<%=myLon%>&myAddress=<%=myAddress%>">근처 푸드트럭</a>
+					</div>
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/message.png" />
+						<a href="/consumer/weatherInfo.do?myAddress=<%=myAddress%>&regCode=<%=regCode%>">날씨/질병 정보</a>
+					</div>				
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/rcmmndMenu.png" />
+						<a href="/consumer/rcmmnd/rcmmndMenu.do?myAddress=<%=myAddress%>">트럭왔냠 추천 메뉴</a>
+					</div>				
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/mypage.png" />
+						<a href="/consumer/user/mypage.do">마이페이지</a>
+					</div>
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/notice.png" />
+						<a href="/consumer/board/noticeList.do">공지사항</a>
+					</div>
+					<div>
+						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/info_centre.png" />
+						<a href="/consumer/board/boardList.do" >고객센터</a>
+					</div>
 				</div>
 			</div>
 			<div id="sidenav_outer" onclick="closeNav()"></div>
@@ -123,18 +150,18 @@
 		
 		</div>
 	</div>
-	<!-- 푸터입니다. -->
+	<!-- 푸터 -->
 	<footer class="footer">
 		<div class="container" style="padding:0px 10px;"><span class="text-muted">© All Rights Reserved.</span></div>
 	</footer>
 
-<!-- 창원이형이 주신 top body끝  -->
+<!--  top body끝  -->
 		
-<!-- 창원이형이 주신 top script  -->
+<!--  top script  -->
 <script>
 		/* 메뉴 열기 함수 */
 	function openNav() {
-	    document.getElementById("mySidenav").style.width = "200px";
+	    document.getElementById("mySidenav").style.width = "220px";
 	    document.getElementById('sidenav_outer').style.width="100%";
 	}
 		/* 메뉴 닫기 함수 */
@@ -143,8 +170,7 @@
 	    document.getElementById('sidenav_outer').style.width="0";
 	}
 </script>
-
-<!-- 창원이형이 주신 top script  끝-->
+<!--  top script  끝-->
 
 <!-- 검색 창 열기 기능 자바스크립트 -->
 <script>

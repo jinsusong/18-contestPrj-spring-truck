@@ -25,7 +25,7 @@ public class CONSUMER_Ft_InfoDTO {
 	private String option;
 	private String value;
 	
-	
+	private String file_path;
 	
 	public int getFt_seq() {
 		return ft_seq;
@@ -146,6 +146,12 @@ public class CONSUMER_Ft_InfoDTO {
 	}
 	public void setValue(String value) {
 		this.value = value;
+	}
+	public String getFile_path() {
+		return file_path;
+	}
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
 	}
 
 	

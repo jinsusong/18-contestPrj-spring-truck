@@ -9,7 +9,7 @@ import poly.dto.consumer.CONSUMER_BoardRepleDTO;
 @Mapper("CONSUMER_BoardMapper")
 public interface CONSUMER_BoardMapper {
 	public int insertBoardDTO(CONSUMER_BoardDTO bDTO) throws Exception;
-	public List<CONSUMER_BoardDTO> getBoardList() throws Exception;
+	public List<CONSUMER_BoardDTO> getBoardList(String userSeq) throws Exception;
 	public CONSUMER_BoardDTO getBoardDetail(String boardPSeq) throws Exception;
 	public int deleteBoard(String boardPSeq) throws Exception;
 	public int updateBoard(CONSUMER_BoardDTO bDTO) throws Exception;
@@ -17,5 +17,7 @@ public interface CONSUMER_BoardMapper {
 	public int insertComment(CONSUMER_BoardRepleDTO rDTO) throws Exception;
 	public List<CONSUMER_BoardRepleDTO> getComment(CONSUMER_BoardRepleDTO rDTO) throws Exception;
 	public List<CONSUMER_BoardRepleDTO> commentList(String boardPSeq) throws Exception;
+	public CONSUMER_BoardDTO getNoticeDetail(String boardPSeq) throws Exception;
+	public List<CONSUMER_BoardDTO> getNoticeListMore(int count) throws Exception;
 }
 

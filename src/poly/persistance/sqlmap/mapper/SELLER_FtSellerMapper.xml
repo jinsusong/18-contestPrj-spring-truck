@@ -155,6 +155,16 @@
 		GROUP BY SUBSTR(ORD_DATE,1,5)
 		ORDER BY SUBSTR(ORD_DATE,1,5) ASC
 	</select>
-
+	<!-- 최근 7일간 매출 차트 불러오기 -->
+	<select id="latelyWeek" parameterType="string" resultType="SELLER_OrderInfoDTO">
+	SELECT 
+        SUM(ORD_SUMPRICE) AS ord_sumprice,
+        SUBSTR(ORD_DATE,1,8) AS ord_date
+      FROM ORDER_INFO
+      WHERE USER_SEQ=#{userSeq} AND ORD_DATE BETWEEN SYSDATE-7 
+         AND SYSDATE
+      GROUP BY SUBSTR(ORD_DATE,1,8)
+      ORDER BY SUBSTR(ORD_DATE,1,8) DESC
+	</select>
 	
 </mapper>

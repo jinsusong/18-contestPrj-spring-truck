@@ -219,9 +219,9 @@
 				FILE_SEVNAME as fileSevname,
 				FILE_PATH as filePath
 		FROM	IMAGE 
-		WHERE	USER_SEQ IN
+		WHERE	FILE_ID IN
 	    	<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
-	        	#{item.userSeq}
+	        	#{item.fileId}
 	    	</foreach>
 	    ORDER BY FILE_ID
 	</select>

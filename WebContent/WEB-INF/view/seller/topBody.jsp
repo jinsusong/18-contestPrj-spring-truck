@@ -6,6 +6,7 @@
 	String userEmail = CmmUtil.nvl( (String)session.getAttribute("userEmail") );
 	String userNick = CmmUtil.nvl( (String)session.getAttribute("userNick") );
 	String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
+	
 	//nvl 널값이 들어오면 공백으로 바꿔줍니다.
 	
 	
@@ -21,27 +22,22 @@
 	//식중독 위럼지수
 	SELLER_DissInfoDTO dissInfoDTO = (SELLER_DissInfoDTO)session.getAttribute("dissInfoDTO");
 %>
-
+<% if(userSeq == null){ %>
+<script>
+	location.href="/cmmn/main.do";
+</script>
+<%}%>
 		<div class="top topSecondContainer">
 <!-- 창원이형이 주신 top body  -->
 			
 			<div class="navigation" style="color:white;">
+			<!--------------------------메뉴부분 시작 -------------------------->
+				<div class="menuButton" style="float:left"><span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span></div>
 				<!--------------------------최상단 날씨,위치정보 -------------------------->
 				<div id="nav_top" >
 					<div id="nav_top_left" class="nav_top">
 						<!-- <h3><span class="glyphicon glyphicon-cloud"></span>&nbsp;&nbsp;22°C</h3> -->
-						<!-- 날씨정보 / 값 받아 온 경우 -->
-						<%if(!"".equals(t3hCode)) {%>
-							<%if (ptyCode.equals("0")) {%>
-								<img src="/resources/img/consumer/skyCode<%=skyCode%>.png" />
-							<%} else if(!(ptyCode.isEmpty())) { %>
-								<img src="/resources/img/consumer/ptyCode<%=ptyCode%>.png" />
-							<%}%>
-							<a href="/seller/weatherInfo.do?myAddress=<%=myAddress%>&regCode=<%=regCode%> "style="color:white;"><%=t3hCode %>℃</a>				
-						<!-- 날씨정보/ 위치 설정 되지 않은 경우 -->
-						<%} else { %>
-							<!-- 위치 미 설정시 날씨 정보 공백 처리 -->
-						<%} %>
+						
 					</div>
 					<div id="nav_top_right" class="nav_top">
 						<!-- 위치정보 있을 경우-->
@@ -55,11 +51,23 @@
 							<a href="/seller/weather/findMyLoc.do" style="color:white;">위치를 설정해 주세요.</a>
 						<%} %>
 						&nbsp;&nbsp;
+						
+						<!-- 날씨정보 / 값 받아 온 경우 -->
+						<%if(!"".equals(t3hCode)) {%>
+							<%if (ptyCode.equals("0")) {%>
+								<img src="/resources/img/consumer/skyCode<%=skyCode%>.png" />
+							<%} else if(!(ptyCode.isEmpty())) { %>
+								<img src="/resources/img/consumer/ptyCode<%=ptyCode%>.png" />
+							<%}%>
+							<a href="/seller/weatherInfo.do?myAddress=<%=myAddress%>&regCode=<%=regCode%> "style="color:white;"><%=t3hCode %>℃</a>				
+						<!-- 날씨정보/ 위치 설정 되지 않은 경우 -->
+						<%} else { %>
+							<!-- 위치 미 설정시 날씨 정보 공백 처리 -->
+						<%} %>
 					</div>
 				</div>
 		
-				<!--------------------------메뉴부분 시작 -------------------------->
-				<div class="menuButton"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div>
+		
 				<div id="mySidenav" class="sidenav">
 					<div id="sidenav_inner">
 						<div><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a></div>
@@ -90,13 +98,17 @@
 					</div>
 				</div>
 				<div id="sidenav_outer" onclick="closeNav()"></div>
-				 <div id="logo_main">
+				 <div id="logo_main" style="clear:both">
 				 	<a href="/seller/out/inOut.do">
-				 		<img src="/resources/img/consumer/logoWhite48x48.png" width="100%"/>
+				 		<img src="/resources/img/trwn/seller_logo160x89.png" width="100%"/>
 				 	</a>
 				 </div>
 						
 				<!--------------------------메뉴부분 종료 -------------------------->
+			
+			
+				
+				
 			</div>
 	
 		<!-- 상단 3번째 질병예방 공지 -->
