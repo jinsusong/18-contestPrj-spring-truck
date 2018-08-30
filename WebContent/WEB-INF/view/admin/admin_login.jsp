@@ -520,7 +520,7 @@ input, button {
   <div class="demo">
     <div class="login">
       <div class="login__check"></div>
-      <div style="float:right; color:#ffffff; padding:8px; font-size:12px;">트럭왔냠 관리자 로그인</div>
+      <div style="float:right; color:#ffffff; padding:8px; font-size:11px;">트럭왔냠 관리자 로그인</div>
       <div class="login__form">
         <div class="login__row">
           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">

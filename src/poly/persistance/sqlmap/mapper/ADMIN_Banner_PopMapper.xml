@@ -38,7 +38,6 @@
 	<insert id="banner_Create" parameterType="ADMIN_Banner_PopDTO">
 		INSERT INTO BANNER_POP
 		(
-			BANNER_SEQ,
 			FILE_ID,
 			BANNER_NAME,
 			BANNER_LOC,
@@ -47,7 +46,6 @@
 		)
 		VALUES
 		(
-			BANNER_SEQ.NEXTVAL,
 			#{file_id},
 			#{banner_name},
 			#{banner_loc},

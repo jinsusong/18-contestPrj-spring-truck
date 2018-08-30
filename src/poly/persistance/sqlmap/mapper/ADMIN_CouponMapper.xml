@@ -23,14 +23,12 @@
 	<insert id="Coupon_Create" parameterType="ADMIN_CouponDTO">
 		INSERT INTO COUPON
 		(
-			COUPON_CODE,
 			COUPON_NAME,
 			COUPON_OPTION,
 			COUPON_DATE
 		)
 		VALUES
 		(
-			COUPON_SEQ.NEXTVAL,
 			#{coupon_name},
 			#{coupon_option},
 		    #{coupon_date}

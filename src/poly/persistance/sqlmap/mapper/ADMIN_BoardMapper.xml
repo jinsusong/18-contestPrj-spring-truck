@@ -5,7 +5,6 @@
 	<insert id="board_Create" parameterType="ADMIN_BoardDTO">
 		INSERT INTO BOARD
 		(
-			BOARD_SEQ,
 			BOARD_NAME,
 			BOARD_READ,
 			BOARD_WRITE,
@@ -16,7 +15,6 @@
 		VALUES
 		(
 			<!-- 시퀀스 자리 -->
-			BOARD_SEQ.NEXTVAL,
 			#{board_name},
 			#{board_read},
 			#{board_write},

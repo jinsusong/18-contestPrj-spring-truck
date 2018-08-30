@@ -17,7 +17,6 @@
 	<insert id="Coupon_Issue" parameterType="ADMIN_Coupon_IssueDTO">
 		INSERT INTO COUPON_ISSUE
 		(
-			ISSUE_CODE,
 			USER_SEQ,
 			COUPON_CODE,
 			COUPON_COUNT,
@@ -26,7 +25,6 @@
 		)
 		VALUES
 		(
-			ISSUE_SEQ.NEXTVAL,
 			#{user_seq},
 			#{coupon_code},
 			#{coupon_count},

@@ -119,7 +119,7 @@ public class ADMIN_BannerController {
 	        String file_id = imgService.getFile_Seq();
 	        //System.out.println("RewardController reAddProCtrl n : " + n);
 	        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
-	        bnDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)-1));
+	        bnDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)));
 		}else {
 			bnDTO.setFile_id("-1");
 		}
@@ -154,7 +154,7 @@ public class ADMIN_BannerController {
 	        //System.out.println("RewardController reAddProCtrl n : " + n);
 	        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
 			
-	        bnDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)-1));
+	        bnDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)));
 		}else { //업로드된 파일 없을때
 			if(request.getParameter("org_file_id")!="-1"){//변경이 없을경우
 				System.out.println(request.getParameter("org_file_id"));
