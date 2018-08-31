@@ -15,8 +15,7 @@ public interface CONSUMER_UserMapper {
 	
 	public List<CONSUMER_UserDTO> getUserList() throws Exception;
 	
-	public CONSUMER_UserDTO getUserDetail(CONSUMER_UserDTO uDTO) throws Exception;
-	
+	//getUserDetail선언을 MypageMapper.java에 옮김.
 	public int deleteUser(CONSUMER_UserDTO uDTO) throws Exception;
 	
 	public int updateUser(CONSUMER_UserDTO uDTO) throws Exception;
@@ -41,6 +40,6 @@ public interface CONSUMER_UserMapper {
 
 	public int ftRemoveFavorite(CONSUMER_FtLikeDTO ftLikeDTO) throws Exception;
 
-	public List<CONSUMER_OrderInfoDTO> getOrderList(String userSeq)throws Exception;
+	//getOrderList선언을 MypageMapper.java에 옮김.
 
 }

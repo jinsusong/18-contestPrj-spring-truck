@@ -37,7 +37,7 @@
 				<a class="nav-link active" href="/consumer/user/userOrderInfo.do">주문내역</a>
 			</div>
 			<div class="col-xs-3">
-				<a class="nav-link active" href="/consumer/user/userFavortieFt.do">관심매장</a>
+				<a class="nav-link active" href="/consumer/user/userFavoriteFt.do">관심매장</a>
 			</div>
 			<div class="col-xs-3">
 				<a class="nav-link" href="/consumer/user/userCouponList.do">내 쿠폰목록</a>

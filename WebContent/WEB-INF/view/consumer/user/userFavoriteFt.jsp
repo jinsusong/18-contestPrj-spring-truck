@@ -1,22 +1,15 @@
-<%@page import="poly.dto.consumer.CONSUMER_CouponIssueDTO"%>
-<%@page import="poly.dto.consumer.CONSUMER_UserDTO"%>
+<%@page import="poly.dto.consumer.CONSUMER_FtLikeDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-	CONSUMER_UserDTO uDTO = (CONSUMER_UserDTO)request.getAttribute("uDTO");
-	List<CONSUMER_CouponIssueDTO> cList = (List<CONSUMER_CouponIssueDTO>)request.getAttribute("cList");
-	if(cList == null) {
-		System.out.println("내 쿠폰목록 cList 들어옴 실패 in userCouponList");
-	} else {
-		System.out.println("내 쿠폰목록 cList 들어옴 성공 in userCouponList");
-	}
-	
+	List<CONSUMER_FtLikeDTO> fList = (List<CONSUMER_FtLikeDTO>)request.getAttribute("fList");
 %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>트럭왔냠 - 내 쿠폰목록</title>
+<title>트럭왔냠 - 관심매장</title>
 	<style>
 		.mypageMenu > div {
 			padding: 0px;
@@ -41,7 +34,7 @@
 			</div>
 		</div>
 		<div style="width:100%">
-			<!-- 내 쿠폰목록 넣을 곳 -->
+			<!-- 관심매장 넣을 곳 -->
 			<table class="table table-striped" style="border: 1px solid #dddddd; width:90%; margin: 0 auto;" >
 					<thead>
 						<tr>
@@ -51,19 +44,15 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td style="text-align: left;">쿠폰코드</td>
-							<td style="text-align: left;">쿠폰명</td>
-							<td style="text-align: left;">내용</td>
-							<td style="text-align: left;">개수</td>
-							<td style="text-align: left;">쿠폰발행일</td>
+							<td style="text-align: left;">유저번호</td>
+							<td style="text-align: left;">푸드트럭명</td>
+							<td style="text-align: left;">관심매장등록일</td>
 						</tr>
-						<%for(int i=0; i < cList.size(); i++) { %>
+						<%for(int i=0; i < fList.size(); i++) { %>
 						<tr>
-							<td style="text-align: left;"><%=cList.get(i).getCoupon_code()%></td>
-							<td style="text-align: left;"><%=cList.get(i).getCoupon_name()%></td>
-							<td style="text-align: left;"><%=cList.get(i).getCoupon_count()%></td>
-							<td style="text-align: left;"><%=cList.get(i).getCoupon_count()%></td>
-							<td style="text-align: left;"><%=cList.get(i).getCoupon_issuedate()%></td>
+							<td style="text-align: left;"><%=fList.get(i).getUser_seq()%></td>
+							<td style="text-align: left;"><%=fList.get(i).getFt_name()%></td>
+							<td style="text-align: left;"><%=fList.get(i).getLike_regdate()%></td>
 						</tr>
 						<%} %>
 					</tbody>

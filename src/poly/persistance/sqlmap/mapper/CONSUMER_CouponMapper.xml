@@ -6,7 +6,7 @@
 	<!-- DTO 변수 이름으로 등록  -->
 	
 	<!-- 내 쿠폰목록 -->
-	<select	id="couponList" parameterType="string" resultType="CONSUMER_CouponIssueDTO">
+	<!-- <select id="couponList" parameterType="string" resultType="CONSUMER_CouponIssueDTO">
 		SELECT COUPON.COUPON_CODE AS coupon_code,
 			COUPON_ISSUE.USER_SEQ AS userSeq,
 			COUPON.COUPON_NAME AS coupon_name,
@@ -18,7 +18,7 @@
 		ON COUPON.COUPON_CODE = COUPON_ISSUE.COUPON_CODE 
 		WHERE COUPON_ISSUE.USER_SEQ=#{userSeq} 
 	
-	</select>
+	</select> -->
 	
 
 </mapper>

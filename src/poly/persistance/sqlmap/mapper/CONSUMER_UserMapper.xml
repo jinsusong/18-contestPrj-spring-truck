@@ -3,9 +3,9 @@
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.CONSUMER_UserMapper">
 
-
+	
 	<!-- 마이페이지 회원 상세보기  -->
-	<select id="getUserDetail" parameterType="CONSUMER_UserDTO" resultType="CONSUMER_UserDTO">
+	<!-- <select id="getUserDetail" parameterType="CONSUMER_UserDTO" resultType="CONSUMER_UserDTO">
 			SELECT USER_SEQ as userSeq,
 					USER_EMAIL as userEmail,
 					USER_PWD as userPwd,
@@ -15,7 +15,7 @@
 			FROM	USER_INFO
 			WHERE USER_SEQ = #{userSeq}
 	
-	</select>
+	</select> -->
 	
 	<!-- 회원 삭제  -->
 	<delete id="deleteUser" parameterType="CONSUMER_UserDTO">
@@ -131,7 +131,7 @@
 	</delete>
 	
 	<!-- 마이페이지 주문목록 -->
-	<select id="getOrderList" parameterType="string" resultType="CONSUMER_OrderInfoDTO">
+	<!-- <select id="getOrderList" parameterType="string" resultType="CONSUMER_OrderInfoDTO">
 		SELECT
 			OINFO.ORD_SEQ as ord_seq,
 			OITEM.USER_SEQ as user_seq,
@@ -149,5 +149,5 @@
 			ON OITEM.MENU_SEQ=MINFO.MENU_SEQ
 		WHERE OITEM.USER_SEQ=#{userSeq};
 	
-	</select>
+	</select> -->
 </mapper>
