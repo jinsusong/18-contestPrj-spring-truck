@@ -388,6 +388,15 @@
 			</div>
 		</div>
 		<div class="row">
+			<div class="col-xs-12 col-sm-12" align="center">
+				<h5 style="float:left;">&nbsp;|&nbsp;<b>푸드트럭 위치검색</b></h5>
+				<div style="border-bottom:1px solid #cccccc; margin-bottom:10px; clear:both;"></div>
+				<div style="width:100%; height:auto;">
+					<%@include file="admin_truck_loc.jsp"%>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-xs-12 col-sm-8"  align="center" style="margin-top:15px;">
 				<h5 style="float:left;">&nbsp;|&nbsp;<b>사용자 통계</b></h5>
 				<div style="border-bottom:1px solid #cccccc; margin-bottom:10px; clear:both;"></div>

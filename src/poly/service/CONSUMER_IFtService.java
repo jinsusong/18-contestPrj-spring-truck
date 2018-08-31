@@ -50,6 +50,7 @@ public interface CONSUMER_IFtService {
 	
 	//푸드트럭 리스트 가져오기 - 검색 기능 -- 시도, 시군구, 동면읍리 
 	public List<CONSUMER_Ft_InfoDTO> getFtList(String sido) throws Exception; 
+	public List<CONSUMER_Ft_InfoDTO> getFtList_ALL() throws Exception;
 	public List<CONSUMER_Ft_InfoDTO> getFtListSigungu(String sigungu) throws Exception; 
 	public List<CONSUMER_Ft_InfoDTO> getFtListDong(String dong) throws Exception;
 	//음식 메뉴 리스트 가져오기 - ftList파라미터
