@@ -20,7 +20,7 @@
 	</style>
 </head>
 <body>
-	<%@include file="/WEB-INF/view/seller/topBody.jsp" %>
+	<%@include file="/WEB-INF/view/seller/top.jsp" %>
 	<%@include file="/WEB-INF/view/seller/topCssScript.jsp" %>
 
 	<br/>

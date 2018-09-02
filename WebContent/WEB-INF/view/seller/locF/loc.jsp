@@ -8,17 +8,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>board</title>
 	<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-	<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	
-	
-	<%@ include file="/WEB-INF/view/seller/topCssScript.jsp" %>
+	<%-- <%@ include file="/WEB-INF/view/seller/topCssScript.jsp" %> --%>
 </head>
 <body>
 	<table style="height: 100%; width: 100%">
-		<tr height="7%" bgcolor="#333333">
-			<td>
-				<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
-			
+		<tr height="7%" bgcolor="#444">
+			<td style="padding:0;">
+				<%@ include file="/WEB-INF/view/seller/top.jsp" %>
+				<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 			</td>
 		</tr>
 		<tr bgcolor="">
@@ -43,9 +41,7 @@
 				
 			</div>
 			<script>
-			
 			    $('.table table-striped').DataTable();
-		
 			</script>	
 		
 			
@@ -53,9 +49,9 @@
 
 			</td>
 		</tr>
-		<tr height="7%" bgcolor="#333333">
+		<tr height="7%" style="background-color:#444">
 			<td>
-				<%@ include file="/WEB-INF/view/seller/bottom.jsp" %>
+			<%-- 	<%@ include file="/WEB-INF/view/seller/bottom.jsp" %> --%>
 			
 			</td>
 		</tr>

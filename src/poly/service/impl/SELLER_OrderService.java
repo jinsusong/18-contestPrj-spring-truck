@@ -27,6 +27,7 @@ public class SELLER_OrderService implements SELLER_IOrderService {
 	@Override
 	public List<SELLER_OrderInfoDTO> getOrderList(String userSeq) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("service userSeq : " +userSeq);
 		return orderMapper.getOrderList(userSeq);
 	}
 

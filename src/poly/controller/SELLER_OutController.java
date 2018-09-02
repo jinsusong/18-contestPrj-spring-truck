@@ -115,7 +115,6 @@ public class SELLER_OutController {
 		log.info("outC ft_seq : " + ft_seq);
 		
 		
-		
 		//페이지 커맨드 전송
 		model.addAttribute("cmd", cmd);
 		
@@ -291,7 +290,7 @@ public class SELLER_OutController {
 		log.info("Check userSeq : " + userSeq);
 		
 		log.info("inout view end !!!");
-		return "/seller/out/inOut";
+		return "/seller/out/inOutB";
 	}
 	
 	//seller 판매자 inMain화면

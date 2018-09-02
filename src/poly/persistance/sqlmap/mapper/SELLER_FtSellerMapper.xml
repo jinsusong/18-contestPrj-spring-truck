@@ -131,9 +131,7 @@
 		FROM ORDER_INFO
 		WHERE ORD_DATE BETWEEN date_add(now(),interval -7 day) 
 			AND now() AND ORD_STATUS=1
-			AND USER_SEQ=#{userSeq};
-	
-			
+			AND USER_SEQ=#{userSeq}
 	</select>
 	
 	<select id="getOrderWeek" parameterType="string" resultType="SELLER_OrderInfoDTO">

@@ -9,36 +9,11 @@
 	List<SELLER_ReviewDTO> rList = (List<SELLER_ReviewDTO>)request.getAttribute("rList");
 	
 %>
-<!-- 
-			session.setAttribute("userSeq", uDTO.getUserSeq());
-			session.setAttribute("userAuth", uDTO.getUserAuth());
-			session.setAttribute("userEmail", uDTO.getUserEmail());
-			session.setAttribute("userNick", uDTO.getUserNick());
-			session.setAttribute("userGender", uDTO.getUserGender());
-			session.setAttribute("userHp", uDTO.getUserHp());
-			session.setAttribute("userStatus", uDTO.getUserStatus());
- -->
 
 <html>
 <head>
 	<title>web</title>
-	<%@ include file="/WEB-INF/view/seller/topCssScript.jsp" %>
-	
-	<!-- 합쳐지고 최소화된 최신 CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	
-	<!-- 부가적인 테마 -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	
-	<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-		
-	<!-- icon -->
-	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
-	<!-- ajax form  -->
-	<script src="http://malsup.github.com/jquery.form.js"></script>
-	
+	<%-- <%@ include file="/WEB-INF/view/seller/topCssScript.jsp" %> --%>
 	<!--  
 	<script type="text/javascript">
 		function UpdateView(user_email) {
@@ -253,9 +228,10 @@
 </head>
 <body>
 	<table style="height: 100%; width: 100%">
-		<tr style="height:7%; bgcolor:#333333">
-			<td>
-				<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
+		<tr style="height:7%; bgcolor:#444">
+			<td style="padding:0;">
+				<%@ include file="/WEB-INF/view/seller/top.jsp" %>
+				
 			</td>
 		</tr>
 		<tr bgcolor="">
@@ -302,7 +278,7 @@
 						<!-- <input type="submit" class="btn btn-paimary pull-right" value="글쓰기"> -->
 						<!-- <a href="/board/boardWrite.do">삭제</a> -->
 						
-						<div align="right">
+						<div align="right" style="float:right;">
 					<!-- 	<a href="/board/boardList.do" >목록</a> -->
 						<button class="btn btn-default pull-right" onclick="location.href='/seller/board/boardList.do'">목록</button>
 						<%if(userNick.equals(bDTO.getUserNick()) 
@@ -318,7 +294,7 @@
  				 		
 						</div>
 						
-						<div class="review">
+						<div class="review" style="width:100%;">
 							<div align="left">
 								<h6 class="reviewWrite">
 									<a href="#" onclick="JavaScript:reWrite();" style="text-decoration:none; color:black;">
@@ -368,7 +344,7 @@
 
 			</td>
 		</tr>
-		<tr height="7%" bgcolor="#333333">
+		<tr height="7%" style="background-color:#444">
 			<td>
 			<%-- 	<%@ include file="/WEB-INF/view/bottom.jsp" %> --%>
 			

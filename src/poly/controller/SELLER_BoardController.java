@@ -76,11 +76,11 @@ public class SELLER_BoardController {
 		if(result != 0 ) {
 			//게시판 글쓰기가 정상적으로 이루어진 상태 
 			msg="등록에 성공하셨습니다";
-			url="/seller/inMain.do";
+			url="/seller/main.do";
 		}else {
 			//글쓰기가 이루어지지 않은 상태
 			msg="글쓰기 실패";
-			url="/seller/inMain.do";
+			url="/seller/main.do";
 		}
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
@@ -222,11 +222,11 @@ public class SELLER_BoardController {
 			if(result != 0) {
 				//삭제가 정상적으로 이루어진 상태 
 				msg="게시물 삭제에 성공하셨습니다.";
-				url="/seller/inMain.do";
+				url="/seller/main.do";
 			}else {
 				//삭제가 이루어지지 않은 상태 
 				msg="게시뭉 삭제 실패";
-				url="/seller/inMain.do";
+				url="/seller/main.do";
 			}
 			model.addAttribute("msg",msg);
 			model.addAttribute("url",url);
@@ -289,7 +289,7 @@ public class SELLER_BoardController {
 			if(result!=0) {
 				// 앞에 redirect 방식으로 보내겠다 
 				log.info(this.getClass() + "updateProc end ~!!");
-				return "redirect:/seller/inMain.do";
+				return "redirect:/seller/main.do";
 			
 			}else {
 				
