@@ -62,6 +62,7 @@
 	<insert id="ft_Review_Create" parameterType="ADMIN_Ft_ReviewDTO">
 		INSERT INTO FT_REVIEW
 		(
+			REVIEW_SEQ,
 		    FT_SEQ,
 		    USER_SEQ,
 		    FILE_ID,
@@ -74,6 +75,7 @@
 		)
 		VALUES
 		(
+			REVIEW_SEQ.NEXTVAL,
 			#{ft_seq},
 		    #{user_seq},
 		    #{file_id},

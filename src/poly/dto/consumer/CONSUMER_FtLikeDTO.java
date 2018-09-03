@@ -5,7 +5,6 @@ public class CONSUMER_FtLikeDTO {
 	private String ft_seq;
 	private String like_sort_no;
 	private String like_regdate;
-	private String ft_name;
 	
 	public String getUser_seq() {
 		return user_seq;
@@ -30,12 +29,6 @@ public class CONSUMER_FtLikeDTO {
 	}
 	public void setLike_regdate(String like_regdate) {
 		this.like_regdate = like_regdate;
-	}
-	public String getFt_name() {
-		return ft_name;
-	}
-	public void setFt_name(String ft_name) {
-		this.ft_name = ft_name;
 	}
 	
 }

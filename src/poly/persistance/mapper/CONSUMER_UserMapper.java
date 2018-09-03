@@ -5,7 +5,6 @@ import java.util.List;
 
 import config.Mapper;
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
-import poly.dto.consumer.CONSUMER_OrderInfoDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
 
 @Mapper("CONSUMER_UserMapper")
@@ -15,7 +14,8 @@ public interface CONSUMER_UserMapper {
 	
 	public List<CONSUMER_UserDTO> getUserList() throws Exception;
 	
-	//getUserDetail선언을 MypageMapper.java에 옮김.
+	public CONSUMER_UserDTO getUserDetail(CONSUMER_UserDTO uDTO) throws Exception;
+	
 	public int deleteUser(CONSUMER_UserDTO uDTO) throws Exception;
 	
 	public int updateUser(CONSUMER_UserDTO uDTO) throws Exception;
@@ -39,7 +39,5 @@ public interface CONSUMER_UserMapper {
 	public CONSUMER_FtLikeDTO ftCheckFavrotie(CONSUMER_FtLikeDTO ftLikeDTO) throws Exception;
 
 	public int ftRemoveFavorite(CONSUMER_FtLikeDTO ftLikeDTO) throws Exception;
-
-	//getOrderList선언을 MypageMapper.java에 옮김.
 
 }

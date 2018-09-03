@@ -115,6 +115,7 @@ public class SELLER_OutController {
 		log.info("outC ft_seq : " + ft_seq);
 		
 		
+		
 		//페이지 커맨드 전송
 		model.addAttribute("cmd", cmd);
 		
@@ -290,7 +291,7 @@ public class SELLER_OutController {
 		log.info("Check userSeq : " + userSeq);
 		
 		log.info("inout view end !!!");
-		return "/seller/out/inOutB";
+		return "/seller/out/inOut";
 	}
 	
 	//seller 판매자 inMain화면
@@ -401,7 +402,7 @@ public class SELLER_OutController {
 			model.addAttribute("sumChartWeek", sumChartWeek);
 			log.info("chart End");
 			
-			/*//최근 7일 매충 그래프 
+			//최근 7일 매충 그래프 
 			List<SELLER_OrderInfoDTO> wList = FtSellerService.latelyWeek(userSeq);
 	         for(int i=0; i < wList.size(); i++) {
 	            log.info("--------------------------");
@@ -410,13 +411,13 @@ public class SELLER_OutController {
 	            log.info("--------------------------");
 	            
 	         }
-	         model.addAttribute("wList", wList);*/
+	         model.addAttribute("wList", wList);
 			
 			
 			//jinsu 월간매출 시작 !!
 			log.info(this.getClass() + "monthChart start =====================");
 			log.info("ftsDTO userSeq : " + ftsDTO.getUserSeq()); // ?null
-			log.info("ftsDTO ftSEq : " + ftsDTO.getFtSeq()); // 3
+			log.info("ftsDTO ftSEq : " + ftsDTO.getFtSeq()); // 5
 			List<SELLER_OrderInfoDTO> monthChart = FtSellerService.getMonthChart(ftsDTO);
 			log.info("===================monthChart");
 			log.info("monthChart : " + monthChart);
@@ -437,7 +438,6 @@ public class SELLER_OutController {
 			model.addAttribute("chart",chart);
 			
 		}
-		log.info(this.getClass() + "inMain end !!!!");
 		return "/seller/inMain";
 	}
 }

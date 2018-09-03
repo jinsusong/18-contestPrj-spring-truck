@@ -13,7 +13,6 @@ public class ADMIN_User_InfoDTO {
 	private String user_regdate;
 	private String user_chan;
 	private String user_status;
-	private String status;
 	
 	private String option;
 	private String value;
@@ -90,11 +89,5 @@ public class ADMIN_User_InfoDTO {
 	}
 	public void setUser_status(String user_status) {
 		this.user_status = user_status;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
 	}
 }

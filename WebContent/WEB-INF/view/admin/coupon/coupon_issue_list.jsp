@@ -191,6 +191,7 @@
 			}
 %>
         </div>
+        <div style="border-bottom:1px solid #cccccc; margin-top:15px;"></div>
         <!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">

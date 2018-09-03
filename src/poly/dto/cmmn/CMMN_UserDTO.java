@@ -12,7 +12,6 @@ public class CMMN_UserDTO {
 		private String userGender;
 		private String userChan;
 		private String userStatus;
-		private String userRegDate;
 		
 		public String getUserSeq() {
 			return userSeq;
@@ -67,12 +66,6 @@ public class CMMN_UserDTO {
 		}
 		public void setUserStatus(String userStatus) {
 			this.userStatus = userStatus;
-		}
-		public String getUserRegDate() {
-			return userRegDate;
-		}
-		public void setUserRegDate(String userRegDate) {
-			this.userRegDate = userRegDate;
 		}
 		
 		

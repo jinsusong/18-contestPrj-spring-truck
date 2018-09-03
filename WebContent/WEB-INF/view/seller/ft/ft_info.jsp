@@ -32,13 +32,13 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>board</title>
-	<%-- <%@ include file="/WEB-INF/view/seller/topCssScript.jsp" %> --%>
+	<%@ include file="/WEB-INF/view/seller/topCssScript.jsp" %>
 </head>
 <body>
 	<table style="height: 100%; width: 100%">
-		<tr height="7%" bgcolor="#444">
-			<td style="padding:0">
-				<%@ include file="/WEB-INF/view/seller/top.jsp" %>
+		<tr height="7%" bgcolor="#333333">
+			<td>
+				<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
 			
 			</td>
 		</tr>
@@ -133,7 +133,7 @@
 
 			</td>
 		</tr>
-		<tr height="7%" style="background-color:#444">
+		<tr height="7%" bgcolor="#333333">
 			<td>
 				<%@ include file="/WEB-INF/view/seller/bottom.jsp" %>
 			

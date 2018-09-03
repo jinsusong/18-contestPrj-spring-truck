@@ -3,9 +3,45 @@
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.CONSUMER_UserMapper">
 
+	<!-- 회원가입  -->
+	<insert id="insertUserDTO" parameterType="CONSUMER_UserDTO">
+		INSERT INTO USER_INFO
+		(
+			USER_SEQ,
+			USER_EMAIL,
+			USER_PWD,
+			USER_NICK,
+			USER_GENDER,
+			USER_HP,
+			USER_STATUS
+		)
+		VALUES
+		(
+			USER_SEQ.NEXTVAL,
+			#{userEmail},
+			#{userPwd},
+			#{userNick},
+			#{userGender},
+			#{userHp},
+			#{userStatus}
+			<!-- DTO 변수 이름으로 등록  -->
+		)
+	</insert>
+	<!-- 회원목록  select -->
 	
-	<!-- 마이페이지 회원 상세보기  -->
-	<!-- <select id="getUserDetail" parameterType="CONSUMER_UserDTO" resultType="CONSUMER_UserDTO">
+	<!-- DTO 객체가 넘어오면 받는  -->
+	<select id="getUserList" resultType="CONSUMER_UserDTO">
+		SELECT USER_SEQ as userSeq,
+				USER_EMAIL as userEmail,
+				USER_PWD as userPwd,
+				USER_NICK as userNick,
+				USER_GENDER as userGender,
+				USER_HP as userHp,
+		FROM	USER_INFO
+	</select>
+	
+	<!-- 회원 상세보기  -->
+	<select id="getUserDetail" parameterType="CONSUMER_UserDTO" resultType="CONSUMER_UserDTO">
 			SELECT USER_SEQ as userSeq,
 					USER_EMAIL as userEmail,
 					USER_PWD as userPwd,
@@ -15,7 +51,7 @@
 			FROM	USER_INFO
 			WHERE USER_SEQ = #{userSeq}
 	
-	</select> -->
+	</select>
 	
 	<!-- 회원 삭제  -->
 	<delete id="deleteUser" parameterType="CONSUMER_UserDTO">
@@ -130,24 +166,4 @@
 			USER_SEQ = #{user_seq} AND FT_SEQ = #{ft_seq}
 	</delete>
 	
-	<!-- 마이페이지 주문목록 -->
-	<!-- <select id="getOrderList" parameterType="string" resultType="CONSUMER_OrderInfoDTO">
-		SELECT
-			OINFO.ORD_SEQ as ord_seq,
-			OITEM.USER_SEQ as user_seq,
-			OITEM.ITEM_SEQ as item_seq,
-			MINFO.MENU_NAME as menu_name,
-			OINFO.ORD_SUMPRICE as ord_sumprice,
-			OINFO.ORD_WAY as ord_way,
-			OINFO.BUY_WAY as buy_way,
-			OINFO.ORD_DATE as ord_date
-		FROM ORDER_INFO OINFO
-		
-		INNER JOIN ORDER_ITEM OITEM
-			ON OINFO.ITEM_SEQ=OITEM.ITEM_SEQ
-		INNER JOIN MENU_INFO MINFO
-			ON OITEM.MENU_SEQ=MINFO.MENU_SEQ
-		WHERE OITEM.USER_SEQ=#{userSeq};
-	
-	</select> -->
 </mapper>

@@ -8,6 +8,7 @@
 	<insert id="insertUserDTO" parameterType="CMMN_UserDTO">
 		INSERT INTO USER_INFO
 		(
+			USER_SEQ,
 			USER_AUTH,
 			USER_EMAIL,
 			USER_PWD,
@@ -15,11 +16,11 @@
 			USER_GENDER,
 			USER_HP,
 			USER_STATUS,
-			STATUS,
-			USER_REGDATE
+			STATUS
 		)
 		VALUES
 		(
+			USER_SEQ.NEXTVAL,
 			0, 
 			#{userEmail},
 			#{userPwd},
@@ -27,8 +28,7 @@
 			#{userGender},
 			#{userHp},
 			#{userStatus},
-			0,
-			#{userRegDate}
+			0
 			<!-- DTO 변수 이름으로 등록  -->
 		)
 	</insert>
@@ -129,7 +129,6 @@
 				USER_EMAIL = #{userEmail} AND
 				USER_HP = #{userHp}
 	</update>
-	
 	<!-- 이메일 인증 회원상태 변경  -->
 	<update id="updateUserStatus" parameterType="CMMN_UserDTO">
 		UPDATE USER_INFO

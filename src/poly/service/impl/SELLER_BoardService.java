@@ -97,7 +97,6 @@ public class SELLER_BoardService implements SELLER_IBoardService {
 	@Override
 	public int updateRe(SELLER_ReviewDTO rDTO) throws Exception {
 		// TODO Auto-generated method stub
-		
 		return boardMapper.updateRe(rDTO);
 	}
 

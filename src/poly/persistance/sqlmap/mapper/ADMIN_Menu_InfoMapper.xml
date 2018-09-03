@@ -21,6 +21,7 @@
 	<insert id="ft_Menu_Create" parameterType="ADMIN_Menu_InfoDTO">
 		INSERT INTO MENU_INFO
 		(
+			MENU_SEQ,
 		    FT_SEQ,
 		    CATE_SORT_NO,
 		    FILE_ID,
@@ -34,6 +35,7 @@
 		)
 		VALUES
 		(
+			MENU_SEQ.NEXTVAL,
 			#{ft_seq},
 		    #{cate_sort_no},
 		    #{file_id},

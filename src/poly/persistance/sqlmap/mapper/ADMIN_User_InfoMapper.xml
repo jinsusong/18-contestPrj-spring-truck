@@ -13,38 +13,25 @@
 			USER_GENDER, 
 			USER_REGDATE, 
 			USER_CHAN, 
-			USER_STATUS,
-			STATUS
-		FROM USER_INFO ORDER BY USER_SEQ DESC
+			USER_STATUS 
+		FROM USER_INFO
 	</select>
 	
 	<select id="getUser_Search" parameterType="ADMIN_User_InfoDTO" resultType="ADMIN_User_InfoDTO">
-		SELECT 
-			USER_SEQ, 
-			USER_AUTH, 
-			USER_EMAIL, 
-			USER_NICK, 
-			USER_PWD, 
-			USER_HP, 
-			USER_GENDER, 
-			USER_REGDATE, 
-			USER_CHAN, 
-			USER_STATUS,
-			STATUS
-			FROM USER_INFO WHERE ${option} LIKE '%'||#{value}||'%' ORDER BY USER_SEQ DESC
+		SELECT USER_SEQ, USER_AUTH, USER_EMAIL, USER_NICK, USER_PWD, USER_HP, USER_GENDER, USER_REGDATE, USER_CHAN, USER_STATUS FROM USER_INFO WHERE ${option} LIKE '%'||#{value}||'%'
 	</select>
 	
 	<update id="user_Active" parameterType="ADMIN_User_InfoDTO">
 			UPDATE USER_INFO SET
 				USER_CHAN=#{user_chan},
-				STATUS=#{status}
+				USER_STATUS=#{user_status}
 				WHERE USER_SEQ=#{user_seq}
 	</update>
 	
 	<update id="user_Drop" parameterType="ADMIN_User_InfoDTO">
 			UPDATE USER_INFO SET
 				USER_CHAN=#{user_chan},
-				STATUS=#{status}
+				USER_STATUS=#{user_status}
 				WHERE USER_SEQ=#{user_seq}
 	</update>
 	

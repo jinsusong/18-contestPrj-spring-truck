@@ -8,9 +8,11 @@
 	<!-- services 라이브러리 불러오기 -->
 	
 	<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-	
+	<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<!--  naver 좌표체계 변환  -->
 	<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=1AOZXftrFTOi40E42F3H&submodules=geocoder"></script>
+	
+
 	<!-- content +='<script type="text/javascript"> src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"> ';
 	content +='<\/script>' -->	
 	<!-- 주유 css 시작 -->
@@ -32,14 +34,14 @@
 		}
 		#gas_map{
 			background-color:gray;
-			width:100%;
+			width:50%;
 			height:300px;
 			float:left;
 		}
 		.gas_li{
 			border:1px solid black;
-			width:100%;
-			height:100%;
+			width:50%;
+			height:300px;
 			float:left;
 		  }
 		 /* select{
@@ -383,8 +385,8 @@
 								//리스트 테이블 옵션 
 								$('#gasli').html(contentLi); 
 								$('#gasList').DataTable({
-									"pageLength": 5,
-									"lengthMenu": [ 5, 10, 15 ],
+									"pageLength": 3,
+									"lengthMenu": [ 1, 2, 3 ],
 									"pagingType": "simple",
 								    "order": [[2,'asc']],
 								    "searching": false,
@@ -401,10 +403,9 @@
 </head>
 <body>
 	<table style="height: 100%; width: 100%">
-		<tr height="7%" bgcolor="#444">
-			<td style="padding:0;">
-				<%@ include file="/WEB-INF/view/seller/top.jsp" %>
-				<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+		<tr height="7%" bgcolor="#333333">
+			<td>
+				<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
 			</td>
 		</tr>
 		<tr bgcolor="">
@@ -493,7 +494,7 @@
 			</div>
 			</td>
 		</tr>
-		<tr height="7%" style="background-color:#444">
+		<tr height="7%" bgcolor="#333333">
 			<td>
 				<%@ include file="/WEB-INF/view/seller/bottom.jsp" %>
 			

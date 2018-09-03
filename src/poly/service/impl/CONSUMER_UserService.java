@@ -10,10 +10,8 @@ import org.springframework.stereotype.Service;
 
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
 import poly.dto.consumer.CONSUMER_Gps_TableDTO;
-import poly.dto.consumer.CONSUMER_OrderInfoDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
 import poly.persistance.mapper.CONSUMER_Gps_TableMapper;
-import poly.persistance.mapper.CONSUMER_MypageMapper;
 import poly.persistance.mapper.CONSUMER_UserMapper;
 import poly.service.CONSUMER_IUserService;
 	
@@ -26,9 +24,6 @@ public class CONSUMER_UserService implements CONSUMER_IUserService {
 	
 	@Resource(name="CONSUMER_Gps_TableMapper")
 	private CONSUMER_Gps_TableMapper gpsMapper;
-	
-	@Resource(name="CONSUMER_MypageMapper")
-	private CONSUMER_MypageMapper mypageMapper;
 	
 	@Override
 	public int insertUserDTO(CONSUMER_UserDTO uDTO) throws Exception {
@@ -45,7 +40,7 @@ public class CONSUMER_UserService implements CONSUMER_IUserService {
 	@Override
 	public CONSUMER_UserDTO getUserDetail(CONSUMER_UserDTO uDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return mypageMapper.getUserDetail(uDTO);
+		return userMapper.getUserDetail(uDTO);
 	}
 
 	
@@ -137,11 +132,6 @@ public class CONSUMER_UserService implements CONSUMER_IUserService {
 	@Override
 	public int updateGps(int user_seq) throws Exception {
 		return gpsMapper.updateGps(user_seq);
-	}
-
-	@Override
-	public List<CONSUMER_OrderInfoDTO> getOrderList(String userSeq) throws Exception {
-		return mypageMapper.getOrderList(userSeq);
 	}
 	
 

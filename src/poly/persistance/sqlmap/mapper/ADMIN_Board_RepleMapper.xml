@@ -5,6 +5,7 @@
 	<insert id="board_R_Create" parameterType="ADMIN_Board_RepleDTO">
 		INSERT INTO BOARD_REPLE
 		(
+			REPLE_SEQ,
 			BOARD_P_SEQ,
 			USER_SEQ,
 			BOARD_REPLE_CONTENT,
@@ -15,6 +16,7 @@
 		VALUES
 		(
 			<!-- 시퀀스 자리 -->
+			REPLE_SEQ.NEXTVAL,
 			#{board_p_seq},
 			#{user_seq},
 			#{board_reple_content},

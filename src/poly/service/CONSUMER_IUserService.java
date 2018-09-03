@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
 import poly.dto.consumer.CONSUMER_Gps_TableDTO;
-import poly.dto.consumer.CONSUMER_OrderInfoDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
 
 public interface CONSUMER_IUserService {
@@ -45,6 +44,4 @@ public interface CONSUMER_IUserService {
 	public int setGps(CONSUMER_Gps_TableDTO gpsDTO) throws Exception;
 
 	public int updateGps(int user_seq) throws Exception;
-
-	public List<CONSUMER_OrderInfoDTO> getOrderList(String userSeq)throws Exception;
 }

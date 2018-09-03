@@ -25,7 +25,6 @@ import poly.util.CmmUtil;
 import poly.util.Email;
 import poly.util.EmailSender;
 import poly.util.SHA256Util;
-import poly.util.UtilTime;
 
 @Controller
 public class CMMN_UserController {
@@ -82,7 +81,7 @@ public class CMMN_UserController {
 		System.out.println("udto 널 확인");
 		System.out.println(uDTO == null);
 		
-		
+
 		if(uDTO == null) {
 			//로그인실패
 			String msg="로그인 실패 \\n 1.아이디/비밀번호 다시 확인해주세요 \\n 2.이메일 인증 확인해주세요";
@@ -260,7 +259,7 @@ public class CMMN_UserController {
 	}
 	*/
 	
-	//회원가입 - 회원정보 insert 코드
+	//회원정보 insert 코드
 	@RequestMapping(value="cmmn/user/userRegProc", method=RequestMethod.POST)
 	public String userRegProc(HttpServletRequest request, Model model) throws Exception{
 		log.info(this.getClass()+"userRegProc start!!!");
@@ -287,9 +286,8 @@ public class CMMN_UserController {
 		sendEmail.setContent("<a href=\"http://192.168.170.104:8080/user/updateAuth.do?userStatus=AuthY&userEmail="+user_Email+"\">트럭왔냠 이메일 인증 클릭</a>");
 		//sendEmail.setContentsE()
 		emailSender.SendEmail(sendEmail);
-
-		//현재시간 가져오기
-		String userRegDate = UtilTime.getDateYMDhms();
+	
+												//해야 할 일 : 1.진수형이 주신 거 내 소비자페이지에 옮기기
 		CMMN_UserDTO uDTO = new CMMN_UserDTO();
 		uDTO.setUserEmail(user_Email);
 		uDTO.setUserPwd(user_Pwd);
@@ -297,7 +295,6 @@ public class CMMN_UserController {
 		uDTO.setUserGender(user_Gender);
 		uDTO.setUserHp(user_Hp);
 		uDTO.setUserStatus(userStatus);
-		uDTO.setUserRegDate(userRegDate);
 		
 		log.info("uDTO userStatus :" + userStatus);
 		

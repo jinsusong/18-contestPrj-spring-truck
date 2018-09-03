@@ -76,7 +76,7 @@ public class CONSUMER_NoticeController {
 		}
 		
 		model.addAttribute("imgDTOs",imgDTOs);
-	
+		
 		imgDTOs = null;
 		
 		log.info(this.getClass() + "truckImage end !!");

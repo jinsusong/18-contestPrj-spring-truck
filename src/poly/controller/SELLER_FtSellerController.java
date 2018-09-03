@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.mysql.jdbc.Util;
-
 import poly.dto.consumer.CONSUMER_DissInfoDTO;
 import poly.dto.consumer.CONSUMER_Gps_TableDTO;
 import poly.dto.consumer.CONSUMER_WeatherDTO;
@@ -37,14 +35,11 @@ import poly.dto.seller.SELLER_FtDistrictDataDTO;
 import poly.dto.seller.SELLER_FtSellerDTO;
 import poly.dto.seller.SELLER_Gps_TableDTO;
 import poly.dto.seller.SELLER_ImageDTO;
-import poly.dto.seller.SELLER_OrderInfoDTO;
 import poly.dto.seller.SELLER_WeatherDTO;
 import poly.service.SELLER_IFtSellerService;
 import poly.service.SELLER_IImageService;
-import poly.service.SELLER_IOrderService;
 import poly.util.SELLER_UtilFile;
 import poly.util.SortRegCode;
-import poly.util.UtilTime;
 import poly.util.CmmUtil;
 import poly.util.Coord;
 import poly.util.OpenAPI;
@@ -71,9 +66,6 @@ public class SELLER_FtSellerController {
 	@Resource(name="SELLER_ImageService")
 	private SELLER_IImageService ImgService;
 	
-	@Resource(name="SELLER_OrderService")
-	private SELLER_IOrderService orderService;
-	
 	
 	//트럭 정보 등록 페이지
 	@RequestMapping(value="/seller/ft/ftReg")
@@ -99,10 +91,6 @@ public class SELLER_FtSellerController {
 		String ftStatus = CmmUtil.nvl(request.getParameter("ftStatus"));
 		String ftOptime = request.getParameter("ft_bday")+"/"+request.getParameter("ft_open_time")+"/"+request.getParameter("ft_close_time");
 		String ftFunc=""; 
-		String ftJoin="";
-		
-		ftJoin=UtilTime.getDateYMDhms();
-		
 		if(request.getParameter("delivery")!=null) {
 			ftFunc += request.getParameter("delivery")+"/";
 		}
@@ -122,7 +110,6 @@ public class SELLER_FtSellerController {
 		log.info("ftsellerController ftFunc : " + ftFunc);
 		log.info("ftsellerController ftOptiom : " + ftOptime);
 		log.info("ftsellerController ftStatus  : " + ftStatus);
-		log.info("ftsellerControoler ftJoin : " + ftJoin);
 		
 		SELLER_FtSellerDTO ftSDTO = new SELLER_FtSellerDTO();
 		ftSDTO.setUserSeq(userSeq);
@@ -133,8 +120,6 @@ public class SELLER_FtSellerController {
 		ftSDTO.setFtStatus(ftStatus);
 		ftSDTO.setFtFunc(ftFunc);
 		ftSDTO.setFtOptime(ftOptime);
-		ftSDTO.setFtJoin(ftJoin);
-		
 		
 		SELLER_ImageDTO imgDTO = new SELLER_ImageDTO();
 		
@@ -155,8 +140,7 @@ public class SELLER_FtSellerController {
 		}else { //업로드된 파일 없을때
 			ftSDTO.setFileId("-1");
 		}
-		/*
-	  	//트럭 이미지 파일 업로드 
+	/*	//트럭 이미지 파일 업로드 
 		String fileSevname= "";//파일 이름을 재정의 하기 위한 변수 선언
 		String fileOrgname= file.getOriginalFilename();
 		//requestParam 요청으로 불러온 이미지의 원래 파일명 
@@ -181,6 +165,7 @@ public class SELLER_FtSellerController {
 		imgDTO.setFileSevname(now+extended);
 		imgDTO.setFilePath(savePath);
 		imgDTO.setFileOrgname(fileOrgname);
+		
 		*/
 		
 		HashMap<String, Object> hMap = new HashMap<>();
@@ -199,7 +184,7 @@ public class SELLER_FtSellerController {
 		
 		if(resultFtReg == 1) {
 			msg="트럭정보가 등록되었습니다 .";
-			url="/seller/main.do";
+			url="/seller/inMain.do";
 		}else {
 			msg="트럭정보 등록에 실패하셨습니다 .";
 			url="/seller/ft/ftReg.do";
@@ -600,160 +585,12 @@ public class SELLER_FtSellerController {
 			/*model.addAttribute("myAddress", myAddress);*/ //topBody.jsp에 세션이 있기 때문에 model 사용하지 않음
 			log.info("Terminate weatherInfo");	
 			
-			return "redirect:/seller/main.do";
+			return "redirect:/seller/inMain.do";
 			
 		}
 		
 	
-	@RequestMapping(value="/seller/main")
-	public String test(HttpServletRequest request, Model model , HttpSession session)throws Exception{
-		log.info("seller main start !!!"); 
-		log.info("chart Start"); 
-		String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
-		log.info("getUserSeq : " + userSeq);
-		
-		/*String userSeq1 = request.getParameter("userSeq");*/
-		/*String ftSeq = request.getParameter("ftSeq");
-		log.info("getFtSeq : " + ftSeq);*/
-		
-		SELLER_FtSellerDTO ftsDTO = new SELLER_FtSellerDTO();
-		ftsDTO.setUserSeq(userSeq);
-		ftsDTO = FtSellerService.getTruckConfig(ftsDTO);
-		/*if(ftsDTO == null) {
-			log.info("ftSeq null : ");
-			model.addAttribute("ftsNull",ftsDTO);
-			return "/seller/main";
-		}*/
-		
-		if(userSeq != null && ftsDTO != null) {
-			log.info("차트가 있을 경우 ? ");
-			log.info("userSeq , ftSeq : " + userSeq +","+ftsDTO.getFtSeq());
-			
-			
-			String todayMD = UtilTime.getDateMD();	//"M월 d일" 불러오기
-			String todayYMDhms = UtilTime.getDateYMDhms();	//"yyyy.MM.dd / hh:mm:ss" 불러오기
-			String todayDD = UtilTime.getDateDD();	//요일 불러오기
-			log.info("todayMD : " + todayMD);
-			log.info("todayYMDhms : " + todayYMDhms);
-			log.info("todayDD : " + todayDD);
-			model.addAttribute("todayMD", todayMD);
-			model.addAttribute("todayYMDhms", todayYMDhms);
-			model.addAttribute("todayDD", todayDD);
-			/*OrderInfoDTO oDTO = new OrderInfoDTO();
-			oDTO.setUserSeq(userSeq);*/
-			
-			
-			
-			
-			/*List<SELLER_OrderInfoDTO> wList = FtSellerService.getOrderWeek(userSeq);
-			
-			//여기부터 test
-			String testDate =wList.get(0).getOrd_date();
-			log.info("test orddate : " + testDate);
-			System.out.println(UtilTime.getDateYYMMDD(testDate));*/
-			
-			/*SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-			 
-			 Date date = formatter.parse("20180823");  // 날짜 입력하는곳 .
-			 date = new Date(date.getTime());  // 날짜에 하루를 더한 값 
-			 // 하루를 뺄려면 (1000*60*60*24*-1) 해주시면 됩니다.
-			 
-			 Calendar cal = Calendar.getInstance() ;
-			 cal.setTime(date);              // 하루더한 날자 값을 Calendar  넣는다.
-			 
-			 int dayNum = cal.get(Calendar.DAY_OF_WEEK);   // 요일을 구해온다. 
-			 
-			String convertedString = "";
-			 
-			 switch (dayNum ) {
-			     case 1: convertedString = "일요일"; break;
-			     case 2: convertedString = "월요일"; break;
-			     case 3: convertedString = "화요일"; break;
-			     case 4: convertedString = "수요일"; break;
-			     case 5: convertedString = "목요일"; break;
-			     case 6: convertedString = "금요일"; break;
-			     case 7: convertedString = "토요일"; break;
-			 }*/
-			 /*log.info("test 성공 : " + convertedString);*/
-			//여기까지
-			/*for(int i=0; i < wList.size(); i++) {
-				String todayDD = UtilTime.getDateDD();
-				
-				
-			}*/
-			
-			
-			
-			List<SELLER_OrderInfoDTO> oList = orderService.getOrderList(userSeq);
-			if(oList.isEmpty()) {
-				log.info("oList is Empty");
-			}
-			log.info("oList size : " + oList.size());
-			log.info("============ 주문내역 시작  ============");
-			/*for(int i=0; i<oList.size(); i++) {
-				log.info("---------------------------");
-				log.info("oList.getOrd_seq : " + oList.get(i).getOrd_seq());
-				log.info(oList.get(i).getOrd_seq());
-				log.info(oList.get(i).getUser_seq());
-				log.info(oList.get(i).getOrd_status());
-				log.info(oList.get(i).getOrd_date());
-				log.info(oList.get(i).getOrd_way());
-				log.info(oList.get(i).getBuy_way());
-				log.info(oList.get(i).getOrd_sumprice());
-				log.info("---------------------------");
-			}*/
-			log.info("============ 주문내역 끝  ============");
 	
-			model.addAttribute("oList", oList);
-			//데이터를 FtsellerService에 태워
-			
-			SELLER_OrderInfoDTO sumChartWeek = FtSellerService.getChartWeek(userSeq);
-			log.info("sumChart : " + sumChartWeek.getOrd_sumprice());
-			model.addAttribute("sumChartWeek", sumChartWeek);
-			log.info("chart End");
-			
-			//최근 7일 매충 그래프 
-			List<SELLER_OrderInfoDTO> wList = FtSellerService.latelyWeek(ftsDTO);
-	         for(int i=0; i < wList.size(); i++) {
-	            log.info("--------------------------");
-	            log.info("sumWeek : " + wList.get(i).getOrd_sumprice());
-	            log.info("ordDate : " + wList.get(i).getOrd_date());
-	            log.info("--------------------------");
-	            
-	         }
-	         if(wList.size() != 7) {
-	        	 wList = FtSellerService.insertwList(ftsDTO);
-	         }
-	        
-	         model.addAttribute("wList", wList);
-
-			//jinsu 월간매출 시작 !!
-			log.info(this.getClass() + "monthChart start =====================");
-			log.info("ftsDTO userSeq : " + ftsDTO.getUserSeq()); // ?null
-			log.info("ftsDTO ftSEq : " + ftsDTO.getFtSeq()); // 3
-			List<SELLER_OrderInfoDTO> monthChart = FtSellerService.getMonthChart(ftsDTO);
-			log.info("===================monthChart");
-			log.info("monthChart : " + monthChart);
-			/*for(int i=0; i < monthChart.size(); i++) {
-				log.info("monthchart date " +i+ " : " +monthChart.get(i).getOrd_date());
-				log.info("monthchart sum  " +i+" : " + monthChart.get(i).getOrd_sumprice());
-			}*/
-			
-			int chart = 1;
-			model.addAttribute("monthChart",monthChart);
-			model.addAttribute("chart",chart);
-			chart = 0;
-			ftsDTO = null;
-			monthChart =null;
-		}else {
-			log.info("else");
-			int chart = 0;
-			model.addAttribute("chart",chart);
-			
-		}
-		log.info(this.getClass() + "Main end !!!!");
-		return "/seller/main";
-	}
 	
 	
 }

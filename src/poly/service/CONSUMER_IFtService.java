@@ -6,7 +6,6 @@ import poly.dto.consumer.CONSUMER_Ft_ReviewDTO;
 import poly.dto.consumer.CONSUMER_ImageDTO;
 import poly.dto.consumer.CONSUMER_Menu_InfoDTO;
 import poly.dto.consumer.CONSUMER_RcmmndMenuDTO;
-import poly.dto.consumer.CONSUMER_FtLikeDTO;
 import poly.dto.consumer.CONSUMER_FtMenuCateDTO;
 import poly.dto.consumer.CONSUMER_Ft_InfoDTO;
 
@@ -58,6 +57,4 @@ public interface CONSUMER_IFtService {
 	
 	//메뉴 추천
 	public List<CONSUMER_RcmmndMenuDTO> getRcmmndMenuList(String sido) throws Exception;
-
-	public List<CONSUMER_FtLikeDTO> getFavoriteFt(String userSeq)throws Exception;
 }
