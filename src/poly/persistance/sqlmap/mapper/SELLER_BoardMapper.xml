@@ -10,7 +10,7 @@
 	<insert id ="insertBoardDTO" parameterType="SELLER_BoardDTO">
 		INSERT INTO BOARD_POST
 		(
-			BOARD_P_SEQ,
+			
 			BOARD_SEQ,
 			TITLE,
 			CONTENT,
@@ -20,13 +20,12 @@
 		)
 		VALUES(
 			<!-- 시퀀스 자리 -->
-			Board_P_SEQ.NEXTVAL,
 			#{boardSeq},
 			#{title},
-			#{boardContent},
+			#{Content},
 			#{userSeq},
 			'0',
-			SYSDATE
+			now()
 		)
 	</insert>
 	<!-- 공지사항 리스트   --> <!-- ansi 쿼리는 db ppt6장에 있습니다. 참고하세요  -->
@@ -59,8 +58,8 @@
 	<!-- 조회수 증가 쿼리 -->
 	<update id="updateViewCount" parameterType="SELLER_BoardDTO">
 		UPDATE BOARD_POST
-		SET		BOARD_COUNT=BOARD_COUNT+1 --int(11) 
-		WHERE	BOARD_P_SEQ=#{boardPSeq} --int(11)
+		SET		BOARD_COUNT=BOARD_COUNT+1 
+		WHERE	BOARD_P_SEQ=#{boardPSeq} 
 	</update>
 	
 	<!--공지사항 ajax -->
@@ -135,7 +134,7 @@
 	<insert id="insertReReg" parameterType="SELLER_ReviewDTO">
 		INSERT INTO BOARD_REPLE
 		(
-			REPLE_SEQ,
+			
 			BOARD_P_SEQ,
 			USER_SEQ,
 			BOARD_REPLE_CONTENT,
@@ -146,11 +145,11 @@
 		VALUES
 		(
 			<!-- 시퀀스 자리 -->
-			REVIEW_SEQ.NEXTVAL,
+			
 			#{boardPSeq},
 			#{userSeq},
 			#{content},
-			SYSDATE,
+			now(),
 			#{reLevel},
 			'0'
 		)
@@ -189,7 +188,7 @@
 		UPDATE BOARD_REPLE
 		SET 
 			BOARD_REPLE_CONTENT = #{content},
-			REG_DATE = SYSDATE
+			REG_DATE = now()
 		WHERE
 			REPLE_SEQ = #{repleSeq}
 	</update>
