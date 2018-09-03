@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import poly.dto.cmmn.CMMN_UserDTO;
-import poly.dto.consumer.CONSUMER_UserDTO;
 
 public interface CMMN_IUserService {
 	public int insertUserDTO(CMMN_UserDTO uDTO) throws Exception;

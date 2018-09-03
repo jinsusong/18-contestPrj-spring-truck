@@ -207,26 +207,26 @@
 	  "type": "serial",
 	  "theme": "dark",
 	  "dataProvider": [ {
-	    "country": arraylatelyDate[0],
-	    "visits": arraylatelySum[0]
+	    "country": 0,
+	    "visits": 0
 	  }, {
-	    "country": arraylatelyDate[1],
-	    "visits": arraylatelySum[1]
+	    "country": 1,
+	    "visits": 1
 	  }, {
-	    "country": arraylatelyDate[2],
-	    "visits": arraylatelySum[2]
+	    "country": 2,
+	    "visits": 2
 	  }, {
-	    "country": arraylatelyDate[3],
-	    "visits": arraylatelySum[3]
+	    "country": 3,
+	    "visits": 3
 	  }, {
-	    "country": arraylatelyDate[4],
-	    "visits": arraylatelySum[4]
+	    "country": 4,
+	    "visits": 4
 	  }, {
-	    "country": arraylatelyDate[5],
-	    "visits": arraylatelySum[5]
+	    "country": 5,
+	    "visits": 5
 	  }, {
-	    "country": arraylatelyDate[6],
-	    "visits": arraylatelySum[6]
+	    "country": 6,
+	    "visits": 6
 	  } ],
 	  "valueAxes": [ {
 	    "gridColor": "#FFFFFF",
@@ -288,50 +288,50 @@
 	       "motorcycles": 0
 	}, {
 	   "year": "01",
-	       "bicycles": arraySum[0]
+	       "bicycles": 0
 	}, {
 	   "year": "02",
 	     
-	       "bicycles": arraySum[1]
+	       "bicycles": 0
 	}, {
 	   "year": "03",
 	      
-	       "bicycles": arraySum[2]
+	       "bicycles": 0
 	}, {
 	   "year": "04",
 	      
-	       "bicycles": arraySum[3]
+	       "bicycles": 0
 	}, {
 	   "year": "05",
-	       "bicycles": arraySum[4]
+	       "bicycles": 0
 	}, {
 	   "year": "06",
 	      
-	       "bicycles": arraySum[5]
+	       "bicycles": 0
 	}, {
 	   "year": "07",
 	     
-	       "bicycles": arraySum[6]
+	       "bicycles": 0
 	}, {
 	   "year": "08",
 	     
-	       "bicycles": arraySum[7]
+	       "bicycles": 0
 	}, {
 	   "year": "9",
 	     
-	       "bicycles": arraySum[8]
+	       "bicycles": 0
 	}, {
 	   "year": "10",
 	     
-	       "bicycles": arraySum[9]
+	       "bicycles": 0
 	}, {
 	   "year": "11",
 	    
-	       "bicycles": arraySum[10]
+	       "bicycles": 0
 	}, {
 	   "year": "12",
 	       "cars": 1580,
-	       "bicycles": arraySum[11]
+	       "bicycles": 0
 	}]; 
 	var chart =  AmCharts.makeChart("chartdivM", {
 	    "type": "serial",

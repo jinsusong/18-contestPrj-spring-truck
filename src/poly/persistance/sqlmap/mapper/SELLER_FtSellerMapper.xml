@@ -151,22 +151,35 @@
 	<select id="getMonthChart" parameterType="SELLER_FtSellerDTO" resultType="SELLER_OrderInfoDTO">
 		SELECT 
 		  SUM(ORD_SUMPRICE) AS ord_sumprice,
-		  SUBSTR(ORD_DATE,1,5) AS ord_date
+		  SUBSTR(ORD_DATE,4,2) AS ord_date
 		FROM ORDER_INFO
 		WHERE FT_SEQ = #{ftSeq} AND ORD_DATE LIKE '18%'
-		GROUP BY SUBSTR(ORD_DATE,1,5)
-		ORDER BY SUBSTR(ORD_DATE,1,5) ASC
+		GROUP BY SUBSTR(ORD_DATE,4,2)
+		ORDER BY SUBSTR(ORD_DATE,4,2) ASC
 	</select>
 	<!-- 최근 7일간 매출 차트 불러오기 -->
-	<select id="latelyWeek" parameterType="string" resultType="SELLER_OrderInfoDTO">
+	<select id="latelyWeek" parameterType="SELLER_FtSellerDTO" resultType="SELLER_OrderInfoDTO">
 	SELECT 
         SUM(ORD_SUMPRICE) AS ord_sumprice,
         SUBSTR(ORD_DATE,1,8) AS ord_date
       FROM ORDER_INFO
-      WHERE USER_SEQ=#{userSeq} AND ORD_DATE BETWEEN date_add(now(),interval -7 day) 
+      WHERE FT_SEQ=#{ftSeq} AND ORD_DATE BETWEEN date_add(now(),interval -7 day) 
          AND now()
       GROUP BY SUBSTR(ORD_DATE,1,8)
-      ORDER BY SUBSTR(ORD_DATE,1,8) DESC
+      ORDER BY SUBSTR(ORD_DATE,1,8) ASC
 	</select>
+	<!-- 7일 매출 0 insert  -->
+	<insert id="insertwList" parameterType="SELLER_FtSellerDTO">
+		INSERT INTO ORDER_INFO
+		(ORD_SEQ, USER_SEQ, ORD_SUMPRICE, ORD_DATE, ORD_STATUS,FT_SEQ)
+		VALUES
+		( null, -10, 0, CURDATE()- INTERVAL 6 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 5 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 4 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 3 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 2 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 1 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 0 DAY, 1,#{ftSeq})
+	</insert>
 	
 </mapper>

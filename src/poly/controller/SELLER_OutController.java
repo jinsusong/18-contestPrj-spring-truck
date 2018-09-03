@@ -401,7 +401,7 @@ public class SELLER_OutController {
 			model.addAttribute("sumChartWeek", sumChartWeek);
 			log.info("chart End");
 			
-			//최근 7일 매충 그래프 
+			/*//최근 7일 매충 그래프 
 			List<SELLER_OrderInfoDTO> wList = FtSellerService.latelyWeek(userSeq);
 	         for(int i=0; i < wList.size(); i++) {
 	            log.info("--------------------------");
@@ -410,7 +410,7 @@ public class SELLER_OutController {
 	            log.info("--------------------------");
 	            
 	         }
-	         model.addAttribute("wList", wList);
+	         model.addAttribute("wList", wList);*/
 			
 			
 			//jinsu 월간매출 시작 !!

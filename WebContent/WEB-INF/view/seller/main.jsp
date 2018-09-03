@@ -1,3 +1,5 @@
+<%@page import="poly.dto.seller.SELLER_OrderInfoDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="poly.dto.seller.SELLER_DissInfoDTO"%>
 <%@page import="poly.util.CmmUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -30,8 +32,7 @@
 	location.href="/cmmn/main.do";
 </script>
 <%}%>
-
-
+	
 <!DOCTYPE HTML>
 
 <html>
@@ -60,14 +61,12 @@
  		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		<!-- chart -->
 		
+		<script src="https://www.amcharts.com/lib/3/amcharts.js?x"></script>
+		<script src="https://www.amcharts.com/lib/3/serial.js?x"></script>
+		<script src="https://www.amcharts.com/lib/3/themes/dark.js"></script>
 	
-		
-	<style>
-		#banner{
-			background-image:url('/resource/img/seller/pic02.jpg'); 
-		}
-	</style>
 		<!-- 트럭관리  -->
 	
 	<script>
@@ -79,6 +78,39 @@
 			}
 		}
 	</script>
+	
+	
+	<style>
+	
+		#chartdiv {	
+	 	width		: 100%;
+		height		: 500px;
+		background-color: #161616;  
+		}
+		
+		#chartdivM {
+		  width: 100%;
+		  height: 500px;
+		  margin-left: auto;
+		  margin-right: auto;
+		
+		  background-color: #30303d; 
+		  color: #fff;
+		}
+		
+		.amcharts-graph-g1 .amcharts-graph-fill {
+		  filter: url(#blur);
+		}
+		
+		.amcharts-graph-g2 .amcharts-graph-fill {
+		  filter: url(#blur);
+		}
+		
+		.amcharts-cursor-fill {
+		  filter: url(#shadow);
+		}
+		
+	</style>
 
 	
 	</head>
@@ -195,10 +227,11 @@
 							<%} %>
 						<%}else{ %>
 							<a href="/seller/weather/findMyLoc.do" style="color:white;">
-								<p>&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-exclamation-sign"></span>  질병지수 : 위치를 설정해주세요 </p>
+								<p style="margin:0; display:inline-block">&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-exclamation-sign"></span>질병지수 : 위치를 설정해주세요 </p>
 							</a>
 						<%} %> 
 					</div> 
+					<div style="height:10px"></div>
 			</div>
 			
 		<!-- Banner -->
@@ -206,27 +239,22 @@
 			To use a video as your background, set data-video to the name of your video without
 			its extension (eg. images/banner). Your video must be available in both .mp4 and .webm
 			formats to work correctly.
-		-->
-			 <section id="banner" data-video="/resources/img/seller/banner.mp4">
 			
-				<div class="inner" style="width:70%">
-					<div>
-							<div class="content">
-								<div>
-									<% if(chart == 1){%>
-									<div> 
-										 <%@ include file="/WEB-INF/view/seller/chart.jsp" %>
-									</div>
-									<% }else{%>
-									<div> 
-										 <%@ include file="/WEB-INF/view/seller/chartNo.jsp" %>
-									</div>
-									<%} %>
-								</div>		
-							</div>
-					</div>
-				</div>
-			</section>
+		-->
+				
+		<section>
+			<% if(chart == 1){%>
+			<div> 
+				 <%@ include file="/WEB-INF/view/seller/chart.jsp" %>
+			</div>
+			<% }else{%>
+			<div> 
+				 <%@ include file="/WEB-INF/view/seller/chartNoB.jsp" %>
+			</div>
+			<%} %>
+		</section>			
+
+			
 
 		<!-- Two -->
 			<section id="two" class="wrapper style3">
@@ -299,8 +327,6 @@
 						 
 					</div>
 			</footer> 
-		
-
-
+			
 	</body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import poly.dto.admin.ADMIN_Coupon_IssueDTO;
 import poly.dto.cmmn.CMMN_UserDTO;
 import poly.dto.seller.SELLER_OrderInfoDTO;
+import poly.persistance.mapper.CONSUMER_MypageMapper;
 import poly.persistance.mapper.SELLER_OrderMapper;
 import poly.service.SELLER_IOrderService;
 
@@ -18,6 +19,9 @@ public class SELLER_OrderService implements SELLER_IOrderService {
 	@Resource(name="SELLER_OrderMapper")
 	private SELLER_OrderMapper orderMapper;
 
+	@Resource(name="CONSUMER_MypageMapper")
+	private CONSUMER_MypageMapper mypageMapper;
+	
 	@Override
 	public CMMN_UserDTO getOrderUserDTO(CMMN_UserDTO uDTO) throws Exception {
 		// TODO Auto-generated method stub
@@ -27,7 +31,6 @@ public class SELLER_OrderService implements SELLER_IOrderService {
 	@Override
 	public List<SELLER_OrderInfoDTO> getOrderList(String userSeq) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("service userSeq : " +userSeq);
 		return orderMapper.getOrderList(userSeq);
 	}
 

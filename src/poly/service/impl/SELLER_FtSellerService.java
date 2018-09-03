@@ -149,9 +149,18 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 	}
 
 	@Override
-	public List<SELLER_OrderInfoDTO> latelyWeek(String userSeq) throws Exception {
+	public List<SELLER_OrderInfoDTO> latelyWeek(SELLER_FtSellerDTO ftsDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sELLER_FtSellerMapper.latelyWeek(userSeq);
+		return sELLER_FtSellerMapper.latelyWeek(ftsDTO);
+	}
+
+	@Override
+	public List<SELLER_OrderInfoDTO> insertwList(SELLER_FtSellerDTO ftsDTO) throws Exception {
+		// TODO Auto-generated method stub
+		int result = sELLER_FtSellerMapper.insertwList(ftsDTO);
+		System.out.println("service result : " + result);
+		
+		return sELLER_FtSellerMapper.latelyWeek(ftsDTO);
 	}
 
 
