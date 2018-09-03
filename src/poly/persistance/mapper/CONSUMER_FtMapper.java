@@ -40,6 +40,8 @@ public interface CONSUMER_FtMapper {
 
 	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList)throws Exception;
 
+	public List<CONSUMER_Ft_InfoDTO> getFtList_ALL()throws Exception;
+
 	
 	//getFavoriteFt선언을 MypageMapper.java에 옮김.
 
