@@ -17,6 +17,7 @@
 	<insert id="Coupon_Issue" parameterType="ADMIN_Coupon_IssueDTO">
 		INSERT INTO COUPON_ISSUE
 		(
+			ISSUE_CODE,
 			USER_SEQ,
 			COUPON_CODE,
 			COUPON_COUNT,
@@ -25,6 +26,7 @@
 		)
 		VALUES
 		(
+			ISSUE_SEQ.NEXTVAL,
 			#{user_seq},
 			#{coupon_code},
 			#{coupon_count},
@@ -51,6 +53,6 @@
 			COUPON_COUNT,
 			COUPON_ISSUEDATE,
 			COUPON_USE
-		FROM COUPON_ISSUE WHERE ${option} LIKE '%'||#{value}||'%' ORDER BY ISSUE_CODE DESC
+		FROM COUPON_ISSUE WHERE ${option} LIKE '%'||#{value}||'%'
 	</select>
 </mapper>

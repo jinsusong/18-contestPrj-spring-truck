@@ -34,7 +34,7 @@ $(document).ready( function () {
 	<div>
 		<%@include file="/WEB-INF/view/consumer/topBody.jsp" %>	<!-- topBody에서 session으로 userEmail을 받는다. -->
 	</div>
-	<div class="container-fluid" style="text-align:left;">
+	<div class="container-fluid">
 		<div class="row" style="border-bottom:1px solid #eeeeee; padding:8px 0;">
 			<div class="col-xs-12" style="font-size:20px;">
 				<h5>트럭왔냠 고객센터</h5>

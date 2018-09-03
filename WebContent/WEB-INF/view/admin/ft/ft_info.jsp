@@ -33,10 +33,10 @@ ADMIN_ImageDTO LimgDTO = (ADMIN_ImageDTO)request.getAttribute("LimgDTO");
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body background="<%=request.getContextPath()%>/resources/img/admin/truck_background.jpg" style="background-size: 100%;">
+<body>
 <%@ include file="../admin_top.jsp" %>
 <!-- 판매자 푸드트럭관리 -->
-	<div class="container" style="background-color:rgba(255,255,255,0.9);  padding-top:15px; padding-bottom:30px;  padding-left:15px; padding-right:15px;">
+	<div class="container">
 		<!-- 푸드트럭이미지 & 푸드트럭 소개 -->
 		<div id="leftContents" style="height:auto;">
 			<!-- 트럭이미지 -->

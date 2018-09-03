@@ -56,10 +56,10 @@
     <![endif]-->
 
 </head>
-<body background="<%=request.getContextPath()%>/resources/img/admin/truck_background.jpg" style="background-size: 100%;">
+<body>
 <%@ include file="../admin_top.jsp" %>
 
-<div class="container" style="background-color:rgba(255,255,255,0.9);  padding-top:15px; padding-bottom:30px;  padding-left:30px; padding-right:30px;">
+<div class="container">
 	<form action="<%=request.getContextPath()%>/admin/board_p/board_p_Lcreate_ok.do" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="board_seq" value="<%=bpDTO.getBoard_seq()%>">
 	<input type="hidden" name="board_p_seq" value="<%=bpDTO.getBoard_p_seq()%>">

@@ -17,10 +17,10 @@
 			FR.EXP_YN,
 			UI.USER_NICK
 		FROM 
-			FT_REVIEW FR
-			INNER JOIN USER_INFO UI ON UI.USER_SEQ = FR.USER_SEQ 
+			FT_REVIEW FR, USER_INFO UI
 		WHERE 
-			FR.FT_SEQ=#{ft_seq}
+			FR.FT_SEQ=#{ft_seq} AND
+		 	UI.USER_SEQ = FR.USER_SEQ
 		ORDER BY 
 			FR.REV_LEVEL DESC
 	</select>
@@ -40,11 +40,11 @@
 			FR.EXP_YN,
 			UI.USER_NICK
 		FROM 
-			FT_REVIEW FR
-			INNER JOIN USER_INFO UI ON UI.USER_SEQ = FR.USER_SEQ  
+			FT_REVIEW FR, USER_INFO UI
 		WHERE 
 			FR.FT_SEQ=#{ft_seq} AND 
-			TO_CHAR(FR.REVIEW_SEQ) = FR.REV_LEVEL
+			TO_CHAR(FR.REVIEW_SEQ) = FR.REV_LEVEL AND
+		 	UI.USER_SEQ = FR.USER_SEQ 
 		ORDER BY 
 			FR.REV_REGDATE DESC
 	</select>
@@ -63,11 +63,10 @@
 			FR.EXP_YN as exp_yn,
 			UI.USER_NICK as user_nick
 		FROM 
-			FT_REVIEW FR
-			INNER JOIN USER_INFO UI ON UI.USER_SEQ = FR.USER_SEQ 
+			FT_REVIEW FR, USER_INFO UI
 		WHERE 
-			REVIEW_SEQ=#{review_seq}
-			
+			REVIEW_SEQ=#{review_seq} AND
+			UI.USER_SEQ = FR.USER_SEQ		
 		ORDER BY FR.REV_REGDATE DESC
 	</select>
 	
@@ -100,6 +99,7 @@
 	<insert id="ft_Review_Create" parameterType="CONSUMER_Ft_ReviewDTO">
 		INSERT INTO FT_REVIEW
 		(
+			REVIEW_SEQ,
 		    FT_SEQ,
 		    USER_SEQ,
 		    FILE_ID,
@@ -112,6 +112,7 @@
 		)
 		VALUES
 		(
+			REVIEW_SEQ.NEXTVAL,
 			#{ft_seq},
 		    #{user_seq},
 		    #{file_id},

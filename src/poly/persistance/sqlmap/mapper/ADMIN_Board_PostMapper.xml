@@ -5,6 +5,7 @@
 	<insert id="board_P_Create" parameterType="ADMIN_Board_PostDTO">
 		INSERT INTO BOARD_POST
 		(
+			BOARD_P_SEQ,
 			BOARD_SEQ,
 			USER_SEQ,
 			FILE_ID,
@@ -18,6 +19,7 @@
 		VALUES
 		(
 			<!-- 시퀀스 자리 -->
+			BOARD_P_SEQ.NEXTVAL,
 			#{board_seq},
 			#{user_seq},
 			#{file_id},

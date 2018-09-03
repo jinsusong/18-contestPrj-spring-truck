@@ -79,7 +79,7 @@ public class ADMIN_UserController {
 		for(int i=0; i<array.length; i++) {
 			uDTO.setUser_chan(getDate());
 			uDTO.setUser_seq(Integer.parseInt(array[i]));
-			uDTO.setStatus("1");
+			uDTO.setUser_status("1");
 			userService.user_Active(uDTO);
 		}
 		return user_list(request, model);
@@ -94,7 +94,7 @@ public class ADMIN_UserController {
 		for(int i=0; i<array.length; i++) {
 			uDTO.setUser_chan(getDate());
 			uDTO.setUser_seq(Integer.parseInt(array[i]));
-			uDTO.setStatus("-1");
+			uDTO.setUser_status("-1");
 			userService.user_Drop(uDTO);
 		}
 		return user_list(request, model);

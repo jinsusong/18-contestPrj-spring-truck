@@ -24,9 +24,9 @@
 </head>
 <body>
 	<table style="height: 100%; width: 100%">
-		<tr height="7%" bgcolor="#444">
-			<td style="padding:0;">
-				<%@ include file="/WEB-INF/view/seller/top.jsp" %>
+		<tr height="7%" bgcolor="#333333">
+			<td>
+				<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
 			
 			</td>
 		</tr>
@@ -35,7 +35,7 @@
 				<div class="container">
 			<!-- 	<h2>지역행사정보</h2> -->
 					<div class="row">
-					<form method="post" action="/seller/board/boardWriteProc.do" style="width:100%; margin:100 auto; test">
+					<form method="post" action="/seller/board/boardWriteProc.do">
 						<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 							<thead>
 								<tr>
@@ -65,14 +65,14 @@
 
 			</td>
 		</tr>
-		<tr height="7%" style="background-color:#444">
+		<tr height="7%" bgcolor="#333333">
 			<td>
 			<%-- 	<%@ include file="/WEB-INF/view/bottom.jsp" %> --%>
 			
 			</td>
 		</tr>
 	</table>
-<!-- 주서ㅛ -->
+
 	
 
 </body>

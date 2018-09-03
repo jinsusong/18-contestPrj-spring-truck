@@ -5,6 +5,7 @@
 	<insert id="Image_Add" parameterType="CONSUMER_ImageDTO">
 		INSERT INTO IMAGE
 		(
+			FILE_ID,
 			USER_SEQ,
 			FILE_ORGNAME,
 			FILE_SEVNAME,
@@ -12,6 +13,7 @@
 		)
 		VALUES
 		(
+			FILE_SEQ.NEXTVAL,
 			#{userSeq},
 			#{fileOrgname},
 		    #{fileSevname},
@@ -20,8 +22,7 @@
 	</insert>
 	
 	<select id="getFile_Seq" resultType="string">
-		select max(USER_SEQ) 
-		from user_info
+		SELECT FILE_SEQ.NEXTVAL FROM DUAL
 	</select>
 	
 	<select id="getImageInfo" parameterType="string" resultType="CONSUMER_ImageDTO">

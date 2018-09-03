@@ -113,10 +113,10 @@
     <![endif]-->
 
 </head>
-<body background="<%=request.getContextPath()%>/resources/img/admin/truck_background.jpg" style="background-size: 100%;">
+<body>
 <%@ include file="../admin_top.jsp" %>
 
-<div class="container" style="background-color:rgba(255,255,255,0.9);  padding-top:15px; padding-bottom:30px;  padding-left:30px; padding-right:30px;">
+<div class="container">
 	<h2>게시물보기</h2> 
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
 	<div style="margin-top:25px; margin-bottom:25px;">

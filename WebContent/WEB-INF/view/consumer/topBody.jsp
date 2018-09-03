@@ -17,6 +17,7 @@
 	String ptyCode = CmmUtil.nvl((String)session.getAttribute("ptyCode"));	//ptyCode 강수형태(없음:0, 비:1, 비/눈:2, 눈:3)
 	String t3hCode = CmmUtil.nvl((String)session.getAttribute("t3hCode"));	//t3hCode 3시간 동안의 기온(단위 ℃)
 	//nvl 널값이 들어오면 공백으로 바꿔줍니다.
+	
 
 %>
 	<!-- 반응형 웹 설정 -->

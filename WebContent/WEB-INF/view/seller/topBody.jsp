@@ -32,13 +32,7 @@
 			
 			<div class="navigation" style="color:white;">
 			<!--------------------------메뉴부분 시작 -------------------------->
-				<!-- <div class="menuButton" style="float:left"><span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span></div> -->
-				<div class="menuButton" >
-					<span style="font-size:30px;cursor:pointer" onclick="openNav()">
-						<img src="/resources/img/consumer/menu48x48.png" height="42px" style="margin-top:8px; margin-left:5px;"/>
-					</span>
-				</div>
-				
+				<div class="menuButton" style="float:left"><span style="font-size:50px;cursor:pointer" onclick="openNav()">&#9776;</span></div>
 				<!--------------------------최상단 날씨,위치정보 -------------------------->
 				<div id="nav_top" >
 					<div id="nav_top_left" class="nav_top">
@@ -74,7 +68,7 @@
 				</div>
 		
 		
-			 <div id="mySidenav" class="sidenav">
+				<div id="mySidenav" class="sidenav">
 					<div id="sidenav_inner">
 						<div><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a></div>
 						<div>
@@ -90,9 +84,9 @@
 						</div>
 						
 						<div><a href="JavaScript:truckConfig()">내 트럭 관리</a></div>
-						<%if(!userSeq.equals("")){ %>
+						<%-- <%if(!userSeq.equals("")){ %>
 						<div><a href=/seller/orderWait/orderWait.do?userSeq=<%=userSeq%>">주문 대기열</a></div>
-						<%}%>
+						<%}%> --%>
 						<%if(!userSeq.equals("")){ %>
 						<div><a href="/seller/sales/sales.do?userSeq=<%=userSeq%>">매출분석</a></div>
 						<%} %>
@@ -104,64 +98,17 @@
 					</div>
 				</div>
 				<div id="sidenav_outer" onclick="closeNav()"></div>
-				
-				 <%-- <div id="logo_main" style="clear:both">
+				 <div id="logo_main" style="clear:both">
 				 	<a href="/seller/out/inOut.do">
 				 		<img src="/resources/img/trwn/seller_logo160x89.png" width="100%"/>
 				 	</a>
-				 </div> 
-				 <!--------------------------메뉴부분 시작 -------------------------->
+				 </div>
+						
+				<!--------------------------메뉴부분 종료 -------------------------->
 			
-			<div id="mySidenav" class="sidenav">
-				<div id="sidenav_inner">
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/cancel.png" />
-						<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">닫기</a>
-					</div>
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/logout.png" />
-						<%if(!"".equals(userEmail) && !"".equals(userSeq) && !"".equals(userNick)) { %>
-							<!-- 로그인 된 상태 -->
-							<a href="Javascript:logout();" >로그아웃</a>
-								
-						<%}else{ %>
-							<!-- 로그인이 안된 상태 -->
-							<a href="/cmmn/main.do">로그인</a>
-						<%} %>
-					</div>
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/set_location.png" />
-						<a href="/consumer/cnsmr/findMyLoc.do">내 위치 설정</a>
-					</div>		
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/adjacent_ft.png" />
-						<a href="/consumer/cnsmr/findAdjFt.do?locPosition=<%=myLat%>,<%=myLon%>&myAddress=<%=myAddress%>">근처 푸드트럭</a>
-					</div>
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/message.png" />
-						<a href="/consumer/weatherInfo.do?myAddress=<%=myAddress%>&regCode=<%=regCode%>">날씨/질병 정보</a>
-					</div>				
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/rcmmndMenu.png" />
-						<a href="/consumer/rcmmnd/rcmmndMenu.do?myAddress=<%=myAddress%>">트럭왔냠 추천 메뉴</a>
-					</div>				
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/mypage.png" />
-						<a href="/consumer/user/mypage.do">마이페이지</a>
-					</div>
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/notice.png" />
-						<a href="/consumer/board/noticeList.do">공지사항</a>
-					</div>
-					<div>
-						<img src="<%=request.getContextPath()%>/resources/img/consumer/menu_icon/info_centre.png" />
-						<a href="/consumer/board/boardList.do" >고객센터</a>
-					</div>
-				</div>
-			</div>
-			<div id="sidenav_outer" onclick="closeNav()"></div>
-				<!--------------------------메뉴부분 종료 --------------------------> --%>
-
+			
+				
+				
 			</div>
 	
 		<!-- 상단 3번째 질병예방 공지 -->
@@ -171,23 +118,23 @@
 			 <%if(dissInfoDTO != null){ %>
 		  		<% String riskFigure = dissInfoDTO.getRisk(); %> 
 				<% if(riskFigure.equals("1")) {%>
-						<div >
-						  <strong style="color:green">관심!</strong>
+						<div class="alert alert-success">
+						  <strong>관심!</strong>
 						  &nbsp;&nbsp;&nbsp; 식중독 발생가능성은 낮으나 식중독 예방에 지속적인 관심이 요망됩니다.
 						</div>
 				<%} else if(riskFigure.equals("2")){ %>	
-						<div >
-						  <strong style="color:sky">주의!</strong>
+						<div class="alert alert-info">
+						  <strong>주의!</strong>
 						  &nbsp;&nbsp;&nbsp;식중독 발생가능성이 중간 단계이므로 식중독예방에 주의가 요망됩니다.
 						</div>
 				<%} else if(riskFigure.equals("3")){%>
-						<div >
-						  <strong style="color:yellow">경고!</strong> 
+						<div class="alert alert-warning">
+						  <strong>경고!</strong> 
 						  &nbsp;&nbsp;&nbsp; 식중독 발생가능성이 높으므로 식중독 예방에 경계가 요망됩니다. 
 						</div>
 				<%} else if(riskFigure.equals("4")){ %>
-						<div >
-						  <strong style="color:tomato">위험!</strong>
+						<div class="alert alert-danger">
+						  <strong>위험!</strong>
 						  &nbsp;&nbsp;&nbsp;식중독 발생가능성이 매우 높으므로 식중독예방에 각별한 경계가 요망됩니다.
 						</div>
 				<%} %>
