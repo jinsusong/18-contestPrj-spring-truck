@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %>
 <%@page import="poly.dto.admin.ADMIN_Board_PostDTO" %>
 <%@page import="poly.dto.admin.ADMIN_ImageDTO" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,6 +8,7 @@
 	String board_name = (String)request.getAttribute("board_name");
 	ADMIN_Board_PostDTO bpDTO = (ADMIN_Board_PostDTO)request.getAttribute("bpDTO");
 	ADMIN_ImageDTO imgDTO = (ADMIN_ImageDTO)request.getAttribute("imgDTO");
+	ADMIN_User_InfoDTO bp_uDTO = (ADMIN_User_InfoDTO)request.getAttribute("bp_uDTO");
 %>
 <html>
 <style>
@@ -73,6 +75,7 @@
 <div class="container" style="background-color:rgba(255,255,255,0.9);  padding-top:15px; padding-bottom:30px;  padding-left:30px; padding-right:30px;">
 	<form action="<%=request.getContextPath()%>/admin/board_p/board_p_edit_ok.do" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="org_file_id" id="org_file_id" value="<%=bpDTO.getFile_id() %>">
+	<input type="hidden" name="user_seq" value="<%=bpDTO.getUser_seq()%>">
 	<h2>게시물 수정</h2>
     <div style="border-bottom:1px solid #444444; margin-top:15px;"></div>
 	<div style="margin-top:25px; margin-bottom:25px;">
@@ -80,7 +83,7 @@
     	<table width="100%" style="border-top:1px solid #A2A2A2; border-bottom:1px solid #A2A2A2">
     		<tr style="border-bottom:1px solid #EAEAEA;">
     			<td class="table_Hblock" width="14%">게시판</td>
-    			<td colspan="3" class="table_Cblock"><%=board_name %></td>
+    			<td colspan="3" class="table_Cblock"><%=board_name%></td>
     			<td class="table_Hblock" width="14%">노출상태</td>
     			<td class="table_Cblock" width="16%">
     				<%if(bpDTO.getExp_yn()==1){%>
@@ -98,7 +101,7 @@
     		</tr>
     		<tr style="border-bottom:1px solid #EAEAEA;">
     			<td class="table_Hblock">작성자</td>
-    			<td class="table_Cblock">/작성자/</td>
+    			<td class="table_Cblock"><%=bp_uDTO.getUser_nick()%></td>
     			<td class="table_Hblock" width="14%">작성일</td>
     			<td class="table_Cblock"><%=bpDTO.getReg_date()%></td>
     			<td class="table_Hblock">조회수</td>

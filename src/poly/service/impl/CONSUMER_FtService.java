@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import poly.dto.consumer.CONSUMER_FtLikeDTO;
 import poly.dto.consumer.CONSUMER_FtMenuCateDTO;
 import poly.dto.consumer.CONSUMER_Ft_InfoDTO;
 import poly.dto.consumer.CONSUMER_Ft_ReviewDTO;
@@ -15,6 +16,7 @@ import poly.dto.consumer.CONSUMER_RcmmndMenuDTO;
 import poly.persistance.mapper.CONSUMER_FtMapper;
 import poly.persistance.mapper.CONSUMER_Ft_Menu_CateMapper;
 import poly.persistance.mapper.CONSUMER_Ft_ReviewMapper;
+import poly.persistance.mapper.CONSUMER_MypageMapper;
 import poly.persistance.mapper.CONSUMER_RcmmndMenuMapper;
 import poly.service.CONSUMER_IFtService;
 
@@ -32,8 +34,9 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 	
 	@Resource(name="CONSUMER_RcmmndMenuMapper")	// 객체를 생성할 때 UserMapper라고 명명
 	private CONSUMER_RcmmndMenuMapper rcmmndMenuMapper ; // UserMapper 타입의 userMapper라는 변수의 객체 선언
-
-
+	
+	@Resource(name="CONSUMER_MypageMapper")
+	private CONSUMER_MypageMapper mypageMapper;
 
 	@Override
 	public CONSUMER_Ft_InfoDTO getFtDetail(String ft_seq) throws Exception {
@@ -194,7 +197,7 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 
 	//음식 메뉴 리스트 가져오기 - ftList파라미터
 	@Override
-	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList) {
+	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList)throws Exception {
 		return ftMapper.getMenuListWithFtList(ftList);
 	}
 
@@ -202,6 +205,12 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 	@Override
 	public List<CONSUMER_RcmmndMenuDTO> getRcmmndMenuList(String sido) throws Exception {
 		return rcmmndMenuMapper.getRcmmndMenuList(sido);
+	}
+
+
+	@Override
+	public List<CONSUMER_FtLikeDTO> getFavoriteFt(String userSeq) throws Exception {
+		return mypageMapper.getFavoriteFt(userSeq);
 	}
 
 }

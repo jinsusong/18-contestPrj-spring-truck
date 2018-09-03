@@ -1,6 +1,7 @@
 package poly.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -24,16 +25,21 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import poly.dto.admin.ADMIN_BoardDTO;
 import poly.dto.admin.ADMIN_Board_PostDTO;
 import poly.dto.admin.ADMIN_Board_RepleDTO;
+import poly.dto.admin.ADMIN_Ft_InfoDTO;
+import poly.dto.admin.ADMIN_Ft_ReviewDTO;
 import poly.dto.admin.ADMIN_ImageDTO;
+import poly.dto.admin.ADMIN_User_InfoDTO;
 import poly.service.ADMIN_IBoardService;
 import poly.service.ADMIN_IImageService;
+import poly.service.ADMIN_IUserService;
 import poly.util.ADMIN_UtilFile;
 
 @Controller
 public class ADMIN_BoardController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
-/*----------------------------------------------------------------------------------------*/
+	@Resource(name="ADMIN_UserService")
+	private ADMIN_IUserService userService;
 	
 	@Resource(name = "ADMIN_BoardService")
 	private ADMIN_IBoardService boardService;
@@ -51,14 +57,14 @@ public class ADMIN_BoardController {
 		return date;
 	}
 	
-/*게시판 관리----------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------*/
 	
 	//게시판 리스트
 	@RequestMapping(value="admin/board/board_list", method=RequestMethod.GET)
 	public String board_list(HttpServletRequest request, Model model) throws Exception{
 		List<ADMIN_BoardDTO> boardList = boardService.getBoard_List();
 		
-		//신규 게시물, 전체 게시물 갯수 세팅
+		//신규 게시물, 전체 게시물 갯수, 유저 세팅
 		for(int i=0; i<boardList.size(); i++) {
 			boardList.get(i).setBoard_p_count(boardService.board_P_Count(boardList.get(i).getBoard_seq()));
 		}
@@ -203,6 +209,8 @@ public class ADMIN_BoardController {
 	public String board_p_list(HttpServletRequest request, Model model) throws Exception{
 		String board_select = request.getParameter("board_select");
 		List<ADMIN_Board_PostDTO> board_P_List;
+		List<ADMIN_User_InfoDTO> bp_uDTOarr = new ArrayList<ADMIN_User_InfoDTO>();
+		
 		if(board_select != null) {
 			if(board_select.equals("all")) {
 				board_P_List = boardService.getBoard_P_List();
@@ -220,13 +228,15 @@ public class ADMIN_BoardController {
 		model.addAttribute("pageNum", request.getParameter("pageNum"));
 		model.addAttribute("pageSize", request.getParameter("pageSize"));
 		
-		//댓글갯수 세팅
+		//댓글갯수, 유저 세팅
 		for(int i=0; i<board_P_List.size(); i++) {
 			board_P_List.get(i).setReple_count(boardService.board_R_Count(board_P_List.get(i).getBoard_p_seq()));
+			bp_uDTOarr.add(userService.getUser(board_P_List.get(i).getUser_seq()));
 		}
-		
+		model.addAttribute("bp_uDTOarr", bp_uDTOarr);
 		model.addAttribute("board_select", board_select);
 		model.addAttribute("board_P_List", board_P_List);
+		
 		
 		
 		return "/admin/board_p/board_p_list";
@@ -240,6 +250,7 @@ public class ADMIN_BoardController {
 		String value = request.getParameter("value");
 		
 		List<ADMIN_Board_PostDTO> board_P_SearchList=null;
+		List<ADMIN_User_InfoDTO> uDTOarr = new ArrayList<ADMIN_User_InfoDTO>();
 		
 		if(board_select != null) {
 			ADMIN_Board_PostDTO bpDTO = new ADMIN_Board_PostDTO();
@@ -269,8 +280,9 @@ public class ADMIN_BoardController {
 		//댓글갯수 세팅
 		for(int i=0; i<board_P_SearchList.size(); i++) {
 			board_P_SearchList.get(i).setReple_count(boardService.board_R_Count(board_P_SearchList.get(i).getBoard_p_seq()));
+			uDTOarr.add(userService.getUser(board_P_SearchList.get(i).getUser_seq()));
 		}
-		
+		model.addAttribute("uDTOarr", uDTOarr);
 		model.addAttribute("board_P_SearchList", board_P_SearchList);
 		
 		return "/admin/board_p/board_p_search_list";
@@ -287,6 +299,17 @@ public class ADMIN_BoardController {
 		ADMIN_BoardDTO bDTO = boardService.getBoard_Detail(bpDTO.getBoard_seq());
 		List<ADMIN_Board_RepleDTO> repleList = boardService.getBoard_R_List(board_p_seq); // 댓글리스트
 		bpDTO.setReple_count(boardService.board_R_Count(bpDTO.getBoard_p_seq())); // 댓글갯수 세팅
+		
+		//게시물 작성자 정보
+		ADMIN_User_InfoDTO bp_uDTO = userService.getUser(bpDTO.getUser_seq());
+		model.addAttribute("bp_uDTO", bp_uDTO);
+		
+		//댓글 작성자 정보
+		List<ADMIN_User_InfoDTO> br_uDTOarr = new ArrayList<ADMIN_User_InfoDTO>();
+		for(ADMIN_Board_RepleDTO brDTO : repleList){
+			br_uDTOarr.add(userService.getUser(brDTO.getUser_seq()));
+		}
+		model.addAttribute("br_uDTOarr", br_uDTOarr);
 		
 		ADMIN_ImageDTO imgDTO = new ADMIN_ImageDTO();
 		if(bpDTO.getFile_id()!="-1") {
@@ -452,6 +475,9 @@ public class ADMIN_BoardController {
 		ADMIN_Board_PostDTO bpDTO = boardService.getBoard_P_Detail(board_p_seq); 
 		ADMIN_BoardDTO bDTO = boardService.getBoard_Detail(bpDTO.getBoard_seq());
 		
+		//작성자 셋팅
+		ADMIN_User_InfoDTO bp_uDTO = userService.getUser(bpDTO.getUser_seq());
+		
 		ADMIN_ImageDTO imgDTO = new ADMIN_ImageDTO();
 		if(bpDTO.getFile_id().equals("-1")) {
 			imgDTO.setFile_orgname("파일없음");
@@ -459,6 +485,7 @@ public class ADMIN_BoardController {
 			imgDTO = imgService.getImageInfo(bpDTO.getFile_id());
 		}
 		
+		model.addAttribute("bp_uDTO", bp_uDTO);
 		model.addAttribute("imgDTO", imgDTO);
 		model.addAttribute("board_name", bDTO.getBoard_name());
 		model.addAttribute("bpDTO", bpDTO);
@@ -489,7 +516,7 @@ public class ADMIN_BoardController {
 	        
 //	      파일 업로드 결과값을 path로 받아온다(이미 fileUpload() 메소드에서 해당 경로에 업로드는 끝났음)
 	        String uploadPath = utilFile.fileUpload(request, uploadFile, imgDTO);
-	        imgDTO.setUser_seq(0);
+	        imgDTO.setUser_seq(Integer.parseInt(request.getParameter("user_seq")));
 	        imgDTO.setFile_path(uploadPath);
 //	      해당 경로만 받아 db에 저장
 	        imgService.Image_Add(imgDTO);
@@ -685,8 +712,6 @@ public class ADMIN_BoardController {
 		boardService.board_R_Delete(Integer.parseInt(reple_seq));
 		model.addAttribute(board_p_seq);
 		return board_p_info(request, model);
-		// git test by hdp two
-		//git test by hdp three
 	}
 }
 

@@ -15,8 +15,6 @@ import poly.dto.consumer.CONSUMER_Menu_InfoDTO;
 public interface CONSUMER_FtMapper {
 
 	public List<CONSUMER_Ft_InfoDTO> getFtList(String sido) throws Exception; //List<UserDTO>를 반환하는 getUserList메소드
-	
-	public List<CONSUMER_Ft_InfoDTO> getFtList_ALL() throws Exception;
 
 	public CONSUMER_Ft_InfoDTO getFtDetail(String ft_seq) throws Exception;
 
@@ -40,7 +38,10 @@ public interface CONSUMER_FtMapper {
 
 	public List<CONSUMER_Ft_InfoDTO> getFtListDong(String dong) throws Exception;
 
-	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList);
+	public List<CONSUMER_Menu_InfoDTO> getMenuListWithFtList(List<CONSUMER_Ft_InfoDTO> ftList)throws Exception;
+
+	
+	//getFavoriteFt선언을 MypageMapper.java에 옮김.
 
 
 }

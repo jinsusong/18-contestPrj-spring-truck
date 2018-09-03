@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %>
 <%@page import="poly.dto.admin.ADMIN_CouponDTO" %>
 <%@page import="poly.dto.admin.ADMIN_Coupon_IssueDTO" %>
 <%@page import="java.util.List" %>
@@ -8,7 +9,8 @@
  <% 
  	List<ADMIN_CouponDTO> cpDTOarr2 = (List<ADMIN_CouponDTO>)request.getAttribute("cpDTOarr");
  	List<ADMIN_Coupon_IssueDTO> cpisDTOarr = (List<ADMIN_Coupon_IssueDTO>)request.getAttribute("cpisDTOarr");
- 
+ 	List<ADMIN_User_InfoDTO> cpis_uDTOarr = (List<ADMIN_User_InfoDTO>)request.getAttribute("cpis_uDTOarr");
+ 	
 	 String pageNum = (String)request.getAttribute("pageNum");
 		int startNum;
 		if (pageNum==null || pageNum.equals("null")){//새로 목록을 불러올때 무조건 1페이지를 표시하게끔
@@ -28,7 +30,7 @@
  %>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html" >
+		<meta http-equiv="Content-Type" content="text/html">
 		<title>쿠폰발급조회</title>
 		
 		<!-- include javascript and css files for the EditableGrid library -->
@@ -115,11 +117,11 @@
 		<table id="htmlgrid" class="testgrid" style="margin-top:10px;">
 			<tr>
             	<th width="2%"><input type="checkbox" name="all" onClick="allCheck()"/></th>
-            	<th width="12%">발급코드</th>
-				<th width="12%">쿠폰코드</th>
-				<th width="30%">쿠폰이름</th>
+            	<th width="6%">발급코드</th>
+				<th width="6%">쿠폰코드</th>
+				<th width="25%">쿠폰이름</th>
 				<th width="5%">수량</th>
-				<th width="20%">유저이메일</th>
+				<th width="30%">유저이메일(닉네임)</th>
 				<th>쿠폰발급일</th>
 			</tr>
 			<%
@@ -145,7 +147,7 @@
 							<%=cpisDTOarr.get(i).getCoupon_count() %>
 						</td>
 						<td>
-							유저 이메일
+							<%=cpis_uDTOarr.get(i).getUser_email() %> (<%=cpis_uDTOarr.get(i).getUser_nick()%>)
 						</td>
 						<td>
 							<%=cpisDTOarr.get(i).getCoupon_issuedate() %>

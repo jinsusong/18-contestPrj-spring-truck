@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %>
 <%@page import="poly.dto.admin.ADMIN_Board_PostDTO" %>
 <%@page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
  <% 
  	List<ADMIN_Board_PostDTO> bDTOArr = (List<ADMIN_Board_PostDTO>)request.getAttribute("board_P_List");
+ 	List<ADMIN_User_InfoDTO> bp_uDTOarr = (List<ADMIN_User_InfoDTO>)request.getAttribute("bp_uDTOarr");
  	String board_select = (String)request.getAttribute("board_select");
  	if(board_select==null){
  		board_select="all";
@@ -134,7 +136,7 @@
 						<img src="<%=request.getContextPath()%>/resources/img/admin/c3.png">
 					<%} %>
 					</td>
-					<td>작성자</td>
+					<td><%=bp_uDTOarr.get(i).getUser_nick()%></td>
 					<td><%=bDTOArr.get(i).getBoard_count() %></td>
 					<td><%=bDTOArr.get(i).getReg_date() %></td>
 					<td>

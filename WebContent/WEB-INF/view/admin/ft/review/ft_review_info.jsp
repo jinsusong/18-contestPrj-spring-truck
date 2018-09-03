@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %> 
 <%@page import="poly.dto.admin.ADMIN_Ft_InfoDTO" %>
 <%@page import="poly.dto.admin.ADMIN_Ft_ReviewDTO" %>
 <%@page import="poly.dto.admin.ADMIN_ImageDTO" %>
 <%@page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
+	List<ADMIN_User_InfoDTO> revp_uDTOarr = (List<ADMIN_User_InfoDTO>)request.getAttribute("revp_uDTOarr");
+	ADMIN_User_InfoDTO rev_uDTO = (ADMIN_User_InfoDTO)request.getAttribute("rev_uDTO");
 	ADMIN_Ft_InfoDTO ftDTO2 = (ADMIN_Ft_InfoDTO)request.getAttribute("ftDTO");
 	ADMIN_Ft_ReviewDTO revDTO = (ADMIN_Ft_ReviewDTO)request.getAttribute("revDTO");
 	List<ADMIN_Ft_ReviewDTO> repleList = (List<ADMIN_Ft_ReviewDTO>)request.getAttribute("repleList");
+	
 	ADMIN_ImageDTO imgDTO = (ADMIN_ImageDTO)request.getAttribute("imgDTO");
 %>
 <html>
@@ -116,7 +120,7 @@
     		</tr>
     		<tr style="border-bottom:1px solid #EAEAEA;">
     			<td class="table_Hblock">작성자</td>
-    			<td class="table_Cblock">/작성자/</td>
+    			<td class="table_Cblock"><%=rev_uDTO.getUser_nick()%></td>
     			<td class="table_Hblock" width="14%">작성일</td>
     			<td class="table_Cblock"><%=revDTO.getRev_regdate()%></td>
     			<td class="table_Hblock">평점</td>
@@ -145,10 +149,10 @@
     			<td class="table_Hblock">답글</td>
     			<td colspan="5" style="padding:8px;">
     				<table width="100%" style="border-top:1px solid #DDDDDD; border-bottom:1px solid #DDDDDD;">
-    				<%if(repleList!=null){ %>
+    				<%if(repleList!=null){ int i=0;%>
     				<%for(ADMIN_Ft_ReviewDTO revpDTO : repleList){ %>
     					<tr style="border-bottom:1px solid #DDDDDD;">
-    						<td class="reple_block" width="15%">/작성자/</td>
+    						<td class="reple_block" width="15%"><%=revp_uDTOarr.get(i).getUser_nick()%></td> 
     						<td class="textarea_block">
    								<span id="r_text<%=revpDTO.getReview_seq()%>">
    									<%=revpDTO.getRev_text()%>
@@ -161,7 +165,7 @@
     							<input type="button"  value="삭제" class="btn btn-default" onClick="location.href='<%=request.getContextPath()%>/admin/ft/ft_review_delete.do?cmd=review_info&ft_seq=<%=ftDTO2.getFt_seq()%>&review_seq=<%=revDTO.getReview_seq()%>&revp_seq=<%=revpDTO.getReview_seq()%>'">
     						</td>
     					</tr>
-    				<%}
+    				<%i++;}
     				} %>
     					<tr>
 	    					<form action="<%=request.getContextPath()%>/admin/ft/ft_review_reple_create.do" method="post">

@@ -2,11 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@page import="poly.dto.admin.ADMIN_Ft_InfoDTO" %>
 <%@page import="poly.dto.admin.ADMIN_Ft_ReviewDTO" %>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %>
 <%@page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
  <% 
  	List<ADMIN_Ft_ReviewDTO> revDTOarr = (List<ADMIN_Ft_ReviewDTO>)request.getAttribute("review_List");
+ 	List<ADMIN_User_InfoDTO> uDTOarr = (List<ADMIN_User_InfoDTO>)request.getAttribute("uDTOarr");
  	ADMIN_Ft_InfoDTO ftDTO2 = (ADMIN_Ft_InfoDTO)request.getAttribute("ftDTO");
  	
 	 String pageNum = (String)request.getAttribute("pageNum");
@@ -110,8 +112,8 @@
         <table id="htmlgrid" class="testgrid" style="margin-top:10px;">
 			<tr>
             	<th  width="2%"><input type="checkbox" name="all" onClick="allCheck()"/></th>
-				<th>작성자</th>
-				<th width="45%">제목</th>
+				<th width="15%">작성자</th>
+				<th width="40%">제목</th>
 				<th width="12%">평점</th>
 				<th>작성일</th>
 				<th>노출상태</th>
@@ -126,7 +128,7 @@
 				for(int i=startCnt; i<endCnt; i++){%>
 					<tr id="<%=cnt%>"> 
 	            	<td><input type="checkbox" name="review_check" value="<%=revDTOarr.get(i).getReview_seq()%>"/></td> 
-	                <td>//작성자//</td>
+	                <td><%=uDTOarr.get(i).getUser_nick()%></td>
 					<td  style="cursor:pointer;" onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?cmd=review_info&ft_seq=<%=ftDTO2.getFt_seq()%>&review_seq=<%=revDTOarr.get(i).getReview_seq()%>'">
 					<%=revDTOarr.get(i).getRev_title()%>&nbsp;<b>[<%=revDTOarr.get(i).getReple_cnt()%>]</b>
 					<%if(!revDTOarr.get(i).getFile_id().equals("-1")){ %>
