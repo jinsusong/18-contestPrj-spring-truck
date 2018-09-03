@@ -713,7 +713,7 @@ public class SELLER_FtSellerController {
 			log.info("chart End");
 			
 			//최근 7일 매충 그래프 
-			List<SELLER_OrderInfoDTO> wList = FtSellerService.latelyWeek(userSeq);
+			List<SELLER_OrderInfoDTO> wList = FtSellerService.latelyWeek(ftsDTO);
 	         for(int i=0; i < wList.size(); i++) {
 	            log.info("--------------------------");
 	            log.info("sumWeek : " + wList.get(i).getOrd_sumprice());
@@ -721,6 +721,10 @@ public class SELLER_FtSellerController {
 	            log.info("--------------------------");
 	            
 	         }
+	         if(wList.size() != 7) {
+	        	 wList = FtSellerService.insertwList(ftsDTO);
+	         }
+	        
 	         model.addAttribute("wList", wList);
 
 			//jinsu 월간매출 시작 !!

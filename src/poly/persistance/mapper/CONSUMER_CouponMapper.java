@@ -7,7 +7,7 @@ import poly.dto.consumer.CONSUMER_CouponIssueDTO;
 
 @Mapper("CONSUMER_CouponMapper")
 public interface CONSUMER_CouponMapper {
-
-	public List<CONSUMER_CouponIssueDTO> couponList(String userSeq) throws Exception;
+	//couponList선언을 MypageMapper.java에 옮김.
+	
 
 }

@@ -3,9 +3,9 @@
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.CONSUMER_UserMapper">
 
-
-	<!-- 회원 상세보기  -->
-	<select id="getUserDetail" parameterType="CONSUMER_UserDTO" resultType="CONSUMER_UserDTO">
+	
+	<!-- 마이페이지 회원 상세보기  -->
+	<!-- <select id="getUserDetail" parameterType="CONSUMER_UserDTO" resultType="CONSUMER_UserDTO">
 			SELECT USER_SEQ as userSeq,
 					USER_EMAIL as userEmail,
 					USER_PWD as userPwd,
@@ -15,7 +15,7 @@
 			FROM	USER_INFO
 			WHERE USER_SEQ = #{userSeq}
 	
-	</select>
+	</select> -->
 	
 	<!-- 회원 삭제  -->
 	<delete id="deleteUser" parameterType="CONSUMER_UserDTO">
@@ -130,4 +130,24 @@
 			USER_SEQ = #{user_seq} AND FT_SEQ = #{ft_seq}
 	</delete>
 	
+	<!-- 마이페이지 주문목록 -->
+	<!-- <select id="getOrderList" parameterType="string" resultType="CONSUMER_OrderInfoDTO">
+		SELECT
+			OINFO.ORD_SEQ as ord_seq,
+			OITEM.USER_SEQ as user_seq,
+			OITEM.ITEM_SEQ as item_seq,
+			MINFO.MENU_NAME as menu_name,
+			OINFO.ORD_SUMPRICE as ord_sumprice,
+			OINFO.ORD_WAY as ord_way,
+			OINFO.BUY_WAY as buy_way,
+			OINFO.ORD_DATE as ord_date
+		FROM ORDER_INFO OINFO
+		
+		INNER JOIN ORDER_ITEM OITEM
+			ON OINFO.ITEM_SEQ=OITEM.ITEM_SEQ
+		INNER JOIN MENU_INFO MINFO
+			ON OITEM.MENU_SEQ=MINFO.MENU_SEQ
+		WHERE OITEM.USER_SEQ=#{userSeq};
+	
+	</select> -->
 </mapper>
