@@ -36,7 +36,7 @@ public class ADMIN_LoginController {
 /*관리자 로그인----------------------------------------------------------------------------------------*/	
 	
 	//로그인 메인 이동
-	@RequestMapping(value="admin/login")
+	@RequestMapping(value="/admin")
 	public String admin_login(HttpServletRequest request, Model model) throws Exception{
 		
 		return "/admin/admin_login";

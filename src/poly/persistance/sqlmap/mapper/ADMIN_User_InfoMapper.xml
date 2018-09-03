@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.ADMIN_User_InfoMapper">
+	<select id="getUser" parameterType="integer" resultType="ADMIN_User_InfoDTO">
+		SELECT 
+			USER_SEQ, 
+			USER_AUTH, 
+			USER_EMAIL, 
+			USER_NICK, 
+			USER_PWD, 
+			USER_HP, 
+			USER_GENDER, 
+			USER_REGDATE, 
+			USER_CHAN, 
+			USER_STATUS,
+			STATUS
+			FROM USER_INFO WHERE USER_SEQ = #{user_seq}
+	</select>
+	
 	<select id="getUser_InfoList" resultType="ADMIN_User_InfoDTO">
 		SELECT 
 			USER_SEQ, 

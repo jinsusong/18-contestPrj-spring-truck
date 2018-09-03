@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %>
+<%@page import="poly.dto.admin.ADMIN_Board_PostDTO" %>
+<%@page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+
+<% 
+ 	List<ADMIN_Board_PostDTO> bDTOArr = (List<ADMIN_Board_PostDTO>)request.getAttribute("board_P_List");
+ 	List<ADMIN_User_InfoDTO> bp_uDTOarr = (List<ADMIN_User_InfoDTO>)request.getAttribute("bp_uDTOarr");
+%>
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -159,6 +167,16 @@
   -webkit-animation: am-draw 40s;
   animation: am-draw 40s;
 }
+
+.noselect{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 @-webkit-keyframes am-draw {
     0% {
         stroke-dashoffset: 500%;
@@ -179,7 +197,6 @@
 <script>
 	var rs_RankSet_Check;
 	window.onload = function(){
-		rs_RankSet_Check = 2;
 		var currentDate = new Date();
         var divClock = document.getElementById("divClock");
         
@@ -218,22 +235,17 @@
         document.getElementById("rs_rank").innerHTML=msg;
 	}
 	
-	function rs_RankSet(){
-		if(rs_RankSet_Check==1){
-			document.getElementById('rs_RankSet_Btn1').style.backgroundColor="#ffffff";
-			document.getElementById('rs_RankSet_Btn2').style.backgroundColor="#f2f2f2";
-			document.getElementById('rs_RankSet_F1').style.display="block";
-			document.getElementById('rs_RankSet_F2').style.display="none";
-			
-			rs_RankSet_Check=2;
-		}else{
-			document.getElementById('rs_RankSet_Btn1').style.backgroundColor="#f2f2f2";
-			document.getElementById('rs_RankSet_Btn2').style.backgroundColor="#ffffff";
-			document.getElementById('rs_RankSet_F1').style.display="none";
-			document.getElementById('rs_RankSet_F2').style.display="block";
-			
-			rs_RankSet_Check=1;
-		}
+	function rs_RankSet1(){
+		document.getElementById('rs_RankSet_Btn1').style.backgroundColor="#ffffff";
+		document.getElementById('rs_RankSet_Btn2').style.backgroundColor="#f2f2f2";
+		document.getElementById('rs_RankSet_F1').style.display="block";
+		document.getElementById('rs_RankSet_F2').style.display="none";
+	}
+	function rs_RankSet2(){
+		document.getElementById('rs_RankSet_Btn1').style.backgroundColor="#f2f2f2";
+		document.getElementById('rs_RankSet_Btn2').style.backgroundColor="#ffffff";
+		document.getElementById('rs_RankSet_F1').style.display="none";
+		document.getElementById('rs_RankSet_F2').style.display="block";
 	}
 </script>
 </head>
@@ -253,12 +265,23 @@
 								<th width="10%" class="table_Hline2">조회수</th>
 								<th width="18%" class="table_Hline2">날짜</th>
 							</tr>
-							<tr>
-								<td class="table_Dline2">1</td>
-								<td class="table_line2">공지사항ㅇ입니다아ㅏㅏㅏㅏ <b>[0]</b></td>
-								<td class="table_line2" align="center">3</td>
-								<td class="table_line2" align="center">2018. 08. 28</td>
-							</tr>
+							<% int i=0;
+							for(ADMIN_Board_PostDTO bpDTO : bDTOArr){%>
+								<tr style="cursor:pointer;" onclick="location.href='<%=request.getContextPath()%>/admin/board_p/board_p_info.do?board_p_seq=<%=bDTOArr.get(i).getBoard_p_seq()%>'">
+									<td class="table_Dline2"><%=bpDTO.getBoard_p_seq()%></td>
+									<td class="table_line2">
+									<%if(!bDTOArr.get(i).getBoard_level().equals(String.valueOf(bDTOArr.get(i).getBoard_p_seq()))){ %>
+   									<img src="<%=request.getContextPath()%>/resources/img/admin/reple_icon.png">
+   								<%} %>
+					<%=bDTOArr.get(i).getTitle()%>&nbsp;<b>[<%=bDTOArr.get(i).getReple_count()%>]</b>
+					<%if(!bDTOArr.get(i).getFile_id().equals("-1")){ %>
+						<img src="<%=request.getContextPath()%>/resources/img/admin/c3.png">
+					<%} %>
+									</td>
+									<td class="table_line2" align="center"><%=bpDTO.getBoard_count()%></td>
+									<td class="table_line2" align="center"><%=bpDTO.getReg_date()%></td>
+								</tr>
+							<%i++; if(i==9){break;}}%>
 						</table>
 					</div>
 				</div>
@@ -270,11 +293,11 @@
 					<div style="width:auto; height: 242px; margin-left:10px; margin-right:10px;"> 
 						<div class="row" align="center">
 							<span style="cursor:pointer; border:1px solid #cccccc; font-size:11px; padding-left:33px; padding-right:33px; padding-top:3px; padding-bottom:3px;"
-							id="rs_RankSet_Btn1" onclick="javascript:rs_RankSet()" >
+							id="rs_RankSet_Btn1" onclick="javascript:rs_RankSet1()" class="noselect">
 								1~10위
 							</span>
 							<span style="cursor:pointer; border:1px solid #cccccc; font-size:11px; padding-left:30px; padding-right:30px; padding-top:3px; padding-bottom:3px; background-color:#f2f2f2;"
-							id="rs_RankSet_Btn2" onclick="javascript:rs_RankSet()" >
+							id="rs_RankSet_Btn2" onclick="javascript:rs_RankSet2()" class="noselect">
 								11위 20위
 							</span>
 							<div style="border-bottom:1px solid #cccccc; margin-top:3px; margin-left:24px; margin-right:24px; padding-top:10px; height:215px; display:block;" id="rs_RankSet_F1">
