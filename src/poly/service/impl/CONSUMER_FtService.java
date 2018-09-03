@@ -184,6 +184,7 @@ public class CONSUMER_FtService implements CONSUMER_IFtService{ //IUserService�
 		return ftMapper.getFtList_ALL();
 	}
 	
+	
 	//푸드트럭 리스트 가져오기 - 시군구 정보
 	@Override
 	public List<CONSUMER_Ft_InfoDTO> getFtListSigungu(String sigungu) throws Exception {
