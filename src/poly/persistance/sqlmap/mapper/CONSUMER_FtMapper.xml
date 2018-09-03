@@ -25,6 +25,30 @@
 			GT.GPS_SIDO like '%' ||  #{sido}  || '%'  <!-- 시도 검색어를 포함하는 경우  --> 
 			AND FI.FT_STATUS = 0 <!-- 푸드트럭 영업상태가 0, 운행중 -->
 	</select>	
+	
+	<!--전체 푸드트럭 리스트 가져오기 - 시도 -->
+	<select id="getFtList_ALL" resultType="CONSUMER_Ft_InfoDTO">
+		SELECT 
+			FI.FT_SEQ AS ft_seq, <!-- 푸드트럭 번호 -->
+			FI.USER_SEQ AS user_seq, <!-- 푸드트럭 운영자 번호 -->
+			FI.FT_NAME AS ft_name, <!-- 푸드트럭 이름 -->
+			FI.FT_INTRO AS ft_intro, <!-- 푸드트럭 소개 -->
+			FI.FT_OPTIME AS ft_optime, <!-- 푸드트럭 영업시간 -->
+			FI.FT_FUNC AS ft_func, <!-- 푸드트럭 서비스(배달/케이터링/주문예약)  -->
+			FI.FILE_ID AS file_id, <!-- 푸드트럭 이미지 파일 고유 번호 -->
+			GT.GPS_SIDO AS gps_sido, <!-- 푸드트럭 시도구 정보 -->
+			GT.GPS_SIGUNGU AS gps_sigungu, <!-- 푸드트럭 시군구 정보 -->
+			GT.GPS_DONG AS gps_dong, <!-- 푸드트럭 gpsdong 정보 -->
+			GT.GPS_X AS gps_x, <!-- 푸드트럭 위도  -->
+			GT.GPS_Y AS gps_y <!-- 푸드트럭 경도 -->
+		FROM 
+			FT_INFO FI
+		    	INNER JOIN GPS_TABLE GT
+		    	ON  FI.GPS_SEQ = GT.GPS_SEQ
+		WHERE  
+			FI.FT_STATUS = 0 <!-- 푸드트럭 영업상태가 0, 운행중 -->
+	</select>	
+	
 	<!--근처 푸드트럭 리스트 가져오기 - 시군구 -->
 	<select id="getFtListSigungu" parameterType="string" resultType="CONSUMER_Ft_InfoDTO">
 		SELECT 

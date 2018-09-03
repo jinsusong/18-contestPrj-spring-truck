@@ -22,8 +22,10 @@ import poly.dto.admin.ADMIN_Ft_Menu_CateDTO;
 import poly.dto.admin.ADMIN_Ft_ReviewDTO;
 import poly.dto.admin.ADMIN_ImageDTO;
 import poly.dto.admin.ADMIN_Menu_InfoDTO;
+import poly.dto.admin.ADMIN_User_InfoDTO;
 import poly.service.ADMIN_IFtService;
 import poly.service.ADMIN_IImageService;
+import poly.service.ADMIN_IUserService;
 import poly.service.impl.ADMIN_ImageService;
 import poly.util.ADMIN_UtilFile;
 
@@ -31,6 +33,8 @@ import poly.util.ADMIN_UtilFile;
 @Controller
 public class ADMIN_FtController {
 	public Logger log = Logger.getLogger(this.getClass());
+	@Resource(name="ADMIN_UserService")
+	private ADMIN_IUserService userService;
 	
 	@Resource(name="ADMIN_FtService")
 	private ADMIN_IFtService ftService;
@@ -55,12 +59,16 @@ public class ADMIN_FtController {
 	@RequestMapping(value="admin/ft/ft_list")
 	public String ft_list(HttpServletRequest request, Model model) throws Exception{
 		List<ADMIN_Ft_InfoDTO> ftList = ftService.getFT_InfoList();
-		
+		List<ADMIN_User_InfoDTO> uDTOarr = new ArrayList<ADMIN_User_InfoDTO>();
+		for(ADMIN_Ft_InfoDTO ftDTO : ftList) {
+			uDTOarr.add(userService.getUser(ftDTO.getUser_seq()));
+		}
 		//목록 쪼개기
 		model.addAttribute("pageNum", request.getParameter("pageNum"));
 		model.addAttribute("pageSize", request.getParameter("pageSize"));
 
 		model.addAttribute("ftList", ftList);
+		model.addAttribute("uDTOarr", uDTOarr);
 		
 		return "/admin/ft/ft_list";
 	}
@@ -73,6 +81,11 @@ public class ADMIN_FtController {
 		fDTO.setValue(request.getParameter("value"));
 		
 		List<ADMIN_Ft_InfoDTO> ft_SearchList = ftService.getFT_Search(fDTO);
+		List<ADMIN_User_InfoDTO> uDTOarr = new ArrayList<ADMIN_User_InfoDTO>();
+		for(ADMIN_Ft_InfoDTO ftDTO : ft_SearchList) {
+			uDTOarr.add(userService.getUser(ftDTO.getUser_seq()));
+		}
+		model.addAttribute("uDTOarr", uDTOarr);
 		
 		model.addAttribute("option", request.getParameter("option"));
 		model.addAttribute("value", request.getParameter("value"));
@@ -152,9 +165,9 @@ public class ADMIN_FtController {
 				}
 			}else if(cmd.equals("review_list")) { //리뷰 리스트
 				List<ADMIN_Ft_ReviewDTO> ALL_review_List;
-				
 				ALL_review_List = ftService.getFT_Review_List(ft_seq);
 				List<ADMIN_Ft_ReviewDTO> review_List = new ArrayList<ADMIN_Ft_ReviewDTO>();
+				List<ADMIN_User_InfoDTO> uDTOarr = new ArrayList<ADMIN_User_InfoDTO>();
 				
 				//리뷰&답글 분류
 				int reple_cnt = 0;
@@ -165,10 +178,13 @@ public class ADMIN_FtController {
 						reple_cnt = ftService.getReview_Reple_Cnt(search_level);
 						irevDTO.setReple_cnt(reple_cnt);
 						
+						//작성자 셋팅
+						uDTOarr.add(userService.getUser(irevDTO.getUser_seq()));
+						
 						review_List.add(irevDTO);
 					}
 				}
-				
+				model.addAttribute("uDTOarr", uDTOarr);
 				model.addAttribute("review_List", review_List);
 				
 				//게시판 갯수 쪼개기
@@ -181,9 +197,19 @@ public class ADMIN_FtController {
 				revDTO = ftService.getFT_Review_Info(Integer.parseInt(request.getParameter("review_seq")));
 				ALL_review_List = ftService.getFT_Review_List(ft_seq);
 				List<ADMIN_Ft_ReviewDTO> repleList = new ArrayList<ADMIN_Ft_ReviewDTO>();
+				
+				//리뷰 작성자 정보
+				ADMIN_User_InfoDTO rev_uDTO = userService.getUser(revDTO.getUser_seq());
+				
+				List<ADMIN_User_InfoDTO> revp_uDTOarr = new ArrayList<ADMIN_User_InfoDTO>();
+				
 				for(ADMIN_Ft_ReviewDTO revpDTO : ALL_review_List) {
 					String[] array = revpDTO.getRev_level().split("-");
 					if(!String.valueOf(revpDTO.getReview_seq()).equals(revpDTO.getRev_level())&&(Integer.parseInt(request.getParameter("review_seq"))-1)==Integer.parseInt(array[0])) {
+						//리뷰답글 작성자 리스트
+						revp_uDTOarr.add(userService.getUser(revpDTO.getUser_seq()));
+						
+						//리뷰답글 리스트
 						repleList.add(revpDTO);
 					}
 				}
@@ -193,16 +219,22 @@ public class ADMIN_FtController {
 					model.addAttribute("imgDTO", imgDTO);
 				}
 				model.addAttribute("revDTO", revDTO);
+				model.addAttribute("rev_uDTO", rev_uDTO);
+				model.addAttribute("revp_uDTOarr", revp_uDTOarr);
 				model.addAttribute("repleList", repleList);
 			}else if(cmd.equals("review_edit")){ //리뷰 수정
 				ADMIN_Ft_ReviewDTO revDTO = new ADMIN_Ft_ReviewDTO();
 				ADMIN_ImageDTO imgDTO = new ADMIN_ImageDTO();
 				revDTO = ftService.getFT_Review_Info(Integer.parseInt(request.getParameter("review_seq")));
+				//리뷰 작성자 정보
+				ADMIN_User_InfoDTO rev_uDTO = userService.getUser(revDTO.getUser_seq());
+				
 				if(revDTO.getFile_id().equals("-1")) {
 					imgDTO.setFile_orgname("파일없음");
 				}else {
 					imgDTO = imgService.getImageInfo(revDTO.getFile_id());
 				}
+				model.addAttribute("rev_uDTO", rev_uDTO);
 				model.addAttribute("imgDTO", imgDTO);
 				model.addAttribute("revDTO", revDTO);
 			}else if(cmd.equals("category_list")){ //카테고리 리스트
@@ -354,7 +386,7 @@ public class ADMIN_FtController {
 		        
 	//	      파일 업로드 결과값을 path로 받아온다(이미 fileUpload() 메소드에서 해당 경로에 업로드는 끝났음)
 		        String uploadPath = utilFile.fileUpload(request, uploadFile, imgDTO);
-		        imgDTO.setUser_seq(0);
+		        imgDTO.setUser_seq(Integer.parseInt(request.getParameter("user_seq")));
 		        imgDTO.setFile_path(uploadPath);
 	//	      해당 경로만 받아 db에 저장
 		        imgService.Image_Add(imgDTO);

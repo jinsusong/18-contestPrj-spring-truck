@@ -1,6 +1,7 @@
 package poly.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -130,6 +131,13 @@ public class ADMIN_CouponController {
 			model.addAttribute("cpDTOarr", cpDTOarr);
 			List<ADMIN_Coupon_IssueDTO> cpisDTOarr = couponService.getCoupon_Issue_List();
 			model.addAttribute("cpisDTOarr", cpisDTOarr);
+			
+			//쿠폰발급대상 셋팅
+			List<ADMIN_User_InfoDTO> cpis_uDTOarr = new ArrayList<ADMIN_User_InfoDTO>();
+			for(ADMIN_Coupon_IssueDTO cpisDTO : cpisDTOarr) {
+				cpis_uDTOarr.add(userService.getUser(cpisDTO.getUser_seq()));
+			}
+			model.addAttribute("cpis_uDTOarr", cpis_uDTOarr);
 			
 			//게시판 쪼개기
 			model.addAttribute("pageNum", request.getParameter("pageNum"));

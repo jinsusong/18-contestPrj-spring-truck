@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %>
 <%@page import="poly.dto.admin.ADMIN_Ft_ReviewDTO" %>
 <%@page import="poly.dto.admin.ADMIN_ImageDTO" %>
 <%@page import="java.util.List" %>
@@ -7,6 +8,7 @@
 <%
 	ADMIN_Ft_ReviewDTO revDTO = (ADMIN_Ft_ReviewDTO)request.getAttribute("revDTO");
 	ADMIN_ImageDTO imgDTO = (ADMIN_ImageDTO)request.getAttribute("imgDTO");
+	ADMIN_User_InfoDTO rev_uDTO = (ADMIN_User_InfoDTO)request.getAttribute("rev_uDTO");
 %>
 <html>
 <style>
@@ -82,6 +84,7 @@
     	<input type="hidden" name="review_seq" value="<%=revDTO.getReview_seq()%>">
     	<input type="hidden" name="ft_seq" value="<%=revDTO.getFt_seq()%>">
     	<input type="hidden" name="org_file_id" id="org_file_id" value="<%=revDTO.getFile_id() %>">
+    	<input type="hidden" name="user_seq" value="<%=revDTO.getUser_seq()%>">
     	<table width="100%" style="border-top:1px solid #A2A2A2; border-bottom:1px solid #A2A2A2">
     		<tr style="border-bottom:1px solid #EAEAEA;">
     			<td class="table_Hblock" width="14%">게시판</td>
@@ -103,7 +106,7 @@
     		</tr>
     		<tr style="border-bottom:1px solid #EAEAEA;">
     			<td class="table_Hblock">작성자</td>
-    			<td class="table_Cblock">/작성자/</td>
+    			<td class="table_Cblock"><%=rev_uDTO.getUser_nick()%></td>
     			<td class="table_Hblock" width="14%">작성일</td>
     			<td class="table_Cblock"><%=revDTO.getRev_regdate()%></td>
     			<td class="table_Hblock">평점</td>
