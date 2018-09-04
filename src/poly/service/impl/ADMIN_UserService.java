@@ -15,7 +15,13 @@ public class ADMIN_UserService implements ADMIN_IUserService{
 	
 	@Resource(name="ADMIN_User_InfoMapper")
 	private ADMIN_User_InfoMapper user_InfoMapper;
-
+	
+	@Override
+	public ADMIN_User_InfoDTO getUser(int user_seq) throws Exception {
+		// TODO Auto-generated method stub
+		return user_InfoMapper.getUser(user_seq);
+	}
+	
 	@Override
 	public List<ADMIN_User_InfoDTO> getUser_InfoList() throws Exception {
 		// TODO Auto-generated method stub

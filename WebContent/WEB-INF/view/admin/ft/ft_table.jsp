@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="poly.dto.admin.ADMIN_Ft_InfoDTO" %>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %>
 <%@page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
  <% 
  	List<ADMIN_Ft_InfoDTO> ftDTOArr = (List<ADMIN_Ft_InfoDTO>)request.getAttribute("ftList");
+ 	List<ADMIN_User_InfoDTO> uDTOarr = (List<ADMIN_User_InfoDTO>)request.getAttribute("uDTOarr");
  	
  	if(ftDTOArr == null){
  		ftDTOArr = (List<ADMIN_Ft_InfoDTO>)request.getAttribute("ft_SearchList");
@@ -124,7 +126,7 @@
 					<td  style="cursor:pointer;" onclick="location.href='<%=request.getContextPath()%>/admin/ft/ft_info.do?ft_seq=<%=ftDTOArr.get(i).getFt_seq()%>'">
 						<%=ftDTOArr.get(i).getFt_name() %>
 					</td>
-					<td>유저 이메일 (닉네임)</td>
+					<td><%=uDTOarr.get(i).getUser_email()%> (<%=uDTOarr.get(i).getUser_nick()%>)</td>
 					<td><%=ftDTOArr.get(i).getSel_no() %></td>
 					<td><%=ftDTOArr.get(i).getFt_join() %></td>
 					<td>

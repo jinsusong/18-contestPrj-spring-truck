@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="poly.dto.admin.ADMIN_User_InfoDTO" %>
 <%@page import="poly.dto.admin.ADMIN_Board_PostDTO" %>
 <%@page import="poly.dto.admin.ADMIN_Board_RepleDTO" %>
 <%@page import="poly.dto.admin.ADMIN_ImageDTO" %>
@@ -10,6 +11,8 @@
 	ADMIN_Board_PostDTO bpDTO = (ADMIN_Board_PostDTO)request.getAttribute("bpDTO");
 	List<ADMIN_Board_RepleDTO> repleList = (List<ADMIN_Board_RepleDTO>)request.getAttribute("repleList");
 	ADMIN_ImageDTO imgDTO = (ADMIN_ImageDTO)request.getAttribute("imgDTO");
+	ADMIN_User_InfoDTO bp_uDTO = (ADMIN_User_InfoDTO)request.getAttribute("bp_uDTO");
+	List<ADMIN_User_InfoDTO> br_uDTOarr = (List<ADMIN_User_InfoDTO>)request.getAttribute("br_uDTOarr");
 %>
 <html>
 <style>
@@ -139,7 +142,7 @@
     		</tr>
     		<tr style="border-bottom:1px solid #EAEAEA;">
     			<td class="table_Hblock">작성자</td>
-    			<td class="table_Cblock">/작성자/</td>
+    			<td class="table_Cblock"><%=bp_uDTO.getUser_nick()%></td>
     			<td class="table_Hblock" width="14%">작성일</td>
     			<td class="table_Cblock"><%=bpDTO.getReg_date()%></td>
     			<td class="table_Hblock">조회수</td>
@@ -160,10 +163,10 @@
     			<td class="table_Hblock">댓글</td>
     			<td colspan="5" style="padding:8px;">
     				<table width="100%" style="border-top:1px solid #DDDDDD; border-bottom:1px solid #DDDDDD;">
-    				<%if(repleList!=null){ %>
-    				<%for(ADMIN_Board_RepleDTO brDTO : repleList){ %>
+    				<%if(repleList!=null){ int i=0;%>
+    				<%for(ADMIN_Board_RepleDTO brDTO : repleList){%>
     					<tr style="border-bottom:1px solid #DDDDDD;">
-    						<td class="reple_block" width="15%">/작성자/</td>
+    						<td class="reple_block" width="15%"><%=br_uDTOarr.get(i).getUser_nick()%></td>
     						<td class="textarea_block">
     							<%if(!brDTO.getBoard_reple_level().equals(String.valueOf(brDTO.getReple_seq()))){ %>
    									<img src="<%=request.getContextPath()%>/resources/img/admin/reple_icon.png">
@@ -182,7 +185,7 @@
     							<input type="button"  value="삭제" class="btn btn-default" onClick="location.href='<%=request.getContextPath()%>/board_reple/board_reple_delete.do?board_p_seq=<%=brDTO.getBoard_p_seq()%>&reple_seq=<%=brDTO.getReple_seq()%>'">
     						</td>
     					</tr>
-    				<%}
+    				<%i++;}
     				} %>
     					<tr>
 	    					<form action="<%=request.getContextPath()%>/admin/board_reple/board_reple_create.do" method="post">
