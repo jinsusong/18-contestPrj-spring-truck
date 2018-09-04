@@ -17,7 +17,7 @@
 			FT_FUNC,
 			FT_CHAN,
 			FT_STATUS
-		FROM FT_INFO
+		FROM FT_INFO ORDER BY FT_SEQ DESC
 	</select>
 	
 	<select id="getFT_Search" parameterType="ADMIN_Ft_InfoDTO" resultType="ADMIN_Ft_InfoDTO">
@@ -36,7 +36,7 @@
 			FT_CHAN,
 			FT_STATUS
 		FROM FT_INFO
-		WHERE ${option} LIKE '%'||#{value}||'%'
+		WHERE ${option} LIKE '%'||#{value}||'%' ORDER BY FT_SEQ DESC
 	</select>
 	
 	<update id="ft_Active" parameterType="ADMIN_Ft_InfoDTO">

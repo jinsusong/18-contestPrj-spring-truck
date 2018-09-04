@@ -5,13 +5,13 @@
         http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd">
 	
     <!-- oracle Connection Pool -->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+  <!--   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
         destroy-method="close">
 	    <property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
-	    <!-- <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:DATA16" /> -->
+	    <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:DATA16" />
 	    <property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.170.104:1521:DATA16" />
-	    <property name="user" value="web" /> <!-- 오라클 계정 : 아이디 -->
-	    <property name="password" value="1234" /> <!-- 오라클 계정 : 비밀번호 -->
+	    <property name="user" value="web" /> 오라클 계정 : 아이디
+	    <property name="password" value="1234" /> 오라클 계정 : 비밀번호
 	    <property name="initialPoolSize" value="5" />
 	    <property name="maxPoolSize" value="30" />
 	    <property name="minPoolSize" value="5" />
@@ -22,6 +22,23 @@
 	    <property name="preferredTestQuery" value="SELECT 1 FROM DUAL" />
 	    <property name="testConnectionOnCheckin" value="true" />
 	    <property name="testConnectionOnCheckout" value="false" />
-	</bean>
-    
+	</bean> -->
+    	
+    <!-- oracle Connection Pool -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        lazy-init="false">
+ 
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://192.168.170.104:3306/trwn?useSSL=false&amp;serverTimezone=Asia/Seoul" />
+        <property name="username" value="trwn" />
+        <property name="password" value="admin" />
+    </bean>
+  
+<!-- Definition for employeeJDBCTemplate bean -->
+<!--    <bean id="employeeJDBCTemplate" 
+      class="springcore.springcore.EmployeeJDBCTemplate">
+      <property name="dataSource"  ref="dataSource" />    
+   </bean> -->
 </beans>
+

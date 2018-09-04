@@ -1,9 +1,11 @@
 package poly.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import poly.dto.consumer.CONSUMER_BoardDTO;
 import poly.dto.consumer.CONSUMER_BoardRepleDTO;
+import poly.dto.consumer.CONSUMER_FtLikeDTO;
 import poly.dto.consumer.CONSUMER_UserDTO;
 import poly.service.CONSUMER_IBoardService;
 import poly.service.CONSUMER_IUserService;
@@ -72,6 +75,7 @@ public class CONSUMER_BoardController {
 		log.info("getUesrEmail : " + userEmail);
 		String userSeq = request.getParameter("userSeq");
 		log.info("getUserSeq : " + userSeq);
+		String regDate = UtilTime.getDateYMDhms();
 		
 		//변수들을 각각 넘기면 코드가 길어지고 귀찮으니까 DTO를 사용한다.
 		CONSUMER_BoardDTO bDTO = new CONSUMER_BoardDTO();
@@ -83,6 +87,8 @@ public class CONSUMER_BoardController {
 		log.info("setBoardSeq : " + bDTO.getBoardSeq());
 		bDTO.setUserSeq(userSeq);
 		log.info("setUserSeq : " + bDTO.getUserSeq());
+		bDTO.setRegDate(regDate);
+		log.info("setRegDate: " + bDTO.getRegDate());
 		
 		int result = boardService.insertBoardDTO(bDTO);
 		log.info("result full!!");
@@ -107,20 +113,17 @@ public class CONSUMER_BoardController {
 	@RequestMapping(value="consumer/board/boardList")
 	public String boardList(HttpServletRequest request, Model model, HttpSession session) throws Exception{
 		log.info("boardList Start");
-		String userEmail = CmmUtil.nvl((String)session.getAttribute("userEmail"));
-		if("".equals(userEmail)) {
+		
+		String userSeq = CmmUtil.nvl((String)session.getAttribute("userSeq"));
+		if("".equals(userSeq)) {
 			model.addAttribute("msg", "로그인 후 이용하시기 바랍니다.");
 			model.addAttribute("url", "/cmmn/main.do");
 			return "/cmmn/alert";
 		}
 		
-		log.info("userEmail 아이디 받기 : " + userEmail);
+		log.info("userSeq 아이디 받기 : " + userSeq);
 															
-		CONSUMER_UserDTO uDTO = new CONSUMER_UserDTO();
-		uDTO.setUserEmail(userEmail);
-		log.info(uDTO.getUserEmail());
-		
-		List<CONSUMER_BoardDTO> bList = boardService.getBoardList();
+		List<CONSUMER_BoardDTO> bList = boardService.getBoardList(userSeq); //현재 로그인된 회원번호와 일치하는 게시물만 가져옴
 		model.addAttribute("bList", bList);
 		
 		//현재 날짜를 보냅니다.
@@ -320,6 +323,30 @@ public class CONSUMER_BoardController {
 		
 		log.info("comment End");
 		return rList;
+		
+	}
+	
+
+	
+	//게시글 리스트 더 불러오기 - AJAX
+	@RequestMapping(value="consumer/board/getListMore", method=RequestMethod.POST)
+	public @ResponseBody List<CONSUMER_BoardDTO> getListMore(HttpServletRequest request, Model model, HttpServletResponse response )throws Exception{
+		log.info(this.getClass() + "consumer/board/getListMore start !!!");
+		String boardSeq = CmmUtil.nvl(request.getParameter("boardSeq"));
+		String count = CmmUtil.nvl(request.getParameter("count"));
+		
+		log.info("boardSeq ........" + boardSeq);
+		log.info("count ........" + count);
+		
+		List<CONSUMER_BoardDTO> bDTOmore = boardService.getNoticeListMore(Integer.parseInt(count));
+		log.info("bDTOmore 확인");
+		for(int i = 0; i < bDTOmore.size(); i++) {
+			log.info(bDTOmore.get(i).getTitle());
+		}
+		
+		
+		log.info(this.getClass() + "consumer/board/getListMore end !!!");
+		return bDTOmore;
 		
 	}
 	

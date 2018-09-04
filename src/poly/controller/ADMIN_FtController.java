@@ -305,7 +305,7 @@ public class ADMIN_FtController {
 		        //System.out.println("RewardController reAddProCtrl n : " + n);
 		        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
 				
-		        ftDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)-1));
+		        ftDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)));
 			}else { //업로드된 파일 없을때
 				if(request.getParameter("org_file_id")!="-1"){//변경이 없을경우
 					System.out.println(request.getParameter("org_file_id"));
@@ -362,7 +362,7 @@ public class ADMIN_FtController {
 		        //System.out.println("RewardController reAddProCtrl n : " + n);
 		        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
 				
-		        revDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)-1));
+		        revDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)));
 			}else { //업로드된 파일 없을때
 				if(request.getParameter("org_file_id")!="-1"){//변경이 없을경우
 					System.out.println(request.getParameter("org_file_id"));
@@ -435,7 +435,7 @@ public class ADMIN_FtController {
 		        //System.out.println("RewardController reAddProCtrl n : " + n);
 		        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
 				
-		        revDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)-1));
+		        revDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)));
 			}else {
 				revDTO.setFile_id("-1");
 			}
@@ -617,7 +617,7 @@ public class ADMIN_FtController {
 		        //System.out.println("RewardController reAddProCtrl n : " + n);
 		        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
 				
-		        menuDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)-1));
+		        menuDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)));
 			}else {
 				menuDTO.setFile_id("-1");
 			}
@@ -671,7 +671,7 @@ public class ADMIN_FtController {
 		        //System.out.println("RewardController reAddProCtrl n : " + n);
 		        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
 				
-		        menuDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)-1));
+		        menuDTO.setFile_id(String.valueOf(Integer.parseInt(file_id)));
 			}else { //업로드된 파일 없을때
 				if(request.getParameter("org_file_id")!="-1"){//변경이 없을경우
 					System.out.println(request.getParameter("org_file_id"));
