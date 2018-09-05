@@ -3,6 +3,7 @@ package poly.persistance.mapper;
 import java.util.List;
 
 import config.Mapper;
+import poly.dto.consumer.CONSUMER_BoardCounterDTO;
 import poly.dto.consumer.CONSUMER_BoardDTO;
 import poly.dto.consumer.CONSUMER_BoardRepleDTO;
 
@@ -18,6 +19,5 @@ public interface CONSUMER_BoardMapper {
 	public List<CONSUMER_BoardRepleDTO> getComment(CONSUMER_BoardRepleDTO rDTO) throws Exception;
 	public List<CONSUMER_BoardRepleDTO> commentList(String boardPSeq) throws Exception;
 	public CONSUMER_BoardDTO getNoticeDetail(String boardPSeq) throws Exception;
-	public List<CONSUMER_BoardDTO> getNoticeListMore(int count) throws Exception;
+	public List<CONSUMER_BoardDTO> getNoticeListMore(CONSUMER_BoardCounterDTO bcDTO) throws Exception;
 }
-

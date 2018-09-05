@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import poly.dto.consumer.CONSUMER_BoardCounterDTO;
 import poly.dto.consumer.CONSUMER_BoardDTO;
 import poly.dto.consumer.CONSUMER_BoardRepleDTO;
 import poly.dto.consumer.CONSUMER_FtLikeDTO;
@@ -337,8 +338,12 @@ public class CONSUMER_BoardController {
 		
 		log.info("boardSeq ........" + boardSeq);
 		log.info("count ........" + count);
-		
-		List<CONSUMER_BoardDTO> bDTOmore = boardService.getNoticeListMore(Integer.parseInt(count));
+		CONSUMER_BoardCounterDTO bcDTO = new CONSUMER_BoardCounterDTO();
+		bcDTO.setFirstCounter(5*Integer.parseInt(count));
+		bcDTO.setLastCounter(5); //갯수
+		log.info(bcDTO.getFirstCounter());
+		log.info(bcDTO.getLastCounter());
+		List<CONSUMER_BoardDTO> bDTOmore = boardService.getNoticeListMore(bcDTO);
 		log.info("bDTOmore 확인");
 		for(int i = 0; i < bDTOmore.size(); i++) {
 			log.info(bDTOmore.get(i).getTitle());

@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import poly.dto.consumer.CONSUMER_BoardCounterDTO;
 import poly.dto.consumer.CONSUMER_BoardDTO;
 import poly.dto.consumer.CONSUMER_BoardRepleDTO;
 import poly.persistance.mapper.CONSUMER_BoardMapper;
@@ -77,10 +78,9 @@ public class CONSUMER_BoardService implements CONSUMER_IBoardService{
 		return boardMapper.getNoticeDetail(boardPSeq);
 	}
 
-	@Override
-	public List<CONSUMER_BoardDTO> getNoticeListMore(int count) throws Exception {
-		return boardMapper.getNoticeListMore(count);
-	}
 
-	
+	@Override
+	public List<CONSUMER_BoardDTO> getNoticeListMore(CONSUMER_BoardCounterDTO bcDTO) throws Exception {
+		return boardMapper.getNoticeListMore(bcDTO);
+	}
 }
