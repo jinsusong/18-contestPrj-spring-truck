@@ -9,7 +9,7 @@
 	
 	INSERT INTO FT_INFO
 	(
-		FT_SEQ,
+		
 		FILE_ID,
 		SEL_NAME,
 		SEL_NO,
@@ -24,21 +24,23 @@
 	)
 	VALUES
 	(
-		FT_SEQ.NEXTVAL,
+		
 		#{fileId},
 		#{selName},
 		#{selNo},
 		#{ftName},
 		#{ftIntro},
-		SYSDATE,
+		#{ftJoin},
 		#{ftOptime},
 		#{ftFunc},
 		#{ftStatus},
 		#{userSeq}
 	)
+	<!-- 
 	<selectKey resultType="string" keyProperty="fileId" order="AFTER">
 		SELECT FILE_SEQ.CURRVAL AS FILE_ID FROM DUAL
-	</selectKey>
+	</selectKey> 
+	-->
 	<!-- SELECT LAST_INSERT_ID() 리턴값을 PARAMETERTYPE에 넘겨준 객체에 넘어간다? GETmenuno????
 	한결이형한테 물어봐야함  -->
 	
@@ -127,8 +129,8 @@
 		SELECT
 			SUM(ORD_SUMPRICE) AS ord_sumprice
 		FROM ORDER_INFO
-		WHERE ORD_DATE BETWEEN SYSDATE-7 
-			AND SYSDATE AND ORD_STATUS=1 
+		WHERE ORD_DATE BETWEEN date_add(now(),interval -7 day) 
+			AND now() AND ORD_STATUS=1
 			AND USER_SEQ=#{userSeq}
 	</select>
 	
@@ -140,8 +142,8 @@
 			ORD_DATE AS ord_date,
 			ORD_STATUS AS ord_status
 		FROM ORDER_INFO
-		WHERE ORD_DATE BETWEEN SYSDATE-7 
-			AND SYSDATE AND ORD_STATUS=1 
+		WHERE ORD_DATE BETWEEN date_add(now(),interval -7 day) 
+			AND now() AND ORD_STATUS=1 
 			AND USER_SEQ=#{userSeq}
 		ORDER BY ORD_DATE DESC
 	</select>
@@ -149,22 +151,35 @@
 	<select id="getMonthChart" parameterType="SELLER_FtSellerDTO" resultType="SELLER_OrderInfoDTO">
 		SELECT 
 		  SUM(ORD_SUMPRICE) AS ord_sumprice,
-		  SUBSTR(ORD_DATE,1,5) AS ord_date
+		  SUBSTR(ORD_DATE,4,2) AS ord_date
 		FROM ORDER_INFO
-		WHERE FT_SEQ = 5 AND ORD_DATE LIKE '18%'
-		GROUP BY SUBSTR(ORD_DATE,1,5)
-		ORDER BY SUBSTR(ORD_DATE,1,5) ASC
+		WHERE FT_SEQ = #{ftSeq} AND ORD_DATE LIKE '18%'
+		GROUP BY SUBSTR(ORD_DATE,4,2)
+		ORDER BY SUBSTR(ORD_DATE,4,2) ASC
 	</select>
 	<!-- 최근 7일간 매출 차트 불러오기 -->
-	<select id="latelyWeek" parameterType="string" resultType="SELLER_OrderInfoDTO">
+	<select id="latelyWeek" parameterType="SELLER_FtSellerDTO" resultType="SELLER_OrderInfoDTO">
 	SELECT 
         SUM(ORD_SUMPRICE) AS ord_sumprice,
         SUBSTR(ORD_DATE,1,8) AS ord_date
       FROM ORDER_INFO
-      WHERE USER_SEQ=#{userSeq} AND ORD_DATE BETWEEN SYSDATE-7 
-         AND SYSDATE
+      WHERE FT_SEQ=#{ftSeq} AND ORD_DATE BETWEEN date_add(now(),interval -7 day) 
+         AND now()
       GROUP BY SUBSTR(ORD_DATE,1,8)
-      ORDER BY SUBSTR(ORD_DATE,1,8) DESC
+      ORDER BY SUBSTR(ORD_DATE,1,8) ASC
 	</select>
+	<!-- 7일 매출 0 insert  -->
+	<insert id="insertwList" parameterType="SELLER_FtSellerDTO">
+		INSERT INTO ORDER_INFO
+		(ORD_SEQ, USER_SEQ, ORD_SUMPRICE, ORD_DATE, ORD_STATUS,FT_SEQ)
+		VALUES
+		( null, -10, 0, CURDATE()- INTERVAL 6 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 5 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 4 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 3 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 2 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 1 DAY, 1,#{ftSeq}),
+		( null, -10, 0, CURDATE()- INTERVAL 0 DAY, 1,#{ftSeq})
+	</insert>
 	
 </mapper>

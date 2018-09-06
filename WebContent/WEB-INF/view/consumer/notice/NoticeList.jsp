@@ -1,83 +1,110 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<%@ page import="poly.util.CmmUtil" %>
-<%@ page import="poly.dto.consumer.CONSUMER_NoticeDTO" %>
-<%@ page import="java.util.List"%>   
-<%@ page import="java.util.ArrayList"%> 
-<%@ page import="java.util.HashMap"%>    
+<%@page import="java.util.List"%>
+<%@page import="poly.dto.consumer.CONSUMER_BoardDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
-	session.setAttribute("SESSION_USER_ID", "USER01"); //¼¼¼Ç °­Á¦ Àû¿ë, ·Î±×ÀÎµÈ »óÅÂ·Î º¸¿©ÁÖ±â À§ÇÔ
-
-	List<CONSUMER_NoticeDTO> rList =	(List<CONSUMER_NoticeDTO>)request.getAttribute("rList");
-
-	//°Ô½ÃÆÇ Á¶È¸ °á°ú º¸¿©ÁÖ±â
-	if (rList==null){
-		rList = new ArrayList<CONSUMER_NoticeDTO>();
-		
-}
-
-%>        
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>°øÁö ¸®½ºÆ®</title>
-<script type="text/javascript">
-
-//»ó¼¼º¸±â ÀÌµ¿
-function doDetail(seq){
-	location.href="/notice/NoticeInfo.do?nSeq="+ seq;
-}
-
-</script>	
-</head>
-<body>
-<h2>°øÁö»çÇ×</h2>
-<hr/>
-<br/>
-
-<table border="1" width="600px">
-<tr>
-	<td width="100" align="center">¼ø¹ø</td>
-	<td width="200" align="center">Á¦¸ñ</td>
-	<td width="100" align="center">Á¶È¸¼ö</td>
-	<td width="100" align="center">µî·ÏÀÚ</td>
-	<td width="100" align="center">µî·ÏÀÏ</td>
-</tr>
-<%
-for (int i=0;i<rList.size();i++){
-	CONSUMER_NoticeDTO rDTO = rList.get(i);
-
-	if (rDTO==null){
-		rDTO = new CONSUMER_NoticeDTO();
-	}
+	List<CONSUMER_BoardDTO> bList = (List<CONSUMER_BoardDTO>)request.getAttribute("bList");
+	String []today = (String[]) request.getAttribute("today");
 	
 %>
-<tr>
-	<td align="center">
-	<%
-	//°øÁö±ÛÀÌ¶ó¸é, [°øÁö]Ç¥½Ã 
-	if (CmmUtil.nvl(rDTO.getNotice_yn()).equals("1")){
-		out.print("<b>[°øÁö]</b>");
-		
-	//°øÁö±ÛÀÌ ¾Æ´Ï¶ó¸é, ±Û¹øÈ£ º¸¿©ÁÖ±â 		
-	}else{
-		out.print(CmmUtil.nvl(rDTO.getNotice_seq()));
-			
-	}
-	%></td>
-	<td align="center">
-		<a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getNotice_seq())%>');">
-		<%=CmmUtil.nvl(rDTO.getTitle()) %></a>
-	</td>
-	<td align="center"><%=CmmUtil.nvl(rDTO.getRead_cnt()) %></td>
-	<td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %></td>
-	<td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %></td>
-</tr>
-<%
-}
-%>
-</table>
-<a href="/notice/NoticeReg.do">[±Û¾²±â]</a>
+
+<html>
+<head>
+<title>íŠ¸ëŸ­ì™”ëƒ  - ê³µì§€ì‚¬í•­</title>
+<%@ include file="/WEB-INF/view/consumer/topCssScript.jsp" %>
+<style>
+	
+</style>
+</head>
+<body>
+<%@include file="/WEB-INF/view/consumer/topBody.jsp" %>
+				<div class="container-fluid" style="text-align:left;">
+					<div class="row" style="border-bottom:1px solid #eeeeee; padding:8px 0;">
+						<div class="col-xs-12" style="font-size:20px;">
+							<h5>íŠ¸ëŸ­ì™”ëƒ  ê³µì§€ì‚¬í•­</h5>
+						</div>
+						<div class="clearfix visible-xs"></div>
+					</div>
+				<%for (int i = 0; i < bList.size(); i++) {%>
+					<%String regDate[] = bList.get(i).getRegDate().split("/"); %>
+					<%String []regDateSub = regDate[0].split("\\. "); %>
+					<%boolean newListCheck = regDateSub[0].equals(today[0]) && regDateSub[1].equals(today[1]) && regDateSub[2].equals(today[2]);%>
+					<div class="row" style=" padding:8px 0;">
+						<span style="font-size:15px; color:red; padding:0px; position:absolute; margin-top:5px; ">
+							<%if(newListCheck) {%>
+								ã†
+							<%}%>	
+						</span>
+						<div class="col-xs-12" style="font-size:20px;">
+							<a href="/consumer/board/boardDetail.do?boardPSeq=<%=bList.get(i).getBoardPSeq()%>&boardSeq=1">
+								<%=bList.get(i).getTitle() %>
+							</a>
+						</div>
+						<div class="clearfix visible-xs"></div>
+					</div>
+					<div class="row" style="border-bottom:1px solid #eeeeee; padding:8px 0;">
+						<div class="col-xs-3" style="color:#9f9f9f;">ê´€ë¦¬ì</div>
+							<!-- í˜„ì¬ë‚ ì§œì™€ ê°™ì„ ê²½ìš° mm:ss ë§Œ í‘œì‹œ -->
+						<div class="col-xs-6" style="color:#9f9f9f;">
+							<%if(newListCheck) {%>
+								<%=regDate[1].substring(0,6) %>
+							<%}else { %>
+								<%=regDate[0]%>
+							<%} %>
+						</div>
+						<div class="clearfix visible-xs"></div>
+					</div>
+				<%}%>
+					<div id="moreList"></div>
+					<div id="moreButton" class="row" style="text-align:center;">
+						<button type="button" onclick="loadList()" class="btn btn-light" style="width:100%;">ë” ë³´ê¸°</button>
+					</div>
+				</div>
+				
 </body>
+<script>
+	var count = 1;
+	
+	function loadList(){
+		var request = $.ajax({
+			url : "/consumer/board/getListMore.do",
+			method : "POST",
+			data :{ boardSeq : 1,
+					count : count},
+		})
+		var contentsCounter=0; /* ì»¨í…ì¸  ê°¯ìˆ˜ê°€ 4ê°œ ì´í•˜ì´ë©´ ë”ë³´ê¸° ë²„íŠ¼ì„ ì—†ì•° */
+		var contents = '';
+		request.done(function(data){
+			$.each(data, function(key,value){
+				contentsCounter++;
+				contents += '<div class="row" style=" padding:8px 0;">';
+				contents += '<span style="font-size:15px; color:red; padding:0px; position:absolute; margin-top:5px; "></span>';
+				contents += '<div class="col-xs-12" style="font-size:20px;">';
+				contents += '<a href="/consumer/board/boardDetail.do?boardPSeq='+ value.boardPseq + '&boardSeq=1">';
+				contents += value.title;
+				contents += '</a>';
+				contents += '</div>';
+				contents += '<div class="clearfix visible-xs"></div>';
+				contents += '</div>';
+				contents += '<div class="row" style="border-bottom:1px solid #eeeeee; padding:8px 0;">';	
+				contents += '<div class="col-xs-3" style="color:#9f9f9f;">ê´€ë¦¬ì</div>';
+				contents += '<div class="col-xs-6" style="color:#9f9f9f;">';
+				contents += value.regDate;
+				contents += '</div>';
+				contents += '<div class="clearfix visible-xs"></div>';
+				contents += '</div>';
+			})
+				
+				$('#moreList').append(contents);
+			count++;
+			if(contentsCounter < 5) {
+				$('#moreButton').html('');
+					
+			}
+		});
+		request.fail(function  (jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+		});
+	}
+</script>
 </html>

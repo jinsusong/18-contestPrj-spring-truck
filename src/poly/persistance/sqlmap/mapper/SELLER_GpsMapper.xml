@@ -7,7 +7,6 @@
 	<insert id="setGps" parameterType="SELLER_Gps_TableDTO">
 		INSERT INTO GPS_TABLE
 			(
-				GPS_SEQ,
 				USER_SEQ,
 				GPS_RENEW_DATE,
 				GPS_SIDO,
@@ -18,7 +17,6 @@
 			)
 			VALUES
 			(
-				GPS_SEQ.NEXTVAL,
 				#{user_seq},
 				#{gps_renew_date},
 				#{gps_sido},
@@ -29,20 +27,24 @@
 			)
 	</insert>
 	<update id="updateGps" parameterType="integer">
-		UPDATE FT_INFO
+			UPDATE FT_INFO FI
 			SET
-				GPS_SEQ = 
-				(	SELECT GPS_SEQ
-					
+				FI.GPS_SEQ = 
+				(	
+					SELECT 
+						GT.GPS_SEQ
 					FROM 
-						( SELECT GPS_SEQ,USER_SEQ FROM GPS_TABLE WHERE USER_SEQ = #{user_seq} ORDER BY GPS_RENEW_DATE DESC)
+						( 
+							SELECT GPST.*, <![CDATA[@RNUM := @RNUM+1 ROWNUM ]]>	
+							FROM GPS_TABLE GPST, <![CDATA[(SELECT @RNUM:=0) R]]>  
+							WHERE GPST.USER_SEQ = #{user_seq} 
+							ORDER BY GPST.GPS_RENEW_DATE DESC
+						) GT
 					WHERE
-						<![CDATA[ROWNUM = 1]]>	
+						<![CDATA[GT.ROWNUM = 1]]>	
 	    	    )
 			WHERE
-				USER_SEQ = #{user_seq}
-				
-		
+				FI.USER_SEQ = #{user_seq}
 	</update>
 	
 </mapper>

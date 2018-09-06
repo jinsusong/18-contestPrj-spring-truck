@@ -49,35 +49,29 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 	public HashMap<String, Object> insertFtSInfo(HashMap<String, Object> hMap) throws Exception {
 		System.out.println("insertFtSInfo service Start!!");
 		System.out.println("hMap : " + hMap.get("ftSDTO"));
-		System.out.println("hMap : " + hMap.get("imgDTO"));
-		
-		
 		
 		SELLER_FtSellerDTO ftsDTO =(SELLER_FtSellerDTO)hMap.get("ftSDTO");
 		System.out.println("ftsDTO service : " + ftsDTO.getFtName());
-		SELLER_ImageDTO imgDTO = (SELLER_ImageDTO)hMap.get("imgDTO");
+		//SELLER_ImageDTO imgDTO = (SELLER_ImageDTO)hMap.get("imgDTO");
 		//System.out.println("imgDTO . fileId : " + imgDTO.getFileId());
 		
 		
-		
 		int resultFtReg = sELLER_FtSellerMapper.insertFtSInfo(ftsDTO);
+		
 		System.out.println("resultFtReg : " + resultFtReg);
 		
-		System.out.println("ftsDTO fileId : " + ftsDTO.getFileId());
+		//System.out.println("ftsDTO fileId : " + ftsDTO.getFileId());
 		//select key 에서 받아온 값을 String FileId 저장 ?? 
-		String FileId =(String)ftsDTO.getFileId();
-		System.out.println("fileId : " + FileId);
-	//	imgDTO.setFileId(FileId);
+		//String FileId =(String)ftsDTO.getFileId();
+		//System.out.println("fileId : " + FileId);
+		//	imgDTO.setFileId(FileId);
 		
-		
-	//	int resultImgReg = sELLER_FtSellerMapper.insertftsImg(imgDTO);
-	//	System.out.println("imgDTO . result fileId : " + imgDTO.getFileId());
-	//	System.out.println("resultImgReg : " + resultImgReg);
+		//	int resultImgReg = sELLER_FtSellerMapper.insertftsImg(imgDTO);
+		//	System.out.println("imgDTO . result fileId : " + imgDTO.getFileId());
+		//	System.out.println("resultImgReg : " + resultImgReg);
 		
 		hMap.put("resultFtReg", resultFtReg);
-	//	hMap.put("resultImgReg",resultImgReg );
-		
-		
+		//	hMap.put("resultImgReg",resultImgReg );
 		
 		System.out.println("insertFtSInfo service end!!!");
 		return hMap;
@@ -150,13 +144,23 @@ public class SELLER_FtSellerService implements SELLER_IFtSellerService {
 	@Override
 	public List<SELLER_OrderInfoDTO> getMonthChart(SELLER_FtSellerDTO ftsDTO) throws Exception {
 		// TODO Auto-generated method stub
+		System.out.println("service ftSeq: "+ ftsDTO.getFtSeq());
 		return sELLER_FtSellerMapper.getMonthChart(ftsDTO);
 	}
 
 	@Override
-	public List<SELLER_OrderInfoDTO> latelyWeek(String userSeq) throws Exception {
+	public List<SELLER_OrderInfoDTO> latelyWeek(SELLER_FtSellerDTO ftsDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return sELLER_FtSellerMapper.latelyWeek(userSeq);
+		return sELLER_FtSellerMapper.latelyWeek(ftsDTO);
+	}
+
+	@Override
+	public List<SELLER_OrderInfoDTO> insertwList(SELLER_FtSellerDTO ftsDTO) throws Exception {
+		// TODO Auto-generated method stub
+		int result = sELLER_FtSellerMapper.insertwList(ftsDTO);
+		System.out.println("service result : " + result);
+		
+		return sELLER_FtSellerMapper.latelyWeek(ftsDTO);
 	}
 
 

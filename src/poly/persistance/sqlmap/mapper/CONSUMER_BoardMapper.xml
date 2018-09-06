@@ -49,37 +49,23 @@
 			TITLE AS title,
 			CONTENT,
 			REG_DATE AS regDate
-		FROM 
-			SELECT *, <![CDATA[@RNUM := @RNUM+1 ROWNUM ]]>
-			(
-				SELECT * FROM BOARD_POST
-				WHERE BOARD_SEQ='1'
-				ORDER BY REG_DATE DESC 
-			) BP, <![CDATA[(SELECT @RNUM:=0) R]]> 
-		WHERE 
-			<![CDATA[ ROWNUM <=  5]]>
+		FROM BOARD_POST 
+		WHERE BOARD_SEQ='1'
+		ORDER BY REG_DATE DESC 
+        Limit 5;
 	</select>
 	
 	<!-- 공지사항 리스트 더 보기 -->
-	<select id="getNoticeListMore" parameterType="integer" resultType="CONSUMER_BoardDTO">
-		SELECT 
+	<select id="getNoticeListMore" parameterType="CONSUMER_BoardCounterDTO" resultType="CONSUMER_BoardDTO">
+		SELECT
 			BOARD_P_SEQ AS boardPSeq,
 			TITLE AS title,
 			CONTENT,
-			REG_DATE AS regDate,
-      		rnum
-		FROM 	(
-					SELECT * 
-					FROM BOARD_POST
-					WHERE BOARD_SEQ='1'
-					ORDER BY rnum DESC
-				)
-    	WHERE 
-    		<![CDATA[ 
-    			rnum > 5*(#{listCount}-1) AND
-    			rnum <= 5 * (#{listCount})
-    		]]>
-    	ORDER BY rnum desc
+			REG_DATE AS regDate
+		FROM BOARD_POST
+		WHERE BOARD_SEQ='1'
+		ORDER BY REG_DATE DESC
+		limit #{firstCounter}, #{lastCounter};
 	</select>
 	
 	<!-- 고객센터 글 자세히 보기 -->
@@ -119,8 +105,7 @@
 	<update id="updateBoard" parameterType="CONSUMER_BoardDTO">
 		UPDATE BOARD_POST
 			SET TITLE=#{title},
-				CONTENT=#{content},
-				REG_DATE=SYSDATE
+				CONTENT=#{content}
 			WHERE BOARD_P_SEQ=#{boardPSeq}
 	</update>
 	

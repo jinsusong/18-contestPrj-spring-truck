@@ -14,6 +14,12 @@
 					<a href="/out/out_info.do?ft_seq=0">out</a> |
 					<a href="/ft/ftReg.do">트럭등록</a> | -->
 				</div>
-				<div align="left" style="color:white;">
-					Copyright © 트럭왔냠. All rights reserved.
+				<!-- Footer -->
+		
+			<footer id="footer" class="wrapper" style="padding:0; background-color:#444">
+					<div class="copyright">
+						&copy; Copyright © <a href="#">트럭왔냠.</a>, All rights reserved.
+						 
+					</div>
 				</div>
+			</footer> 

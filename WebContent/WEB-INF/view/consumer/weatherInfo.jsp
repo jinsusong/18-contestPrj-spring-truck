@@ -15,7 +15,6 @@
 	* {
 		word-break:break-all;
 	}
-
 	</style>
 </head>
 <body>
@@ -26,22 +25,19 @@
 		<div class="panel panel-default">
 			<div class="panel panel-body" style="margin:0;">
 	  			<div class="row">
-					<div class="col-xs-2" style="height:48px;"></div>
-					<div class="col-xs-6" style="height:48px;"><h3 style="margin:10px 0;"><%=myAddress %></h3></div>
+					<div class="col-xs-12" style="height:48px; text-align:center;">
+					<h4 style="margin:10px 0; display:inline-block;"><%=myAddress %></h4>
 					<%if(!"".equals(t3hCode)) {%>
-						<div class="col-xs-1" style="height:48px;">
+							&nbsp;&nbsp;
 							<%if (ptyCode.equals("0")) {%>
 								<div style="display:inline-block;"><img src="/resources/img/consumer/skyCode<%=skyCode%>.png" /></div>
 							<%} else if(!(ptyCode.isEmpty())) { %>
 								<div style="display:inline-block;"><img src="/resources/img/consumer/ptyCode<%=ptyCode%>.png" /></div>
 							<%}%>
-						</div>
-						<div class="col-xs-2" style="height:48px;">
 							<!-- 날씨정보 / 값 받아 온 경우 -->
 							<div style="display:inline-block; padding-top:5px 0;"> <h2 style="display:inline-block; margin:0;"><%=t3hCode %>℃</h2></div>
-						</div>									
 					<%} %>
-					<div class="col-xs-1" style="height:48px;"></div>
+					</div>									
 				</div>
 			</div>
 		</div>

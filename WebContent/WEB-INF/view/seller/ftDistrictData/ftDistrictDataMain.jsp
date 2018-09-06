@@ -21,10 +21,10 @@ body { font-family:gulim; font-size:12px; }
 
 
 <table style="height: 100%; width: 100%">
-		<tr height="7%" bgcolor="#333333">
-			<td>
+		<tr height="7%" bgcolor="#444">
+			<td style="padding:0;">
 				
-				<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
+				<%@ include file="/WEB-INF/view/seller/top.jsp" %>
 			</td>
 		</tr>
 		<tr bgcolor="">
@@ -59,7 +59,7 @@ body { font-family:gulim; font-size:12px; }
 				</div>
 			</td>
 		</tr>
-		<tr height="7%" bgcolor="#333333">
+		<tr height="7%" style="background-color:#444">
 			<td>
 				<%@ include file="/WEB-INF/view/seller/bottom.jsp" %>
 			

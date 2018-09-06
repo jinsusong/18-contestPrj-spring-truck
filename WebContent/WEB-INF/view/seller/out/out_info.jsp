@@ -116,13 +116,19 @@
 	
 	
 	</script> 
-
+	<style>
+	<style>
+		body{
+			background-image:url('/resource/img/seller/pic02.jpg'); 
+		}
+	
+	</style>
 </head>
 <body>
 	<table style="height: 100%; width: 100%">
-		<tr height="7%" bgcolor="#333333">
-			<td>
-				<%@ include file="/WEB-INF/view/seller/topBody.jsp" %>
+		<tr height="7%" bgcolor="#444">
+			<td style="padding:0;">
+				<%@ include file="/WEB-INF/view/seller/top.jsp" %>
 			</td>
 		</tr>
 		<tr bgcolor="">
@@ -136,10 +142,10 @@
 				<div>
 					<div style="float:left; width:70%; height:42px;">
 							<h3>메뉴/카테고리</h3>
-						</div>
-						<div style="clear:both;"></div>
-						<hr>
-						 <!-- Nav tabs -->
+					</div>
+					<div style="clear:both;"></div>
+					<hr>
+					<!-- Nav tabs -->
 			  <ul class="nav nav-pills">
 			  <%for(ADMIN_Ft_Menu_CateDTO cateDTO : cateDTOarr){ %>
 			  	<%if(cateDTO.getCate_sort_no()==1){ %>
@@ -261,10 +267,9 @@
 			</td>
 			
 		</tr>
-		<tr height="7%" bgcolor="#333333">
+		<tr height="7%" style="background-color:#444">
 			<td>
 				<%@ include file="/WEB-INF/view/seller/bottom.jsp" %>
-			
 			</td>
 		</tr>
 	</table>

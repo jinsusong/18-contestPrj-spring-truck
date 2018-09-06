@@ -18,7 +18,7 @@ public class SELLER_OrderService implements SELLER_IOrderService {
 
 	@Resource(name="SELLER_OrderMapper")
 	private SELLER_OrderMapper orderMapper;
-	
+
 	@Resource(name="CONSUMER_MypageMapper")
 	private CONSUMER_MypageMapper mypageMapper;
 	
