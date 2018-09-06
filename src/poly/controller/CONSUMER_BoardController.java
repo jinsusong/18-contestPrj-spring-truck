@@ -339,7 +339,7 @@ public class CONSUMER_BoardController {
 		log.info("boardSeq ........" + boardSeq);
 		log.info("count ........" + count);
 		CONSUMER_BoardCounterDTO bcDTO = new CONSUMER_BoardCounterDTO();
-		bcDTO.setFirstCounter(5*Integer.parseInt(count));
+		bcDTO.setFirstCounter(5 * Integer.parseInt(count));
 		bcDTO.setLastCounter(5); //갯수
 		log.info(bcDTO.getFirstCounter());
 		log.info(bcDTO.getLastCounter());
