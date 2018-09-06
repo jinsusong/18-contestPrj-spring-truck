@@ -46,7 +46,7 @@
 		    	INNER JOIN GPS_TABLE GT
 		    	ON  FI.GPS_SEQ = GT.GPS_SEQ
 		WHERE  
-			FI.FT_STATUS = 0 <!-- 푸드트럭 영업상태가 0, 운행중 -->
+			FI.FT_STATUS = 0 ORDER BY FI.FILE_ID DESC<!-- 푸드트럭 영업상태가 0, 운행중 -->
 	</select>	
 	
 	<!--근처 푸드트럭 리스트 가져오기 - 시군구 -->
@@ -247,7 +247,7 @@
 	    	<foreach collection="list" item="item" index="index" separator="," open="(" close=")">
 	        	#{item.fileId}
 	    	</foreach>
-	    ORDER BY FILE_ID
+	    ORDER BY FILE_ID DESC
 	</select>
 	
 	<!-- 1개 임의의 트럭의  리뷰 이미지들 불러오기  -->
