@@ -8,6 +8,14 @@
 <% 
  	List<ADMIN_Board_PostDTO> bDTOArr = (List<ADMIN_Board_PostDTO>)request.getAttribute("board_P_List");
  	List<ADMIN_User_InfoDTO> bp_uDTOarr = (List<ADMIN_User_InfoDTO>)request.getAttribute("bp_uDTOarr");
+ 	int date_3[] = (int[])request.getAttribute("date_3");
+	int date_2[] = (int[])request.getAttribute("date_2");
+	int date_1[] = (int[])request.getAttribute("date_1");
+	int date_today[] = (int[])request.getAttribute("date_today");
+	int date_week_avg[] = (int[])request.getAttribute("date_week_avg");
+	int date_week_sum[] = (int[])request.getAttribute("date_week_sum");
+	int date_month_avg[] = (int[])request.getAttribute("date_month_avg");
+	int date_month_sum[] = (int[])request.getAttribute("date_month_sum");
 %>
 <html>
 <head>
@@ -196,16 +204,20 @@
 </style>
 <script>
 	var rs_RankSet_Check;
-	window.onload = function(){
-		var currentDate = new Date();
-        var divClock = document.getElementById("divClock");
-        
-        var dd = currentDate.getDate();
-        var mm = currentDate.getMonth()+1; //January is 0!
-        var yyyy = currentDate.getFullYear();
+	var currentDate = new Date();
+    var divClock = document.getElementById("divClock");
+    
+    var dd = currentDate.getDate();
+    var mm = currentDate.getMonth()+1; //January is 0!
+    var yyyy = currentDate.getFullYear();
 
-        var hour = currentDate.getHours();
-        var minute = currentDate.getMinutes();
+    var hour = currentDate.getHours();
+    var minute = currentDate.getMinutes();
+    
+    var dd_3 = dd-3;
+    var dd_2 = dd-2;
+    var dd_1 = dd-1;
+	window.onload = function(){
         
         if(hour<10){
         	hour='0'+hour
@@ -216,13 +228,18 @@
         }
         
         if(dd<10) {
-            dd='0'+dd
+            dd='0'+dd;
+            dd_3s='0'+dd_3;
+            dd_2s='0'+dd_2;
+            dd_1s='0'+dd_1;
         } 
+        
 
         if(mm<10) {
             mm='0'+mm
         } 
 
+        //실시간 검색어 순위 셋팅
         var msg;
         msg = yyyy+".";
         msg += mm+".";
@@ -231,8 +248,25 @@
         msg += minute+":";
         msg += "00 기준";
         
-         
+        
+        //매출현황 테이블 셋팅 
         document.getElementById("rs_rank").innerHTML=msg;
+        if(dd_3>0){
+        	document.getElementById("date-3").innerHTML=mm+"월 "+dd_3s+"일";
+        }else{
+        	document.getElementById("date-3").style.backgroundColor="#cccccc";
+        }
+        if(dd_2>0){
+        	document.getElementById("date-2").innerHTML=mm+"월 "+dd_2s+"일";
+        }else{
+        	document.getElementById("date-2").style.backgroundColor="#cccccc";
+        }
+        if(dd_1>0){
+        	document.getElementById("date-1").innerHTML=mm+"월 "+dd_1s+"일";
+        }else{
+        	document.getElementById("date-1").style.backgroundColor="#cccccc";
+        }
+        document.getElementById("date-today").innerHTML=mm+"월 "+dd+"일 (오늘)";
 	}
 	
 	function rs_RankSet1(){
@@ -253,7 +287,7 @@
 	<%@include file="admin_top.jsp"%>
 	<div class="container" style="background-color:rgba(255,255,255,0.9); padding-top:15px; padding-bottom:30px;">
 		<div class="row" style="margin-bottom:15px;">
-			<div class="col-xs-12 col-sm-9">
+			<div class="col-xs-12 col-sm-9" style="margin-bottom:15px;">
 				<div style="height:320px; border:1px solid #cccccc;">
 					<h5 style="float:left;">&nbsp;&nbsp;&nbsp;<b>공지사항</b></h5>
 					<div style="border-bottom:1px solid #cccccc; margin-bottom:10px; clear:both;"></div>
@@ -286,7 +320,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-3">
+			<div class="col-xs-12 col-sm-3" style="min-width:262px;">
 				<div style="height:320px; border:1px solid #cccccc;">
 					<h5>&nbsp;&nbsp;&nbsp;<b>실시간 검색 순위</b></h5>
 					<div style="border-bottom:1px solid #cccccc; margin-bottom:10px; clear:both;"></div>
@@ -314,18 +348,18 @@
 				</div>			
 			</div>
 		</div>
-		<div style="width:100%; border-top:1px solid #333333; border-bottom:1px solid #333333; height:102px; background-color:#161616;">
+		<div style="width:100%; border:1px solid #cccccc; height:160px; background-color:#ffffff; margin-bottom:20px;">
 			<table style="width:100%; height:100%;">
-				<tr height="60px" style="border-bottom:1px solid #333333;">
-					<td style="border-right:1px solid #333333; width:25%;"></td>
-					<td style="border-right:1px solid #333333; width:25%;"></td>
-					<td style="border-right:1px solid #333333; width:25%;"></td>
+				<tr height="60px">
+					<td style="border-right:1px solid #cccccc; width:25%;"></td>
+					<td style="border-right:1px solid #cccccc; width:25%;"></td>
+					<td style="border-right:1px solid #cccccc; width:25%;"></td>
 					<td style="width:25%;"></td> 
 				</tr>
 				<tr height="40px">
-					<td style="border-right:1px solid #333333; width:25%;"></td>
-					<td style="border-right:1px solid #333333; width:25%;"></td>
-					<td style="border-right:1px solid #333333; width:25%;"></td>
+					<td style="border-right:1px solid #cccccc; width:25%;"></td>
+					<td style="border-right:1px solid #cccccc; width:25%;"></td>
+					<td style="border-right:1px solid #cccccc; width:25%;"></td>
 					<td style="width:25%;"></td>
 				</tr>
 			</table>
@@ -339,8 +373,9 @@
 				<h5 style="float:left;">&nbsp;|&nbsp;<b>매출통계</b></h5>
 				<div style="border-bottom:1px solid #cccccc; margin-bottom:10px; clear:both;"></div>
 			</div>
-			<div class="col-xs-12 col-sm-6" align="center">
-				<div id="LineChart"></div>
+			<div class="col-xs-12 col-sm-6" align="center" style="padding-top:30px;">
+				<!-- Markup -->
+				<div id="LinkedTooltips_1"></div>
 			</div>
 			<div class="col-xs-12 col-sm-6"  align="center">
 				<table class="testgrid" style="width:100%; border:1px solid #cccccc;">
@@ -351,63 +386,54 @@
 						<th class="table_Hline" width="23%">환불</th> 
 					</tr>
 					<tr style="border-bottom:1px solid #e2e2e2;">
-						<td class="table_Dline">1</td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
+						<td class="table_Dline" id="date-3"></td>
+						<td class="table_line"><%=date_3[0]%>원<br>(<%=date_3[3]%>건)</td>
+						<td class="table_line"><%=date_3[1]%>원<br>(<%=date_3[4]%>건)</td>
+						<td class="table_line"><%=date_3[2]%>원<br>(<%=date_3[5]%>건)</td>
 					</tr>
 					<tr style="border-bottom:1px solid #e2e2e2;">
-						<td class="table_Dline">2</td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
+						<td class="table_Dline" id="date-2"></td>
+						<td class="table_line"><%=date_2[0]%>원<br>(<%=date_2[3]%>건)</td>
+						<td class="table_line"><%=date_2[1]%>원<br>(<%=date_2[4]%>건)</td>
+						<td class="table_line"><%=date_2[2]%>원<br>(<%=date_2[5]%>건)</td>
 					</tr>
 					<tr style="border-bottom:1px solid #e2e2e2;">
-						<td class="table_Dline">3</td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
+						<td class="table_Dline" id="date-1"></td>
+						<td class="table_line"><%=date_1[0]%>원<br>(<%=date_1[3]%>건)</td>
+						<td class="table_line"><%=date_1[1]%>원<br>(<%=date_1[4]%>건)</td>
+						<td class="table_line"><%=date_1[2]%>원<br>(<%=date_1[5]%>건)</td>
 					</tr>
 					<tr style="border-bottom:1px solid #e2e2e2;">
-						<td class="table_Dline">4</td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
+						<td class="table_Dline" id="date-today"></td>
+						<td class="table_line"><%=date_today[0]%>원<br>(<%=date_today[3]%>건)</td>
+						<td class="table_line"><%=date_today[1]%>원<br>(<%=date_today[4]%>건)</td>
+						<td class="table_line"><%=date_today[2]%>원<br>(<%=date_today[5]%>건)</td>
 					</tr>
 					<tr style="border-bottom:1px solid #e2e2e2;">
 						<td class="table_Dline">최근 7일 평균</td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
+						<td class="table_line"><%=date_week_avg[0]%>원<br>(<%=date_week_avg[3]%>건)</td>
+						<td class="table_line"><%=date_week_avg[1]%>원<br>(<%=date_week_avg[4]%>건)</td>
+						<td class="table_line"><%=date_week_avg[2]%>원<br>(<%=date_week_avg[5]%>건)</td>
 					</tr>
 					<tr style="border-bottom:1px solid #e2e2e2;">
 						<td class="table_Dline">최근 7일 합계</td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
+						<td class="table_line"><%=date_week_sum[0]%>원<br>(<%=date_week_sum[3]%>건)</td>
+						<td class="table_line"><%=date_week_sum[1]%>원<br>(<%=date_week_sum[4]%>건)</td>
+						<td class="table_line"><%=date_week_sum[2]%>원<br>(<%=date_week_sum[5]%>건)</td>
 					</tr>
 					<tr style="border-bottom:1px solid #e2e2e2;">
 						<td class="table_Dline">최근 30일 평균</td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
+						<td class="table_line"><%=date_month_avg[0]%>원<br>(<%=date_month_avg[3]%>건)</td>
+						<td class="table_line"><%=date_month_avg[1]%>원<br>(<%=date_month_avg[4]%>건)</td>
+						<td class="table_line"><%=date_month_avg[2]%>원<br>(<%=date_month_avg[5]%>건)</td>
 					</tr>
 					<tr style="border-bottom:1px solid #e2e2e2;">
 						<td class="table_Dline">최근 30일 합계</td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
-						<td class="table_line"></td>
+						<td class="table_line"><%=date_month_sum[0]%>원<br>(<%=date_month_sum[3]%>건)</td>
+						<td class="table_line"><%=date_month_sum[1]%>원<br>(<%=date_month_sum[4]%>건)</td>
+						<td class="table_line"><%=date_month_sum[2]%>원<br>(<%=date_month_sum[5]%>건)</td>
 					</tr>
 				</table>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 col-sm-12" align="center">
-				<h5 style="float:left;">&nbsp;|&nbsp;<b>푸드트럭 랭크</b></h5>
-				<div style="border-bottom:1px solid #cccccc; margin-bottom:10px; clear:both;"></div>
-				<div style="width:100%; height:auto;">
-					<%@include file="admin_truck_slider.jsp"%>
-				</div>
 			</div>
 		</div>
 		<div class="row">
@@ -420,15 +446,12 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12 col-sm-8"  align="center" style="margin-top:15px;">
-				<h5 style="float:left;">&nbsp;|&nbsp;<b>사용자 통계</b></h5>
+			<div class="col-xs-12 col-sm-12" align="center" style="margin-top:30px;">
+				<h5 style="float:left;">&nbsp;|&nbsp;<b>푸드트럭 랭크</b></h5>
 				<div style="border-bottom:1px solid #cccccc; margin-bottom:10px; clear:both;"></div>
-				<div id="demo-5"></div>
-			</div>
-			<div class="col-xs-12 col-sm-4"  align="center" style="margin-top:15px;">
-				<h5 style="float:left;">&nbsp;|&nbsp;<b>사용자 성비분포</b></h5>
-				<div style="border-bottom:1px solid #cccccc; margin-bottom:10px; clear:both;"></div>
-				<div id="Padding"></div>
+				<div style="width:100%; height:auto;">
+					<%@include file="admin_truck_slider.jsp"%>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -442,271 +465,223 @@
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="<%=request.getContextPath()%>/resources/js/admin/Easygraphs.js"></script>
 	<script>
-	var chart = bb.generate({
+	// Script
+	if(dd_3<=0){
+		var chart = bb.generate({
 		  data: {
+		    x: "x",
 		    columns: [
-			["data1", 30, 200, 100, 400, 150, 250],
-			["data2", 50, 20, 10, 40, 15, 25]
+		    	["x", yyyy+"-"+mm+"-"+dd_2, yyyy+"-"+mm+"-"+dd_1, yyyy+"-"+mm+"-"+dd],
+				["주문", <%=date_2[0]%>, <%=date_1[0]%>, <%=date_today[0]%>],
+				["결제", <%=date_2[1]%>, <%=date_1[1]%>, <%=date_today[1]%>],
+				["환불", <%=date_2[2]%>, <%=date_1[2]%>, <%=date_today[2]%>]
 		    ]
 		  },
-		  bindto: "#LineChart"
+		  axis: {
+		    x: {
+		      type: "timeseries",
+		      tick: {
+		        format: "%y-%m-%d"
+		      }
+		    }
+		  },
+		  tooltip: {
+		    linked: true
+		  },
+		  bindto: "#LinkedTooltips_1"
 		});
+	}else if(dd_2<=0){
+		var chart = bb.generate({
+			  data: {
+			    x: "x",
+			    columns: [
+			    	["x", yyyy+"-"+mm+"-"+dd_1, yyyy+"-"+mm+"-"+dd],
+					["주문", <%=date_1[0]%>, <%=date_today[0]%>],
+					["결제", <%=date_1[1]%>, <%=date_today[1]%>],
+					["환불", <%=date_1[2]%>, <%=date_today[2]%>]
+			    ]
+			  },
+			  axis: {
+			    x: {
+			      type: "timeseries",
+			      tick: {
+			        format: "%y-%m-%d"
+			      }
+			    }
+			  },
+			  tooltip: {
+			    linked: true
+			  },
+			  bindto: "#LinkedTooltips_1"
+			});
+	}else if(dd_1<=0){
+		var chart = bb.generate({
+			  data: {
+			    x: "x",
+			    columns: [
+			    	["x", yyyy+"-"+mm+"-"+dd],
+					["주문", <%=date_today[0]%>],
+					["결제", <%=date_today[1]%>],
+					["환불", <%=date_today[2]%>]
+			    ]
+			  },
+			  axis: {
+			    x: {
+			      type: "timeseries",
+			      tick: {
+			        format: "%y-%m-%d"
+			      }
+			    }
+			  },
+			  tooltip: {
+			    linked: true
+			  },
+			  bindto: "#LinkedTooltips_1"
+			});
+	}else{
+		var chart = bb.generate({
+			  data: {
+			    x: "x",
+			    columns: [
+			    	["x", yyyy+"-"+mm+"-"+dd_3, yyyy+"-"+mm+"-"+dd_2, yyyy+"-"+mm+"-"+dd_1, yyyy+"-"+mm+"-"+dd],
+					["주문", <%=date_3[0]%>, <%=date_2[0]%>, <%=date_1[0]%>, <%=date_today[0]%>],
+					["결제", <%=date_3[1]%>, <%=date_2[1]%>, <%=date_1[1]%>, <%=date_today[1]%>],
+					["환불", <%=date_3[2]%>, <%=date_2[2]%>, <%=date_1[2]%>, <%=date_today[2]%>]
+			    ]
+			  },
+			  axis: {
+			    x: {
+			      type: "timeseries",
+			      tick: {
+			        format: "%y-%m-%d"
+			      }
+			    }
+			  },
+			  tooltip: {
+			    linked: true
+			  },
+			  bindto: "#LinkedTooltips_1"
+			});
+	}
+	</script>
 	
-	</script>
-	<script>
-	var chart = bb.generate({
-		  data: {
-		    columns: [
-			["남자", 60],
-			["여자", 40],
-		    ],
-		    type: "pie"
-		  },
-		  pie: {
-		    padding: 2
-		  },
-		  bindto: "#Padding"
-		});
-	</script>
-	<script>
-	var eg5 = new Easygraphs({
-	  container: document.getElementById('demo-5'),
-	  width: 600,
-	  height: 200,
-	  color: '#282B2E',
-	  padding: {
-	    top: 60,
-	    right: 30,
-	    left: 60
-	  },
-	  tooltip: {
-	    template: '{{ category }}: {{ value }}',
-	    widthAuto: true
-	  },
-	  yAxis: {
-	    text: {
-	      toFixed: 0,
-	      color: '#D6D6D6'
-	    },
-	    title: {
-	      text: 'Share prices',
-	      color: '#D6D6D6'
-	    },
-	    grid: {
-	      show: false
-	    },
-	    border: {
-	      color: '#43484C'
-	    },
-	    segment: {
-	      color: '#43484C',
-	      width: 5
-	    }
-	  },
-	  xAxis: {
-	    text: {
-	      color: '#D6D6D6'
-	    },
-	    labels: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16'],
-	    grid: {
-	      dasharray: '1%',
-	      color: '#43484C'
-	    },
-	    segment: {
-	      width: 1,
-	      height: 5,
-	      color: '#43484C'
-	    },
-	    border: {
-	      color: '#43484C'
-	    }
-	  },
-	  legends: {
-	    color: '#D6D6D6'
-	  },
-	  dotsOptions: {
-	    rx: 0,
-	    ry: 0
-	  },
-	  data: [
-	    {
-	      name: 'EURO / RUB',
-	      dots: {
-	        color: 'rgb(231, 93, 93)'
-	      },
-	      line: {
-	        width: 2,
-	        color: 'rgb(231, 93, 93)',
-	        fill: 'rgba(231, 93, 93, 0.3)'
-	      },
-	      values: [25, 26, 26, 33, 36, 37, 34, 34, 36, 41, 43, 40, 38, 40, 45, 75, 91]
-	    },
-	    {
-	      name: 'USD / RUB',
-	      dots: {
-	        color: 'rgb(47, 173, 100)'
-	      },
-	      line: {
-	        width: 2,
-	        color: 'rgb(47, 173, 100)',
-	        fill: 'rgba(47, 173, 100, 0.3)'
-	      },
-	      values: [26, 28, 30, 31, 28, 28, 27, 26, 24, 30, 31, 29, 31, 30, 33, 62, 76]
-	    }
-	  ]
-	});
-	eg5.render();
-	</script>
 	<script>
 	var chartData = [
 	    {
-	        "date": "2012-01-01",
+	        "date": "2018-01",
 	        "distance": 227,
 	        "townName": "New York",
-	        "townName2": "New York",
+	        "townName2": "1분기",
 	        "townSize": 25,
 	        "latitude": 40.71,
-	        "duration": 408
+	        "duration": 18
 	    },
 	    {
-	        "date": "2012-01-02",
+	        "date": "2018-02",
 	        "distance": 371,
 	        "townName": "Washington",
 	        "townSize": 14,
 	        "latitude": 38.89,
-	        "duration": 482
+	        "duration": 42
 	    },
 	    {
-	        "date": "2012-01-03",
+	        "date": "2018-03",
 	        "distance": 433,
 	        "townName": "Wilmington",
 	        "townSize": 6,
 	        "latitude": 34.22,
-	        "duration": 562
+	        "duration": 37
 	    },
 	    {
-	        "date": "2012-01-04",
+	        "date": "2018-04",
 	        "distance": 345,
 	        "townName": "Jacksonville",
+	        "townName2": "2분기",
 	        "townSize": 7,
 	        "latitude": 30.35,
-	        "duration": 379
+	        "duration": 26
 	    },
 	    {
-	        "date": "2012-01-05",
+	        "date": "2018-05",
 	        "distance": 480,
 	        "townName": "Miami",
-	        "townName2": "Miami",
 	        "townSize": 10,
 	        "latitude": 25.83,
-	        "duration": 501
+	        "duration": 69
 	    },
 	    {
-	        "date": "2012-01-06",
+	        "date": "2018-06",
 	        "distance": 386,
 	        "townName": "Tallahassee",
 	        "townSize": 7,
 	        "latitude": 30.46,
-	        "duration": 443
+	        "duration": 55
 	    },
 	    {
-	        "date": "2012-01-07",
+	        "date": "2018-07",
 	        "distance": 348,
 	        "townName": "New Orleans",
+	        "townName2": "3분기",
 	        "townSize": 10,
 	        "latitude": 29.94,
-	        "duration": 405
+	        "duration": 88
 	    },
 	    {
-	        "date": "2012-01-08",
+	        "date": "2018-08",
 	        "distance": 238,
 	        "townName": "Houston",
-	        "townName2": "Houston",
 	        "townSize": 16,
 	        "latitude": 29.76,
-	        "duration": 309
+	        "duration": 76
 	    },
 	    {
-	        "date": "2012-01-09",
+	        "date": "2018-09",
 	        "distance": 218,
 	        "townName": "Dalas",
 	        "townSize": 17,
 	        "latitude": 32.8,
-	        "duration": 287
+	        "duration": 95
 	    },
 	    {
-	        "date": "2012-01-10",
+	        "date": "2018-10",
 	        "distance": 349,
 	        "townName": "Oklahoma City",
+	        "townName2": "4분기",
 	        "townSize": 11,
 	        "latitude": 35.49,
-	        "duration": 485
+	        "duration": 67
 	    },
 	    {
-	        "date": "2012-01-11",
+	        "date": "2018-11",
 	        "distance": 603,
 	        "townName": "Kansas City",
 	        "townSize": 10,
 	        "latitude": 39.1,
-	        "duration": 890
+	        "duration": 54
 	    },
 	    {
-	        "date": "2012-01-12",
+	        "date": "2018-12",
 	        "distance": 534,
 	        "townName": "Denver",
-	        "townName2": "Denver",
 	        "townSize": 18,
 	        "latitude": 39.74,
-	        "duration": 810
-	    },
-	    {
-	        "date": "2012-01-13",
-	        "townName": "Salt Lake City",
-	        "townSize": 12,
-	        "distance": 425,
-	        "duration": 670,
-	        "latitude": 40.75,
-	        "alpha":0.4
-	    },
-	    {
-	        "date": "2012-01-14",
-	        "latitude": 36.1,
-	        "duration": 470,
-	        "townName": "Las Vegas",
-	        "townName2": "Las Vegas",
-	        "bulletClass": "lastBullet"
-	    },
-	    {
-	        "date": "2012-01-15"
-	    },
-	    {
-	        "date": "2012-01-16"
-	    },
-	    {
-	        "date": "2012-01-17"
-	    },
-	    {
-	        "date": "2012-01-18"
-	    },
-	    {
-	        "date": "2012-01-19"
+	        "duration": 45
 	    }
 	];
 	var chart = AmCharts.makeChart("chartdiv", {
 	  type: "serial",
 	  theme: "dark",
-	  dataDateFormat: "YYYY-MM-DD",
+	  dataDateFormat: "YYYY-MM",
 	  dataProvider: chartData,
 
 	  addClassNames: true,
 	  startDuration: 1,
 	  color: "#FFFFFF",
 	  marginLeft: 0,
-
 	  categoryField: "date",
 	  categoryAxis: {
 	    parseDates: true,
-	    minPeriod: "DD",
+	    minPeriod: "MM",
 	    autoGridCount: false,
 	    gridCount: 50,
 	    gridAlpha: 0.1,
@@ -729,7 +704,7 @@
 
 	  valueAxes: [{
 	    id: "a1",
-	    title: "distance",
+	    title: "매출",
 	    gridAlpha: 0,
 	    axisAlpha: 0
 	  },{
@@ -740,41 +715,34 @@
 	    labelsEnabled: false
 	  },{
 	    id: "a3",
-	    title: "duration",
+	    title: "영업이익률",
 	    position: "right",
 	    gridAlpha: 0,
 	    axisAlpha: 0,
 	    inside: true,
-	    duration: "mm",
-	    durationUnits: {
-	        DD: "d. ",
-	        hh: "h ",
-	        mm: "min",
-	        ss: ""
-	    }
 	  }],
 	  graphs: [{
 	    id: "g1",
 	    valueField:  "distance",
-	    title:  "distance",
+	    title:  "영업이익",
 	    type:  "column",
 	    fillAlphas:  0.9,
 	    valueAxis:  "a1",
-	    balloonText:  "[[value]] miles",
-	    legendValueText:  "[[value]] mi",
-	    legendPeriodValueText:  "total: [[value.sum]] mi",
+	    balloonText:  "영업이익:[[value]]원",
+	    legendValueText:  "[[value]]원",
+	    legendPeriodValueText:  "total: [[value.sum]]원",
 	    lineColor:  "#263138",
 	    alphaField:  "alpha",
 	  },{
 	    id: "g2",
 	    valueField: "latitude",
 	    classNameField: "bulletClass",
-	    title: "latitude/city",
+	    title: "순이익",
 	    type: "line",
 	    valueAxis: "a2",
 	    lineColor: "#786c56",
 	    lineThickness: 1,
-	    legendValueText: "[[description]]/[[value]]",
+	    legendValueText: "[[value]]원",
 	    descriptionField: "townName",
 	    bullet: "round",
 	    bulletSizeField: "townSize",
@@ -784,17 +752,17 @@
 	    bulletColor: "#000000",
 	    labelText: "[[townName2]]",
 	    labelPosition: "right",
-	    balloonText: "latitude:[[value]]",
+	    balloonText: "순이익:[[value]]원",
 	    showBalloon: true,
 	    animationPlayed: true,
 	  },{
 	    id: "g3",
-	    title: "duration",
+	    title: "영업이익률",
 	    valueField: "duration",
 	    type: "line",
 	    valueAxis: "a3",
 	    lineColor: "#ff5755",
-	    balloonText: "[[value]]",
+	    balloonText: "영업이익률:[[value]]%",
 	    lineThickness: 1,
 	    legendValueText: "[[value]]",
 	    bullet: "square",
@@ -807,7 +775,7 @@
 
 	  chartCursor: {
 	    zoomable: false,
-	    categoryBalloonDateFormat: "DD",
+	    categoryBalloonDateFormat: "MM",
 	    cursorAlpha: 0,
 	    valueBalloonsEnabled: false
 	  },

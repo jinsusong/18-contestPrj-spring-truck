@@ -15,7 +15,7 @@
 			USR_RCV_TIME,
 			RCV_TIME,
 			TID
-		FROM ORDER_INFO ORDER BY ORD_SEQ DESC
+		FROM ORDER_INFO ORDER BY ORD_DATE DESC
 	</select>
 	
 	<select id="getOrder_List_Search" parameterType="ADMIN_Order_InfoDTO" resultType="ADMIN_Order_InfoDTO">

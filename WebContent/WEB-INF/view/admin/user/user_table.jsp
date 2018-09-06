@@ -133,8 +133,8 @@
 							관리자
 						<%}else{ %>
 						<select class="form-control" style="width:160px;" id="user_auth<%=cnt%>">
-							<option value="0" <%if(uDTOArr.get(i).getUser_auth()==0){%> selected="selected"<%}%>>일반회원</option>
-							<option value="1" <%if(uDTOArr.get(i).getUser_auth()==1){%> selected="selected"<%}%>>사업자회원</option>
+							<option value="1" <%if(uDTOArr.get(i).getUser_auth()==1){%> selected="selected"<%}%>>일반회원</option>
+							<option value="2" <%if(uDTOArr.get(i).getUser_auth()==2){%> selected="selected"<%}%>>사업자회원</option>
 						</select>
 						<%} %>
 					</td>
