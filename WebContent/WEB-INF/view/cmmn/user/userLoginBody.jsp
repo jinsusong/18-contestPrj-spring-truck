@@ -5,12 +5,9 @@
 %>
 <%=joinCode %>
 
-
  <!--  로그인 css -->
 <style type="text/css">
-body {
-	    padding-top: 150px;
-	}
+
 	.panel-login {
 		border-color: #ccc;
 		-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
@@ -18,23 +15,21 @@ body {
 		box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	}
 	.panel-login>.panel-heading {
-		color: #00415d;
 		background-color: #fff;
 		border-color: #fff;
 		text-align:center;
 	}
 	.panel-login>.panel-heading a{
 		text-decoration: none;
-		color: #666;
-		font-weight: bold;
-		font-size: 15px;
+		color: #999999;
+		font-size: 20px;
 		-webkit-transition: all 0.1s linear;
 		-moz-transition: all 0.1s linear;
 		transition: all 0.1s linear;
 	}
 	.panel-login>.panel-heading a.active{
-		color: #029f5b;
-		font-size: 18px;
+		color:black;
+		font-size: 20px;
 	}
 	.panel-login>.panel-heading hr{
 		margin-top: 10px;
@@ -129,17 +124,16 @@ body {
 						<div class="panel-heading">
 							
 							<!-- 로그인 회원가입 TOP부분 -->
-							<div class="row">
-								<div class="col-xs-6">
+							<div class="row" style="border-bottom: 1px solid #d9d9d9; margin: 8px; ">
+								<div class="col-xs-6" id="login_header" style="padding-bottom: 12px; margin-bottom: -1px;">
 									<a href="#" id="login-form-link" class="active">로그인</a>
 								</div>
-								<div class="col-xs-6">
+								<div class="col-xs-6" id="register_header" style="padding-bottom: 12px; margin-bottom: -1px;">
 									<a href="#"  id="register-form-link">회원가입</a>
 								</div>
 							</div>
 							<!-- 로그인 회원가입 TOP부분 -->
 							
-							<hr>
 						</div>
 							<!-- 로그인 회원가입 정보입력 부분 -->
 						<div class="panel-body">
@@ -201,7 +195,7 @@ body {
 											<input type="text" name="nickname" id="nickname" tabindex="3" class="form-control" placeholder="닉네임" data-msg="닉네임을" >
 										</div>
 										<div class="form-group">
-											<select class="form-control" tabindex="4" class="gender_color" name="gender" >
+											<select class="form-control" tabindex="4" class="gender_color" name="gender" style="height:45px;" >
 												<option class="gender_color" data-msg="*성별을 ">*성별</option>
 												<option class="gender_color" value="M">남자</option>
 												<option class="gender_color" value="F">여자</option>
@@ -211,17 +205,14 @@ body {
 											<input type="text" name="phone" id="phone" tabindex="5" class="form-control" placeholder="핸드폰 번호 입력" data-msg="핸드폰 번호를" maxlength="15" >
 										</div>
 										<div class="form-group">
-											<p><a class="btn btn-primary col-sm-12" data-target="#modal1" data-toggle="modal" id="agree" >회원약관</a></p>
+											<p><a class="btn btn-primary col-sm-12" data-target="#modal1" data-toggle="modal" id="agree" style="width:100%;" >회원약관</a></p>
 										</div>
 										
 										
 										<!-- 가입하기 버튼 -->
 										<div class="form-group">
-											<div class="row">
-												<div class="col-sm-6 col-sm-offset-3">
-													<input type="submit" name="register-submit" id="register-submit" tabindex="6" class="form-control btn btn-register" value="가입하기">
-												</div>
-											</div>
+											<input type="submit" name="register-submit" id="register-submit" 
+													tabindex="6" class="form-control btn " value="가입하기" style="width:100%; height:45px;">
 										</div>
 										
 										<!-- 이메일 유효성 검사를 위한 value   -->
@@ -282,7 +273,7 @@ body {
 
       <!-- 회원약관 footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="provistionY_Y" >확인</button>
+        <button type="button" class="btn btn-primary" id="provistionY_Y" data-dismiss="modal">확인</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
       </div>
 
@@ -439,9 +430,9 @@ body {
 			// alert($('#radioY').is(":checked"));
 			 if($('#radioY').is(":checked")){
 			 	
-				$('#agree').removeClass('btn-warning')
-				$('#agree').attr('background-color','48ABFF');
+				$('#agree').attr('backgroundColor','black');
 				$('#modal1').fadeOut(100);
+				
 				
 			}else{
 				alert('동의하셔야 다음으로 진행할 수 있습니다.');

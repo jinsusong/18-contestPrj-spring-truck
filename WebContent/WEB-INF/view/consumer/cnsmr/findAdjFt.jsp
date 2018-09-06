@@ -50,10 +50,10 @@
 	<div id="map" style="width:100%;height:350px;"></div>
 	<!-- 푸드트럭 목록 -->  
 	<div class="container">
-		<div class="row">
+		<div class="row" style="margin: 0">
 		<%if(ftList != null && ftList.isEmpty() == false) {%>
 			<%for(int i = 0; i <ftList.size(); i++) {%>
-		    	<div class="col-xs-6" style="margin-top:20px; margin-bottom:20px;">
+		    	<div class="col-xs-12 col-sm-6" style="margin-top:20px; margin-bottom:20px;">
 					<div class="card bg-light text-dark" style="text-align:center;">
 						<div class="card-header" style="height:230px; background:#eeeeee;">
 							<%if(ftList.get(i).getFile_id() != null) {%> 
@@ -150,8 +150,10 @@
 		    }); 
 		    
 		    /* 커스텀 오버레이 생성 */ 
-		    var content =  '<div class="panel panel-default" style="margin-bottom:20px;"> <div class="panel-body" style="padding:2px;">'+ marker.getTitle()+ '</div></div>'
+		    var content =  '<div class="panel panel-default" style="margin-bottom:20px;"> <div class="panel-body" style="padding:2px;">' + 
+		    					marker.getTitle()+ '</div></div>'
 		    				+'<div style="height:20px"></div>'; 
+		    				
 		    var customOverlay = new daum.maps.CustomOverlay({
 		        position: marker.getPosition(),
 		        content: content,

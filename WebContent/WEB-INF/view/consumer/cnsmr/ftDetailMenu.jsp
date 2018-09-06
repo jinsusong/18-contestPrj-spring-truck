@@ -19,6 +19,8 @@
 		width:100%;
 		position: fixed;
 		bottom: 0;
+		left:0;
+		height:60px;
 	}
 	/* 행의 margin제거 */
 	.ftMenuRow{
@@ -38,14 +40,12 @@
 	<div class="container-fluid">
 	<%if(menuDTOs.isEmpty() == false) {%>
 		<%for(int k = 0; k < cateDTOs.size(); k++) {%>
-			<div class="row">
-				<div class="col-sm-12">
-				<div class="panel panel-default">
-  					<div class="panel-body" style="text-align:center;">
-						<!-- 메뉴카테고리 명 출력 -->
-						<h3><%=cateDTOs.get(k).getCate_name() %></h3>
-  					</div>
-				</div>
+			<div class="col-sm-12">
+				<!-- 메뉴카테고리 명 출력 -->
+				
+				<div style="margin-bottom: 20px;">
+					<h3><%=cateDTOs.get(k).getCate_name() %></h3>
+					<div style="border-bottom:3px solid black; height:10px; width:80px;"></div>
 				</div>
 			</div>
 			

@@ -9,11 +9,8 @@
 </head>
 <body style="margin: 0 auto">
 	
-	<div style="text-align:center; width:100%;">
-		<h1>트럭왔냠 메인 페이지</h1>
-	</div>
-	<div style="text-align:center; width:100%;">
-		<h4><a href="/consumer/main.do">비회원으로 들어가기</a></h4>
+	<div style="text-align:center; width:100%; padding:28px 0;">
+		<h2>트럭왔냠 메인 페이지</h2>
 	</div>
 	<div>
 	 	<div><%@ include file="/WEB-INF/view/cmmn/user/userLoginBody.jsp" %></div>
@@ -22,14 +19,19 @@
 	<!-- test git	 -->
 </body>
 <style>
+	body {
+		background-color: #f5f5f5;
+		padding: 100px 0;
+		font-family: sans-serif;
+	}
 	/* 로그인/회원가입 글자 색상 */
 	.panel-login>.panel-heading a{
-		color:3071A9;
 	}
 	.panel-login>.panel-heading a.active{
-		color:48ABFF;
 	}
-	
+	.panel-login {
+		border-color:#e4e4e4;
+	}
 	/* 폼 자동 채우기 색상 교체*/
 	input:-webkit-autofill {
 	    -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
@@ -41,18 +43,26 @@
 	}
 	/* 로그인 버튼 */
 	#login-submit{
-		color: #428bca;
+		color: black;
   	 	font-size: 20px;
-   		font-weight: bold;
-	}
+ㄴ	}
 	/* 이메일 중복 체크  버튼*/
 	#emailCheck{
 		height:45px;
+	
 	}
 	/* 회원약관 버튼 */
 	#agree{
 		height:45px;
 		padding: 10px 0;
+	}
+	.btn-primary{
+	    background-color: #bbbbbb;
+	    border-color: #c7c7c7;
+	}
+	.btn-primary.active, .btn-primary:hover{
+		background-color: #bbbbbb;
+	    border-color: #c7c7c7;
 	}
 </style>
 </html>
