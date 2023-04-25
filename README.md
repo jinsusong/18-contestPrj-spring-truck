@@ -1,5 +1,4 @@
 # truck
-![image](https://user-images.githubusercontent.com/41534462/227856856-b3d48d0b-31e0-40fe-a6df-4cfa932f4301.png)
 ![image](https://user-images.githubusercontent.com/41534462/227856731-53b7138e-bcb2-4fcc-9771-139f9ec88df0.png)
 ![image](https://user-images.githubusercontent.com/41534462/234201760-447f45a5-dd03-4e2a-8d37-92ec5933d15e.png)
 
